@@ -9,9 +9,15 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+
+    maven { url 'https://jitpack.io' }
+
 }
 
 dependencies {
+
+    implementation 'com.github.hervegirod:fxsvgimage:1.0b2'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
@@ -21,8 +27,8 @@ test {
 }
 
 javafx {
-    version = "11.0.2"
+    version = '11.0.2'
     modules = [ 'javafx.controls', 'javafx.graphics' ]
 }
 
-mainClassName = "me.katsumag.A2Coursework.Application"
+mainClassName = 'me.katsumag.A2Coursework.Application'
