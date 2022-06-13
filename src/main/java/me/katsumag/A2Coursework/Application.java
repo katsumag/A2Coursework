@@ -1,9 +1,11 @@
 package me.katsumag.A2Coursework;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
@@ -11,14 +13,18 @@ import org.girod.javafx.svgimage.SVGLoader;
 public class Application extends javafx.application.Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
 
         // construct GUI
         BorderPane borderPane = new BorderPane();
 
         // construct left panel
         VBox leftPane = new VBox();
+
+        // left pane title
         Label leftTitle = new Label("Logic Components");
+        leftTitle.setFont(new Font(15));
+        leftTitle.setUnderline(true);
 
         // include logic gate images
         SVGHelper svgHelper = new SVGHelper();
@@ -29,6 +35,8 @@ public class Application extends javafx.application.Application {
         // add elements to left pane
         leftPane.getChildren().addAll(leftTitle, andGateImage, orGateImage, notGateImage);
         leftPane.setSpacing(20);
+        leftPane.setPadding(new Insets(0, 0, 20, 5));
+
         borderPane.setLeft(leftPane);
 
         // construct center panel
