@@ -2,7 +2,6 @@ package me.katsumag.A2Coursework;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,7 +20,7 @@ public class Application extends javafx.application.Application {
         VBox leftPane = new VBox();
         Label leftTitle = new Label("Logic Components");
 
-        // include an image
+        // include logic gate images
         SVGHelper svgHelper = new SVGHelper();
         SVGImage andGateImage = SVGLoader.load(svgHelper.getURLOf("./images/AND gate.svg"));
         SVGImage orGateImage = SVGLoader.load(svgHelper.getURLOf("./images/OR gate.svg"));
@@ -29,6 +28,7 @@ public class Application extends javafx.application.Application {
 
         // add elements to left pane
         leftPane.getChildren().addAll(leftTitle, andGateImage, orGateImage, notGateImage);
+        leftPane.setSpacing(20);
         borderPane.setLeft(leftPane);
 
         // construct center panel
