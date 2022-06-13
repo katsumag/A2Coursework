@@ -22,10 +22,13 @@ public class Application extends javafx.application.Application {
         Label leftTitle = new Label("Logic Components");
 
         // include an image
-        SVGImage svgImage = SVGLoader.load(new SVGHelper().getURLOf("./images/AND gate.svg"));
+        SVGHelper svgHelper = new SVGHelper();
+        SVGImage andGateImage = SVGLoader.load(svgHelper.getURLOf("./images/AND gate.svg"));
+        SVGImage orGateImage = SVGLoader.load(svgHelper.getURLOf("./images/OR gate.svg"));
+        SVGImage notGateImage = SVGLoader.load(svgHelper.getURLOf("./images/NOT gate.svg"));
 
         // add elements to left pane
-        leftPane.getChildren().addAll(leftTitle, svgImage);
+        leftPane.getChildren().addAll(leftTitle, andGateImage, orGateImage, notGateImage);
         borderPane.setLeft(leftPane);
 
         // construct center panel
