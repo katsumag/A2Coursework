@@ -30,6 +30,9 @@ public class Application extends javafx.application.Application {
         // include logic gate images
         SVGHelper svgHelper = new SVGHelper();
         SVGImage andGateImage = SVGLoader.load(svgHelper.getURLOf("./images/AND gate.svg"));
+        andGateImage.setOnDragDetected(new GateStartDragHandler());
+        andGateImage.setOnDragDropped(new GateStopDragHandler());
+        andGateImage.setOnDragOver(new GateDragMovementHandler());
         SVGImage orGateImage = SVGLoader.load(svgHelper.getURLOf("./images/OR gate.svg"));
         SVGImage notGateImage = SVGLoader.load(svgHelper.getURLOf("./images/NOT gate.svg"));
 
@@ -41,13 +44,8 @@ public class Application extends javafx.application.Application {
         borderPane.setLeft(leftPane);
 
         // construct center panel
-        // test example button + event handler
-        VBox right = new VBox();
         Label label = new Label("Hello, world!");
-        Button button = new Button("Test 123");
-        button.setOnAction(new GateSelectionHandler());
-        right.getChildren().addAll(label, button);
-        borderPane.setCenter(right);
+        borderPane.setCenter(label);
 
         // create and show scene
         Scene scene = new Scene(borderPane, 640, 480);
