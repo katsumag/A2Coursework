@@ -2,6 +2,7 @@ package me.katsumag.A2Coursework;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -40,8 +41,13 @@ public class Application extends javafx.application.Application {
         borderPane.setLeft(leftPane);
 
         // construct center panel
+        // test example button + event handler
+        VBox right = new VBox();
         Label label = new Label("Hello, world!");
-        borderPane.setCenter(label);
+        Button button = new Button("Test 123");
+        button.setOnAction(new GateSelectionHandler());
+        right.getChildren().addAll(label, button);
+        borderPane.setCenter(right);
 
         // create and show scene
         Scene scene = new Scene(borderPane, 640, 480);
