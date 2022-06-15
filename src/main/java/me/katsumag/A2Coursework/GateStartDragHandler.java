@@ -12,6 +12,7 @@ public class GateStartDragHandler implements EventHandler<MouseEvent> {
     /*
      * Listens for the beginning of a drag event, then fires a {@link javafx.scene.input.DragEvent}
      * For some reason it seems JavaFX relies on you to fire a drag event in this way
+     * https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm
      */
 
     @Override
