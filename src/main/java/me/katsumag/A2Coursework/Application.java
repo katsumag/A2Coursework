@@ -45,6 +45,9 @@ public class Application extends javafx.application.Application {
         Label label = new Label("Hello, world!");
         borderPane.setCenter(label);
 
+        // add a property to the center pane so I can identify it later
+        borderPane.getCenter().getProperties().put("CenterPane", true);
+
         // create and show scene
         Scene scene = new Scene(borderPane, 640, 480);
         primaryStage.setScene(scene);
