@@ -13,6 +13,7 @@ public class ORGate extends CircuitComponent {
     public ORGate() {
         this.image = loadImageFromPath(IMAGE_PATH);
         initDDListeners();
+        addTypeProperty();
     }
 
     @Override

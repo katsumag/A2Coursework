@@ -13,6 +13,7 @@ public class NOTGate extends CircuitComponent {
     public NOTGate() {
         this.image = loadImageFromPath(IMAGE_PATH);
         initDDListeners();
+        addTypeProperty();
     }
 
     @Override

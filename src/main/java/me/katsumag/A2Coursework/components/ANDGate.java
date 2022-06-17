@@ -13,6 +13,7 @@ public class ANDGate extends CircuitComponent {
     public ANDGate() {
         this.image = loadImageFromPath(IMAGE_PATH);
         initDDListeners();
+        addTypeProperty();
     }
 
     @Override

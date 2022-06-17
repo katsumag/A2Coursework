@@ -16,7 +16,7 @@ public abstract class CircuitComponent implements CircuitInterface {
     /*
      * Because each subclass will have it's own image, I can't implement getImage
      * It's protected so that any subclasses can access it, but it's not public
-     * A side-effect is that anything in the same package can access it from subclasses.
+     * A side effect is that anything in the same package can access it from subclasses.
      */
 
     /**
@@ -36,6 +36,14 @@ public abstract class CircuitComponent implements CircuitInterface {
         svgImage.setOnDragDetected(new GateStartDragHandler());
         svgImage.setOnDragDropped(new GateStopDragHandler());
         svgImage.setOnDragOver(new GateDragMovementHandler());
+    }
+
+    /**
+     * Adds a property to the {@link javafx.scene.Node} which allows me to identify what it's type is so that I can
+     * spawn a new component of the same type in the proper position
+     */
+    protected void addTypeProperty() {
+        this.getImage().getProperties().put("CircuitComponentType", this.getType().getName());
     }
 
 }
