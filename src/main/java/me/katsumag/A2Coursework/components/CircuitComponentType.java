@@ -1,6 +1,6 @@
-package me.katsumag.A2Coursework;
+package me.katsumag.A2Coursework.components;
 
-public enum LogicComponentType {
+public enum CircuitComponentType {
 
     AND("and"),
     OR("or"),
@@ -8,7 +8,7 @@ public enum LogicComponentType {
 
     private final String name;
 
-    LogicComponentType(String name) {
+    CircuitComponentType(String name) {
         this.name = name;
     }
 

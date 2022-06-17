@@ -2,12 +2,14 @@ package me.katsumag.A2Coursework;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import me.katsumag.A2Coursework.components.ANDGate;
+import me.katsumag.A2Coursework.components.NOTGate;
+import me.katsumag.A2Coursework.components.ORGate;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
 
@@ -28,16 +30,12 @@ public class Application extends javafx.application.Application {
         leftTitle.setUnderline(true);
 
         // include logic gate images
-        SVGHelper svgHelper = new SVGHelper();
-        SVGImage andGateImage = SVGLoader.load(svgHelper.getURLOf("./images/AND gate.svg"));
-        andGateImage.setOnDragDetected(new GateStartDragHandler());
-        andGateImage.setOnDragDropped(new GateStopDragHandler());
-        andGateImage.setOnDragOver(new GateDragMovementHandler());
-        SVGImage orGateImage = SVGLoader.load(svgHelper.getURLOf("./images/OR gate.svg"));
-        SVGImage notGateImage = SVGLoader.load(svgHelper.getURLOf("./images/NOT gate.svg"));
+        ANDGate andGate = new ANDGate();
+        ORGate orGate = new ORGate();
+        NOTGate notGate = new NOTGate();
 
         // add elements to left pane
-        leftPane.getChildren().addAll(leftTitle, andGateImage, orGateImage, notGateImage);
+        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage());
         leftPane.setSpacing(20);
         leftPane.setPadding(new Insets(0, 0, 20, 5));
 
