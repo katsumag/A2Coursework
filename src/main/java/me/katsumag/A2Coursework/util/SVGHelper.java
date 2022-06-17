@@ -1,4 +1,4 @@
-package me.katsumag.A2Coursework;
+package me.katsumag.A2Coursework.util;
 
 import java.net.URL;
 

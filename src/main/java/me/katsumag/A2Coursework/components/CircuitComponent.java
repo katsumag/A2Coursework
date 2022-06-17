@@ -7,7 +7,7 @@ package me.katsumag.A2Coursework.components;
 import me.katsumag.A2Coursework.GateDragMovementHandler;
 import me.katsumag.A2Coursework.GateStartDragHandler;
 import me.katsumag.A2Coursework.GateStopDragHandler;
-import me.katsumag.A2Coursework.SVGHelper;
+import me.katsumag.A2Coursework.util.SVGHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
 
