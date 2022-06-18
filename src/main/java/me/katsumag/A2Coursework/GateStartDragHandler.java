@@ -9,12 +9,14 @@ import org.girod.javafx.svgimage.SVGImage;
 
 public class GateStartDragHandler implements EventHandler<MouseEvent> {
 
-    /*
+    /**
      * Listens for the beginning of a drag event, then fires a {@link javafx.scene.input.DragEvent}
      * For some reason it seems JavaFX relies on you to fire a drag event in this way
      * https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm
      */
 
+
+    // start the drag event, works as intended
     @Override
     public void handle(MouseEvent event) {
         Object source = event.getSource();
@@ -23,7 +25,9 @@ public class GateStartDragHandler implements EventHandler<MouseEvent> {
 
         SVGImage clicked = ((SVGImage) source);
 
+        // start drag and drop gesture
         Dragboard dragboard = clicked.startDragAndDrop(TransferMode.ANY);
+
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(clicked.toString());
         dragboard.setContent(clipboardContent);

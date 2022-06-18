@@ -25,6 +25,8 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                 newComponent = new ANDGate();
             case OR:
                 newComponent = new ORGate();
+            case NOT:
+                newComponent = new NOTGate();
             default:
                 newComponent = new NOTGate();
         }

@@ -32,4 +32,11 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.graphics' ]
 }
 
-mainClassName = 'me.katsumag.A2Coursework.Application'
+// quick task to allow for having multiple run configs run different classes
+// useful in testing, to be removed when finished though.
+// Example usage: -DmainClassName=me.katsumag.A2Coursework.Application
+task setMainClass() {
+    application.setMainClassName System.getProperty("mainClassName")
+}
+
+run.dependsOn setMainClass
