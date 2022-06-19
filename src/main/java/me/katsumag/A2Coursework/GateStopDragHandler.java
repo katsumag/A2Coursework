@@ -27,10 +27,13 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                 newComponent = new ORGate();
             case NOT:
                 newComponent = new NOTGate();
+                break;
             default:
-                newComponent = new NOTGate();
+                throw new IllegalStateException("Unexpected value: " + type);
         }
 
+        
+        
         newComponent.getImage().relocate(event.getSceneX(), event.getScreenY());
 
         //event.setDropCompleted(true);
