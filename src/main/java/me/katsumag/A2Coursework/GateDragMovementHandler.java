@@ -13,11 +13,8 @@ public class GateDragMovementHandler implements EventHandler<DragEvent> {
     @Override
     public void handle(DragEvent event) {
         // TODO: show gate over mouse cursor
-        System.out.println("Dragging");
 
         if (event.getGestureSource() == event.getGestureTarget()) return;
-
-        System.out.println("passed initial check");
 
         if (! (event.getGestureSource() instanceof SVGImage)) return;
         SVGImage source = ((SVGImage) event.getGestureSource());
