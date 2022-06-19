@@ -33,7 +33,7 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
 
         newComponent.getImage().relocate(event.getSceneX(), event.getScreenY());
 
-        event.setDropCompleted(true);
+        //event.setDropCompleted(true);
 
     }
 

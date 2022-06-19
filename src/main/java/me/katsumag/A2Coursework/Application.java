@@ -47,6 +47,7 @@ public class Application extends javafx.application.Application {
 
         // add a property to the center pane so I can identify it later
         borderPane.getCenter().getProperties().put("CenterPane", true);
+        borderPane.getCenter().setOnDragOver(new GateDragMovementHandler());
 
         // create and show scene
         Scene scene = new Scene(borderPane, 640, 480);
