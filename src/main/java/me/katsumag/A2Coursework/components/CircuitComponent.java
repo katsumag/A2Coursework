@@ -35,8 +35,6 @@ public abstract class CircuitComponent implements CircuitInterface {
         SVGImage svgImage = this.getImage();
         svgImage.setOnDragDetected(new GateStartDragHandler());
         svgImage.setOnDragDropped(new GateStopDragHandler());
-        // I think, looking at TestDD, this should actually be applied to the target node.
-        // SvgImage.setOnDragOver(new GateDragMovementHandler());
     }
 
     /**
