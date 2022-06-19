@@ -3,9 +3,6 @@ package me.katsumag.A2Coursework;
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
-import me.katsumag.A2Coursework.components.CircuitComponent;
-import me.katsumag.A2Coursework.components.CircuitComponentType;
-import me.katsumag.A2Coursework.util.DragUtil;
 import org.girod.javafx.svgimage.SVGImage;
 
 public class GateDragMovementHandler implements EventHandler<DragEvent> {
