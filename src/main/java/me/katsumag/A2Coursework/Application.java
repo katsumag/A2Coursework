@@ -3,9 +3,7 @@ package me.katsumag.A2Coursework;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import me.katsumag.A2Coursework.components.ANDGate;
@@ -43,10 +41,7 @@ public class Application extends javafx.application.Application {
         borderPane.setLeft(leftPane);
 
         // construct center panel
-        TilePane centerPane = new TilePane();
-        Label label = new Label("Hello, world!");
-        centerPane.getChildren().add(label);
-        borderPane.setCenter(centerPane);
+        borderPane.setCenter(new Pane());
 
         borderPane.getCenter().setOnDragOver(new GateDragMovementHandler());
         borderPane.getCenter().setOnDragDropped(new GateStopDragHandler());
