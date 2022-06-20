@@ -3,14 +3,14 @@ package me.katsumag.A2Coursework;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import me.katsumag.A2Coursework.components.ANDGate;
 import me.katsumag.A2Coursework.components.NOTGate;
 import me.katsumag.A2Coursework.components.ORGate;
-import org.girod.javafx.svgimage.SVGImage;
-import org.girod.javafx.svgimage.SVGLoader;
 
 public class Application extends javafx.application.Application {
 
@@ -52,6 +52,8 @@ public class Application extends javafx.application.Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }

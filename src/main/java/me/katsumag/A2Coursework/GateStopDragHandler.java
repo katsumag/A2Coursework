@@ -1,10 +1,8 @@
 package me.katsumag.A2Coursework;
 
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import me.katsumag.A2Coursework.components.*;
 import org.girod.javafx.svgimage.SVGImage;
 
@@ -16,8 +14,8 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
     public void handle(DragEvent event) {
 
         // Establish that the dropped object was a useable SVGImage
-        if (! (event.getGestureSource() instanceof SVGImage image)) return;
-        if (! image.getProperties().containsKey("CircuitComponentType")) return;
+        if (!(event.getGestureSource() instanceof SVGImage image)) return;
+        if (!image.getProperties().containsKey("CircuitComponentType")) return;
 
         // No check is required for the gesture target, as this event handler can only be called by the center pane
 

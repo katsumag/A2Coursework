@@ -8,13 +8,11 @@ import org.girod.javafx.svgimage.SVGImage;
 public interface CircuitInterface {
 
     /**
-     *
      * @return the circuit component's {@link SVGImage}
      */
     SVGImage getImage();
 
     /**
-     *
      * @return the circuit component's {@link CircuitComponentType}
      */
     CircuitComponentType getType();

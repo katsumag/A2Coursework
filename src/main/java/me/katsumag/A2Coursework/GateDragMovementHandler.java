@@ -18,11 +18,10 @@ public class GateDragMovementHandler implements EventHandler<DragEvent> {
         if (event.getGestureSource() == event.getGestureTarget()) return;
 
         // Check the source is one of my images
-        if (! (event.getGestureSource() instanceof SVGImage)) return;
-        SVGImage source = ((SVGImage) event.getGestureSource());
+        if (!(event.getGestureSource() instanceof SVGImage source)) return;
 
         // Check that it has the property needed to establish its type later on
-        if (! source.getProperties().containsKey("CircuitComponentType")) return;
+        if (!source.getProperties().containsKey("CircuitComponentType")) return;
 
         // Mark that the target will accept the drag and drop gesture
         event.acceptTransferModes(TransferMode.COPY_OR_MOVE);

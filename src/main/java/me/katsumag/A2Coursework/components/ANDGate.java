@@ -17,7 +17,7 @@ public class ANDGate extends CircuitComponent {
     }
 
     @Override
-    public SVGImage getImage(){
+    public SVGImage getImage() {
         return this.image;
     }
 

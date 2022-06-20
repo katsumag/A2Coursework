@@ -4,9 +4,7 @@ package me.katsumag.A2Coursework.components;
  * This abstract class defines the default behaviour of a circuit component
  */
 
-import me.katsumag.A2Coursework.GateDragMovementHandler;
 import me.katsumag.A2Coursework.GateStartDragHandler;
-import me.katsumag.A2Coursework.GateStopDragHandler;
 import me.katsumag.A2Coursework.util.SVGHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
@@ -20,7 +18,6 @@ public abstract class CircuitComponent implements CircuitInterface {
      */
 
     /**
-     *
      * @param path the relative path to the image from the resources folder
      * @return the loaded {@link SVGImage}
      */
