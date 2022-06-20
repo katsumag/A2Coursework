@@ -12,7 +12,6 @@ public class GateDragMovementHandler implements EventHandler<DragEvent> {
 
     @Override
     public void handle(DragEvent event) {
-        // TODO: show gate over mouse cursor
 
         // Check that the source isn't being dragged onto itself
         if (event.getGestureSource() == event.getGestureTarget()) return;
