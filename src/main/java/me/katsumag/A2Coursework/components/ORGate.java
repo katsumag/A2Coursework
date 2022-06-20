@@ -8,12 +8,8 @@ public class ORGate extends CircuitComponent {
     private static final String IMAGE_PATH = "./images/OR gate.svg";
     private static final CircuitComponentType type = CircuitComponentType.OR;
 
-    private final SVGImage image;
-
     public ORGate() {
-        this.image = loadImageFromPath(IMAGE_PATH);
-        initDDListeners();
-        addTypeProperty();
+        super(IMAGE_PATH);
     }
 
     @Override

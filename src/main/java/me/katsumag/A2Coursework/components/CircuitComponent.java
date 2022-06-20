@@ -11,24 +11,34 @@ import org.girod.javafx.svgimage.SVGLoader;
 
 public abstract class CircuitComponent implements CircuitInterface {
 
-    /*
-     * Because each subclass will have it's own image, I can't implement getImage
-     * It's protected so that any subclasses can access it, but it's not public
-     * A side effect is that anything in the same package can access it from subclasses.
+    // Each subclass has its own image, this paired with the constructor allows for
+    // A much better system than I previosuly had.
+    protected SVGImage image;
+
+    /**
+     * @param IMAGE_PATH
+     * Loads the image from the given path, assigns listeners, adds properties
+     * Generally creates the new component with all the correct options.
      */
+    protected CircuitComponent(final String IMAGE_PATH) {
+        this.image = loadImageFromPath(IMAGE_PATH);
+        initDDListeners();
+        addTypeProperty();
+        allowClickingAnywhere();
+    }
 
     /**
      * @param path the relative path to the image from the resources folder
      * @return the loaded {@link SVGImage}
      */
-    protected SVGImage loadImageFromPath(String path) {
+    private SVGImage loadImageFromPath(String path) {
         return SVGLoader.load(new SVGHelper().getURLOf(path));
     }
 
     /**
      * Adds drag  drop listeners
      */
-    protected void initDDListeners() {
+    private void initDDListeners() {
         SVGImage svgImage = this.getImage();
         svgImage.setOnDragDetected(new GateStartDragHandler());
     }
@@ -37,8 +47,18 @@ public abstract class CircuitComponent implements CircuitInterface {
      * Adds a property to the {@link javafx.scene.Node} which allows me to identify what it's type is so that I can
      * spawn a new component of the same type in the proper position
      */
-    protected void addTypeProperty() {
+    private void addTypeProperty() {
         this.getImage().getProperties().put("CircuitComponentType", this.getType().getName());
+    }
+
+    /**
+     * Set {@link javafx.scene.Node}#setPickOnBounds to true
+     * This changes click detection to check if a click is inside
+     * The Node's bounds rather than the shape
+     * TL:DR; Allows clicking on transparent parts of the images
+     */
+    private void allowClickingAnywhere() {
+        this.getImage().setPickOnBounds(true);
     }
 
 }

@@ -8,12 +8,8 @@ public class ANDGate extends CircuitComponent {
     private static final String IMAGE_PATH = "./images/AND gate.svg";
     private static final CircuitComponentType type = CircuitComponentType.AND;
 
-    private final SVGImage image;
-
     public ANDGate() {
-        this.image = loadImageFromPath(IMAGE_PATH);
-        initDDListeners();
-        addTypeProperty();
+        super(IMAGE_PATH);
     }
 
     @Override

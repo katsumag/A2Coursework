@@ -8,12 +8,8 @@ public class NOTGate extends CircuitComponent {
     private static final String IMAGE_PATH = "./images/NOT gate.svg";
     private static final CircuitComponentType type = CircuitComponentType.NOT;
 
-    private final SVGImage image;
-
     public NOTGate() {
-        this.image = loadImageFromPath(IMAGE_PATH);
-        initDDListeners();
-        addTypeProperty();
+        super(IMAGE_PATH);
     }
 
     @Override
