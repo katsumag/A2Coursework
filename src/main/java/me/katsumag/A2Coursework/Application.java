@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import me.katsumag.A2Coursework.components.ANDGate;
 import me.katsumag.A2Coursework.components.NOTGate;
 import me.katsumag.A2Coursework.components.ORGate;
+import me.katsumag.A2Coursework.components.Switch;
 
 public class Application extends javafx.application.Application {
 
@@ -32,9 +33,11 @@ public class Application extends javafx.application.Application {
         ANDGate andGate = new ANDGate();
         ORGate orGate = new ORGate();
         NOTGate notGate = new NOTGate();
+        // Cannot be named switch, builtin keyword
+        Switch switchh = new Switch();
 
         // add elements to left pane
-        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage());
+        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage());
         leftPane.setSpacing(20);
         leftPane.setPadding(new Insets(0, 0, 20, 5));
 

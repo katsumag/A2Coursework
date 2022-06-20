@@ -30,8 +30,9 @@ public abstract class CircuitComponent implements CircuitInterface {
     /**
      * @param path the relative path to the image from the resources folder
      * @return the loaded {@link SVGImage}
+     * Protected for use in multi-image components like {@link Switch}
      */
-    private SVGImage loadImageFromPath(String path) {
+    protected SVGImage loadImageFromPath(String path) {
         return SVGLoader.load(new SVGHelper().getURLOf(path));
     }
 
