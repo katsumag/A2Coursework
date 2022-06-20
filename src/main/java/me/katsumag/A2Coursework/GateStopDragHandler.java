@@ -41,6 +41,9 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                 throw new IllegalStateException("Unexpected value: " + type);
         }
 
+        // Check that the New Component class is what it should be.
+        System.out.println("newComponent.getClass() = " + newComponent.getClass());
+
         newComponent.getImage().relocate(event.getSceneX(), event.getScreenY());
 
         // I know that the target will be a TilePane (for now, anyway) as that's the type our center panel is
