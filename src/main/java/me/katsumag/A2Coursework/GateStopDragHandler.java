@@ -14,13 +14,13 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
     @Override
     public void handle(DragEvent event) {
 
-        System.out.println("event.getGestureTarget() = " + event.getGestureTarget());
-        System.out.println("event.getGestureSource() = " + event.getGestureSource());
-
         // Establish that the dropped object was a useable SVGImage
         if (! (event.getGestureSource() instanceof SVGImage)) return;
         SVGImage image = ((SVGImage) event.getGestureSource());
         if (! image.getProperties().containsKey("CircuitComponentType")) return;
+
+        // Add debug message to see if the ComponentType is always NOT
+        System.out.println(image.getProperties().get("CircuitComponentType"));
 
         // No check is required for the gesture target, as this event handler can only be called by the center pane
 
