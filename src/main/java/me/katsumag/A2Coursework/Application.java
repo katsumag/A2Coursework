@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -42,12 +43,13 @@ public class Application extends javafx.application.Application {
         borderPane.setLeft(leftPane);
 
         // construct center panel
+        TilePane centerPane = new TilePane();
         Label label = new Label("Hello, world!");
-        borderPane.setCenter(label);
+        centerPane.getChildren().add(label);
+        borderPane.setCenter(centerPane);
 
-        // add a property to the center pane so I can identify it later
-        borderPane.getCenter().getProperties().put("CenterPane", true);
         borderPane.getCenter().setOnDragOver(new GateDragMovementHandler());
+        borderPane.getCenter().setOnDragDropped(new GateStopDragHandler());
 
         // create and show scene
         Scene scene = new Scene(borderPane, 640, 480);

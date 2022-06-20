@@ -34,7 +34,6 @@ public abstract class CircuitComponent implements CircuitInterface {
     protected void initDDListeners() {
         SVGImage svgImage = this.getImage();
         svgImage.setOnDragDetected(new GateStartDragHandler());
-        svgImage.setOnDragDropped(new GateStopDragHandler());
     }
 
     /**

@@ -2,9 +2,11 @@ package me.katsumag.A2Coursework.components;
 
 public enum CircuitComponentType {
 
-    AND("and"),
-    OR("or"),
-    NOT("not");
+    // Changing this to fix an issue at GateStopDragHandler#28 where valueOf throws an excpetion  because these were lowercase.
+
+    AND("AND"),
+    OR("OR"),
+    NOT("NOT");
 
     private final String name;
 
