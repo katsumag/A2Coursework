@@ -28,6 +28,8 @@ public class GateStartDragHandler implements EventHandler<MouseEvent> {
         clipboardContent.putString(clicked.toString());
         dragboard.setContent(clipboardContent);
 
+        dragboard.setDragView(clicked.toImage());
+
         event.consume();
     }
 
