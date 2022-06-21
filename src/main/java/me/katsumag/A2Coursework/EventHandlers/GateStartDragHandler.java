@@ -1,4 +1,4 @@
-package me.katsumag.A2Coursework;
+package me.katsumag.A2Coursework.EventHandlers;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.ClipboardContent;

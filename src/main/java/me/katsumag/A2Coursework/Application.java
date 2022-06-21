@@ -8,6 +8,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import me.katsumag.A2Coursework.EventHandlers.GateDragMovementHandler;
+import me.katsumag.A2Coursework.EventHandlers.GateStopDragHandler;
 import me.katsumag.A2Coursework.components.ANDGate;
 import me.katsumag.A2Coursework.components.NOTGate;
 import me.katsumag.A2Coursework.components.ORGate;

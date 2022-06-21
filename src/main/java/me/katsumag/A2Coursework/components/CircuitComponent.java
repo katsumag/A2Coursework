@@ -4,7 +4,7 @@ package me.katsumag.A2Coursework.components;
  * This abstract class defines the default behaviour of a circuit component
  */
 
-import me.katsumag.A2Coursework.GateStartDragHandler;
+import me.katsumag.A2Coursework.EventHandlers.GateStartDragHandler;
 import me.katsumag.A2Coursework.util.SVGHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
