@@ -83,10 +83,12 @@ public class Switch extends CircuitComponent {
             if (this.state) {
                 ObservableList<Node> children = parentHelper.getChildrenOf(this.image.getParent());
                 children.remove(this.image);
+                this.onImage.relocate(this.image.getLayoutX(), this.image.getLayoutY());
                 children.add(this.onImage);
             } else {
                 ObservableList<Node> children = parentHelper.getChildrenOf(this.onImage.getParent());
                 children.remove(this.onImage);
+                this.onImage.relocate(this.image.getLayoutX(), this.image.getLayoutY());
                 children.add(this.image);
             }
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
