@@ -1,5 +1,6 @@
 package me.katsumag.A2Coursework.components;
 
+import javafx.scene.layout.Pane;
 import me.katsumag.A2Coursework.EventHandlers.GateStartDragHandler;
 import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
 import org.girod.javafx.svgimage.SVGImage;
@@ -15,13 +16,16 @@ public class Switch extends CircuitComponent {
 
     // Keep track of the state of the switch
     private boolean state = false;
+    // Hold a reference to the parent pane so that I can remove the switch's images from its children later.
+    private Pane parentPane;
 
-    public Switch() {
+    public Switch(Pane parentPane) {
         super(BASE_IMAGE_PATH.formatted("OFF"));
         addDragHandler();
         addComponentType();
         setClickHandler();
         addInstanceReference();
+        this.parentPane = parentPane;
     }
 
     /**
