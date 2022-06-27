@@ -1,6 +1,8 @@
 package me.katsumag.A2Coursework.EventHandlers;
 
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.components.Switch;
@@ -10,12 +12,6 @@ public class SwitchClickHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-
-        // This is printed, so one of the following checks must fail, but how?
-        System.out.println("Switch Clicked");
-
-        // The result of this when clicking on the blue square is a JavaFX Rectangle.
-        System.out.println(event.getTarget().getClass());
 
         // getSource and getTarget return the same class here.
         if (! (event.getTarget() instanceof SVGImage image)) return;

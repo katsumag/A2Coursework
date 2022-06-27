@@ -12,7 +12,7 @@ import org.girod.javafx.svgimage.SVGLoader;
 public abstract class CircuitComponent implements CircuitInterface {
 
     // Each subclass has its own image, this paired with the constructor allows for
-    // A much better system than I previosuly had.
+    // A much better system than I previously had.
     protected SVGImage image;
 
     /**

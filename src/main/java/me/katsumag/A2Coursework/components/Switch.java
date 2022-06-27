@@ -27,6 +27,18 @@ public class Switch extends CircuitComponent {
         addComponentType();
         setClickHandler();
         addInstanceReference();
+        stopChildrenInteracting();
+    }
+
+    /**
+     * Sets the {@link SVGImage}'s children to be transparent to mouse events.
+     * Although they are it's children, if they're solid objects they appear on top of the image
+     * And so capture click events for the blue bit of the on button and the black rectangle of the off button
+     * Doing this mitigates the issue
+     */
+    private void stopChildrenInteracting() {
+        this.onImage.getChildren().forEach(it -> it.setMouseTransparent(true));
+        this.image.getChildren().forEach(it -> it.setMouseTransparent(true));
     }
 
     /**
