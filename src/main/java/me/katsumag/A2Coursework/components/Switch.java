@@ -1,9 +1,15 @@
 package me.katsumag.A2Coursework.components;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import me.katsumag.A2Coursework.EventHandlers.GateStartDragHandler;
 import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
+import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class Switch extends CircuitComponent {
 
@@ -16,16 +22,13 @@ public class Switch extends CircuitComponent {
 
     // Keep track of the state of the switch
     private boolean state = false;
-    // Hold a reference to the parent pane so that I can remove the switch's images from its children later.
-    private Pane parentPane;
 
-    public Switch(Pane parentPane) {
+    public Switch() {
         super(BASE_IMAGE_PATH.formatted("OFF"));
         addDragHandler();
         addComponentType();
         setClickHandler();
         addInstanceReference();
-        this.parentPane = parentPane;
     }
 
     /**
@@ -73,12 +76,21 @@ public class Switch extends CircuitComponent {
     public void swapState() {
         this.state = !this.state;
 
-        if (this.state) {
-            // remove this.image
-            // add this.onImage
-        } else {
-            // remove this.onImage
-            // add this.image
+        ParentHelper parentHelper = new ParentHelper();
+
+        try {
+
+            if (this.state) {
+                ObservableList<Node> children = parentHelper.getChildrenOf(this.image.getParent());
+                children.remove(this.image);
+                children.add(this.onImage);
+            } else {
+                ObservableList<Node> children = parentHelper.getChildrenOf(this.onImage.getParent());
+                children.remove(this.onImage);
+                children.add(this.image);
+            }
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
+            ex.printStackTrace();
         }
 
     }
