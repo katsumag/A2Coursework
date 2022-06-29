@@ -3,6 +3,7 @@ package me.katsumag.A2Coursework.EventHandlers;
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import me.katsumag.A2Coursework.components.*;
 import org.girod.javafx.svgimage.SVGImage;
 
@@ -17,6 +18,17 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
         if (!(event.getGestureSource() instanceof SVGImage image)) return;
         if (!image.getProperties().containsKey("CircuitComponentType")) return;
 
+        // Handle drag and drop movements inside the center pane to relocate a component
+        // Establish that the component wasn't dragged from the VBox of the left BorderPane
+        if (!(image.getParent() instanceof VBox)) {
+            // Establish that the component is assigned to the center Pane
+            // must be checked in this order as VBox extends Pane
+            if (image.getParent() instanceof Pane) {
+                image.relocate(event.getX(), event.getY());
+                return;
+            }
+        }
+        
         // No check is required for the gesture target, as this event handler can only be called by the center pane
 
         // The get the type of image to create
