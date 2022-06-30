@@ -21,10 +21,15 @@ public abstract class CircuitComponent implements CircuitInterface {
      * Generally creates the new component with all the correct options.
      */
     protected CircuitComponent(final String IMAGE_PATH) {
-        this.image = loadImageFromPath(IMAGE_PATH);
-        initDDListeners();
-        addTypeProperty();
-        allowClickingAnywhere();
+        this.image = loadAndProcessImageFromPath(IMAGE_PATH);
+    }
+
+    protected SVGImage loadAndProcessImageFromPath(String path) {
+        SVGImage image = loadImageFromPath(path);
+        initDDListeners(image);
+        addTypeProperty(image);
+        allowClickingAnywhere(image);
+        return image;
     }
 
     /**
@@ -32,15 +37,14 @@ public abstract class CircuitComponent implements CircuitInterface {
      * @return the loaded {@link SVGImage}
      * Protected for use in multi-image components like {@link Switch}
      */
-    protected SVGImage loadImageFromPath(String path) {
+    private SVGImage loadImageFromPath(String path) {
         return SVGLoader.load(new SVGHelper().getURLOf(path));
     }
 
     /**
      * Adds drag  drop listeners
      */
-    private void initDDListeners() {
-        SVGImage svgImage = this.getImage();
+    private void initDDListeners(SVGImage svgImage) {
         svgImage.setOnDragDetected(new GateStartDragHandler());
     }
 
@@ -48,8 +52,8 @@ public abstract class CircuitComponent implements CircuitInterface {
      * Adds a property to the {@link javafx.scene.Node} which allows me to identify what it's type is so that I can
      * spawn a new component of the same type in the proper position
      */
-    private void addTypeProperty() {
-        this.getImage().getProperties().put("CircuitComponentType", this.getType().getName());
+    private void addTypeProperty(SVGImage svgImage) {
+        svgImage.getProperties().put("CircuitComponentType", this.getType().getName());
     }
 
     /**
@@ -58,8 +62,8 @@ public abstract class CircuitComponent implements CircuitInterface {
      * The Node's bounds rather than the shape
      * TL:DR; Allows clicking on transparent parts of the images
      */
-    private void allowClickingAnywhere() {
-        this.getImage().setPickOnBounds(true);
+    private void allowClickingAnywhere(SVGImage svgImage) {
+        svgImage.setPickOnBounds(true);
     }
 
 }

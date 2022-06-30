@@ -16,15 +16,13 @@ public class Switch extends CircuitComponent {
     private static final CircuitComponentType type = CircuitComponentType.SWITCH;
 
     // Image to show when switch is on. `image` will be the default + off image
-    private final SVGImage onImage = this.loadImageFromPath(BASE_IMAGE_PATH.formatted("ON"));
+    private final SVGImage onImage = this.loadAndProcessImageFromPath(BASE_IMAGE_PATH.formatted("ON"));
 
     // Keep track of the state of the switch
     private boolean state = false;
 
     public Switch() {
         super(BASE_IMAGE_PATH.formatted("OFF"));
-        addDragHandler();
-        addComponentType();
         setClickHandler();
         addInstanceReference();
         stopChildrenInteracting();
@@ -48,23 +46,6 @@ public class Switch extends CircuitComponent {
     private void addInstanceReference() {
         this.onImage.getProperties().put("SwitchInstance", this);
         this.image.getProperties().put("SwitchInstance", this);
-    }
-
-    /**
-     * This is done for most components through the constructor of {@link CircuitComponent}
-     * However, since this uses two images, I need to manually add the property to the second image
-     */
-    private void addComponentType() {
-        this.onImage.getProperties().put("CircuitComponentType", type.getName());
-    }
-
-    /**
-     * This is usually done through the constructor of {@link CircuitComponent}
-     * However, since this uses two images, I need to manually set the drag handler on the second image
-     */
-    private void addDragHandler() {
-        // image already has it applied through the constructor
-        this.onImage.setOnDragDetected(new GateStartDragHandler());
     }
 
     /**
