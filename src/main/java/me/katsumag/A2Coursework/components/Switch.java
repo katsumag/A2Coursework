@@ -55,7 +55,6 @@ public class Switch extends CircuitComponent {
     private void setClickHandler() {
         // register click handler for both images
         this.image.setOnMouseClicked(new SwitchClickHandler());
-        this.onImage.setPickOnBounds(true);
         this.onImage.setOnMouseClicked(new SwitchClickHandler());
     }
 
