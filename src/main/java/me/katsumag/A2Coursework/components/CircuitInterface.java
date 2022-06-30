@@ -3,7 +3,7 @@ package me.katsumag.A2Coursework.components;
 import org.girod.javafx.svgimage.SVGImage;
 
 /**
- * This interface defines every public facing method of a {@link CircuitComponent}
+ * This interface defines every standard method of a {@link CircuitComponent}
  */
 public interface CircuitInterface {
 
@@ -16,6 +16,5 @@ public interface CircuitInterface {
      * @return the circuit component's {@link CircuitComponentType}
      */
     CircuitComponentType getType();
-
 
 }

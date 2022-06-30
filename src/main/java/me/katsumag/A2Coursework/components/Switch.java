@@ -2,7 +2,6 @@ package me.katsumag.A2Coursework.components;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import me.katsumag.A2Coursework.EventHandlers.GateStartDragHandler;
 import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
