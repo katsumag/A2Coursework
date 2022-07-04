@@ -5,8 +5,11 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import me.katsumag.A2Coursework.components.CircuitComponentType;
+import me.katsumag.A2Coursework.components.ComponentStore;
 import me.katsumag.A2Coursework.components.Switch;
 import org.girod.javafx.svgimage.SVGImage;
+
+import java.util.UUID;
 
 public class SwitchClickHandler implements EventHandler<MouseEvent> {
 
@@ -18,13 +21,9 @@ public class SwitchClickHandler implements EventHandler<MouseEvent> {
 
         if (image.getProperties().get("CircuitComponentType") != CircuitComponentType.SWITCH.getName()) return;
 
-        /*
-         * Possibly not best practice, maybe replace with changing the value of a BooleanProperty and having
-         * the Switch register a ChangeListener for it instead? Would still have to add it as a property
-         * of the SVGImage but at least it wouldn't be the whole Switch class. I'm not sure.
-         */
 
-        Switch switchInstance = (Switch) image.getProperties().get("SwitchInstance");
+        // Change to getting by UUID to avoid having to store a reference to the Switch instance on the SVGImage.
+        Switch switchInstance = (Switch) new ComponentStore().getComponentByUUID((UUID)image.getProperties().get("ComponentUUID"));
 
         switchInstance.swapState();
 

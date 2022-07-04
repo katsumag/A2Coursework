@@ -1,7 +1,9 @@
 package me.katsumag.A2Coursework.components.connections;
 
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
 public class Connection {
@@ -19,5 +21,13 @@ public class Connection {
 
     public void setConnectedObject(SVGImage object) { this.connectedObject =  object;}
 
+    public SVGImage getConnectedObject() {
+        return connectedObject;
+    }
+
     public boolean isOccupied() { return connectedObject != null; }
+
+    public Circle getCircle() {
+        return this.circle;
+    }
 }

@@ -3,6 +3,8 @@ package me.katsumag.A2Coursework.components;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
+import me.katsumag.A2Coursework.components.connections.ConnectionManager;
+import me.katsumag.A2Coursework.components.connections.ConnectionNumber;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
@@ -20,10 +22,11 @@ public class Switch extends CircuitComponent {
     // Keep track of the state of the switch
     private boolean state = false;
 
+    private final ConnectionManager connectionManager = new ConnectionManager(ConnectionNumber.NONE, ConnectionNumber.ONE);
+
     public Switch() {
         super(BASE_IMAGE_PATH.formatted("OFF"));
         setClickHandler();
-        addInstanceReference();
         stopChildrenInteracting();
     }
 
@@ -36,15 +39,6 @@ public class Switch extends CircuitComponent {
     private void stopChildrenInteracting() {
         this.onImage.getChildren().forEach(it -> it.setMouseTransparent(true));
         this.image.getChildren().forEach(it -> it.setMouseTransparent(true));
-    }
-
-    /**
-     * Adds a reference to this Switch instance as a property of both SVGImages
-     * This is done so that {@link SwitchClickHandler} can access the state of the switch to swap it
-     */
-    private void addInstanceReference() {
-        this.onImage.getProperties().put("SwitchInstance", this);
-        this.image.getProperties().put("SwitchInstance", this);
     }
 
     /**
@@ -98,5 +92,10 @@ public class Switch extends CircuitComponent {
     @Override
     public CircuitComponentType getType() {
         return type;
+    }
+
+    @Override
+    public ConnectionManager getConnections() {
+       return this.connectionManager;
     }
 }

@@ -9,11 +9,15 @@ import me.katsumag.A2Coursework.util.SVGHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
 
+import java.util.UUID;
+
 public abstract class CircuitComponent implements CircuitInterface {
 
     // Each subclass has its own image, this paired with the constructor allows for
     // A much better system than I previously had.
     protected SVGImage image;
+
+    protected final UUID uuid = UUID.randomUUID();
 
     /**
      * @param IMAGE_PATH
@@ -22,6 +26,7 @@ public abstract class CircuitComponent implements CircuitInterface {
      */
     protected CircuitComponent(final String IMAGE_PATH) {
         this.image = loadAndProcessImageFromPath(IMAGE_PATH);
+        new ComponentStore().registerComponent(this);
     }
 
     protected SVGImage loadAndProcessImageFromPath(String path) {
@@ -29,7 +34,12 @@ public abstract class CircuitComponent implements CircuitInterface {
         initDDListeners(image);
         addTypeProperty(image);
         allowClickingAnywhere(image);
+        registerComponent(image);
         return image;
+    }
+
+    private void registerComponent(SVGImage image) {
+        image.getProperties().put("ComponentUUID", this.getUUID());
     }
 
     /**
@@ -64,6 +74,11 @@ public abstract class CircuitComponent implements CircuitInterface {
      */
     private void allowClickingAnywhere(SVGImage svgImage) {
         svgImage.setPickOnBounds(true);
+    }
+
+    @Override
+    public UUID getUUID() {
+        return this.uuid;
     }
 
 }
