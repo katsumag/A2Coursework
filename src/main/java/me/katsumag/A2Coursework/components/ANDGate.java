@@ -2,6 +2,8 @@ package me.katsumag.A2Coursework.components;
 
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import me.katsumag.A2Coursework.components.connections.ConnectionNumber;
+import me.katsumag.A2Coursework.components.connections.ConnectionPointHideHandler;
+import me.katsumag.A2Coursework.components.connections.ConnectionPointShowHandler;
 import org.girod.javafx.svgimage.SVGImage;
 
 public class ANDGate extends CircuitComponent {
@@ -14,8 +16,8 @@ public class ANDGate extends CircuitComponent {
 
     public ANDGate() {
         super(IMAGE_PATH);
-        this.image.setOnMouseEntered();
-        this.image.setOnMouseExited();
+        this.image.setOnMouseEntered(new ConnectionPointShowHandler());
+        this.image.setOnMouseExited(new ConnectionPointHideHandler());
     }
 
     @Override

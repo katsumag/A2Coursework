@@ -16,7 +16,7 @@ public class Connection {
     public Connection(Double x, Double y) {
         this.x = x;
         this.y = y;
-        this.circle = new Circle(x, y, 0.5f, Color.rgb(0, 0, 0));
+        this.circle = new Circle(x, y, 2.5, Color.rgb(0, 0, 0));
     }
 
     public void setConnectedObject(SVGImage object) { this.connectedObject =  object;}

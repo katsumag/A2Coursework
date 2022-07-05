@@ -5,6 +5,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import me.katsumag.A2Coursework.components.*;
+import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import org.girod.javafx.svgimage.SVGImage;
 
 public class GateStopDragHandler implements EventHandler<DragEvent> {
@@ -26,6 +27,8 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
             // Must be checked in this order as VBox extends Pane
             if (image.getParent() instanceof Pane) {
                 image.relocate(event.getX(), event.getY());
+                new ComponentStore().getComponentByImage(image).getConnections().removeConnectionPoints(image);
+
                 // Stop execution here so that a new component isn't added.
                 return;
             }

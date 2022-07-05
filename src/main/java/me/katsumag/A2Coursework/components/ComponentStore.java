@@ -1,6 +1,8 @@
 package me.katsumag.A2Coursework.components;
 
+import org.girod.javafx.svgimage.SVGImage;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,12 @@ public class ComponentStore {
      * @return the {@link CircuitComponent} with that uuid
      * @throws java.util.NoSuchElementException if an element with the provided UUID doesn't exist
      */
-    public @NotNull CircuitComponent getComponentByUUID(UUID uuid) {
+    public @NotNull CircuitComponent getComponentByUUID(@NotNull UUID uuid) {
         return components.stream().filter(component -> component.getUUID() == uuid).findFirst().get();
+    }
+
+    public @NotNull CircuitComponent getComponentByImage(@NotNull SVGImage image) {
+        return getComponentByUUID((UUID) image.getProperties().get("ComponentUUID"));
     }
 
 }
