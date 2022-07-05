@@ -20,12 +20,6 @@ public class ConnectionManager {
     private List<Connection> inputs = new ArrayList<>();
     private Connection output;
 
-    public ConnectionManager(ConnectionNumber inputsNum, ConnectionNumber outputsNum, List<Connection> inputs, Connection output) {
-        this.inputConnectionNumber = inputsNum;
-        this.outputConnectionNumber = outputsNum;
-        this.inputs = inputs;
-        this.output = output;
-    }
 
     public ConnectionManager(ConnectionNumber inputsNum, ConnectionNumber outputsNum) {
         this.inputConnectionNumber = inputsNum;
@@ -33,7 +27,6 @@ public class ConnectionManager {
     }
 
     /**
-     *
      * @return List of {@link Connection}s coming into the {@link me.katsumag.A2Coursework.components.CircuitComponent}
      * Can be null if there are no inputs, or inputs have not been initialised
      */
@@ -42,7 +35,6 @@ public class ConnectionManager {
     }
 
     /**
-     *
      * @return The {@link Connection} coming out of the {@link me.katsumag.A2Coursework.components.CircuitComponent}
      * Can be null if the output isn't initialised
      */

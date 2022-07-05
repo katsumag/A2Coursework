@@ -1,16 +1,12 @@
 package me.katsumag.A2Coursework.components.connections;
 
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import me.katsumag.A2Coursework.components.CircuitComponent;
 import me.katsumag.A2Coursework.components.ComponentStore;
-import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 public class ConnectionPointHideHandler implements EventHandler<MouseEvent> {
