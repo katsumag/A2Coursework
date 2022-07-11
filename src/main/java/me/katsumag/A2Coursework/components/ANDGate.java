@@ -16,8 +16,6 @@ public class ANDGate extends CircuitComponent {
 
     public ANDGate() {
         super(IMAGE_PATH);
-        this.image.setOnMouseEntered(new ConnectionPointShowHandler());
-        this.image.setOnMouseExited(new ConnectionPointHideHandler());
     }
 
     @Override

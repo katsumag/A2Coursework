@@ -5,6 +5,8 @@ package me.katsumag.A2Coursework.components;
  */
 
 import me.katsumag.A2Coursework.EventHandlers.GateStartDragHandler;
+import me.katsumag.A2Coursework.components.connections.ConnectionPointHideHandler;
+import me.katsumag.A2Coursework.components.connections.ConnectionPointShowHandler;
 import me.katsumag.A2Coursework.util.SVGHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
@@ -35,7 +37,13 @@ public abstract class CircuitComponent implements CircuitInterface {
         addTypeProperty(image);
         allowClickingAnywhere(image);
         registerComponent(image);
+        addConnectionListener(image);
         return image;
+    }
+
+    private void addConnectionListener(SVGImage image) {
+        image.setOnMouseEntered(new ConnectionPointShowHandler());
+        image.setOnMouseExited(new ConnectionPointHideHandler());
     }
 
     private void registerComponent(SVGImage image) {
