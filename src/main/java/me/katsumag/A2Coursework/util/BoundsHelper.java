@@ -19,7 +19,7 @@ public class BoundsHelper {
     public Point2D getTopLeft() {
         return new Point2D(
                 this.image.getLayoutX() - this.imageBounds.getMinX(),
-                this.image.getLayoutY() - this.imageBounds.getMinY()
+                this.image.getLayoutY() - this.imageBounds.getMinY() + (this.image.getHeight() / 2)
         );
     }
 

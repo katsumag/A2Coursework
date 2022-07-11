@@ -1,7 +1,6 @@
 package me.katsumag.A2Coursework.components.connections;
 
 import javafx.collections.ObservableList;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import me.katsumag.A2Coursework.util.BoundsHelper;
@@ -71,7 +70,6 @@ public class ConnectionManager {
         }
 
         // add each Connection's circle to the SVGImage's Parent so that it's displayed on screen.
-
         try {
             ObservableList<Node> children = new ParentHelper().getChildrenOf(image.getParent());
 
