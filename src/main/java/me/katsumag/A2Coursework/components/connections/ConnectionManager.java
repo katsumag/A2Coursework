@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import me.katsumag.A2Coursework.util.BoundsHelper;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +18,7 @@ public class ConnectionManager {
 
     private final ConnectionNumber inputConnectionNumber;
     private final ConnectionNumber outputConnectionNumber;
-    private List<Connection> inputs = new ArrayList<>();
+    private final List<Connection> inputs = new ArrayList<>();
     private Connection output;
 
 
@@ -42,11 +43,11 @@ public class ConnectionManager {
         return output;
     }
 
-    public void addInputs(Connection... inputs) {
+    private void addInputs(Connection... inputs) {
         this.inputs.addAll(Arrays.asList(inputs));
     }
 
-    public void setOutput(Connection output) {
+    private void setOutput(Connection output) {
         this.output = output;
     }
 
@@ -55,32 +56,54 @@ public class ConnectionManager {
      * @param image to modify
      */
     public void drawConnectionPoints(SVGImage image) {
-        Bounds bounds = image.getLayoutBounds();
 
-        // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html#layoutXProperty
+        // handle drawing input connection points
+        switch (this.inputConnectionNumber) {
+            case ONE -> drawInputConnectionPoint(image);
+            case TWO -> drawInputConnectionPoints(image);
+            // Do nothing
+            default -> {  }
+        }
 
-        Point2D topLeft = new Point2D(image.getLayoutX() - bounds.getMinX(), image.getLayoutY() - bounds.getMinY());
-        Point2D bottomLeft = new Point2D(image.getLayoutX() - bounds.getMinX(), image.getLayoutY() + bounds.getMaxY());
-        Point2D midRight = new Point2D(image.getLayoutX() + bounds.getWidth(), image.getLayoutY() + (0.5 * bounds.getHeight()));
+        // handle drawing output connection points
+        if (this.outputConnectionNumber == ConnectionNumber.ONE) {
+            drawOutputConnectionPoint(image);
+        }
 
-        this.addInputs(new Connection(topLeft.getX(), topLeft.getY()));
-        this.addInputs(new Connection(bottomLeft.getX(), bottomLeft.getY()));
-        this.output = new Connection(midRight.getX(), midRight.getY());
-
-        this.inputs.forEach(circle -> {
-            try {
-                new ParentHelper().getChildrenOf(image.getParent()).add(circle.getCircle());
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        });
+        // add each Connection's circle to the SVGImage's Parent so that it's displayed on screen.
 
         try {
-            new ParentHelper().getChildrenOf(image.getParent()).add(this.output.getCircle());
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            ObservableList<Node> children = new ParentHelper().getChildrenOf(image.getParent());
+
+            // add input circles
+            this.inputs.forEach(connection -> children.add(connection.getCircle()));
+            // add output circle (if it exists)
+            if (this.output != null) { children.add(this.output.getCircle()); }
+
+        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void drawInputConnectionPoint(SVGImage image) {
+        Point2D connectionPoint = new BoundsHelper(image).getMiddleLeft();
+        this.addInputs(new Connection(connectionPoint.getX(), connectionPoint.getY()));
+    }
+
+    private void drawInputConnectionPoints(SVGImage image) {
+        BoundsHelper boundsHelper = new BoundsHelper(image);
+        Point2D topConnectionPoint = boundsHelper.getTopLeft();
+        Point2D bottomConnectionPoint = boundsHelper.getBottomLeft();
+        this.addInputs(
+                new Connection(topConnectionPoint.getX(), topConnectionPoint.getY()),
+                new Connection(bottomConnectionPoint.getX(), bottomConnectionPoint.getY())
+        );
+    }
+
+    private void drawOutputConnectionPoint(SVGImage image) {
+        Point2D connectionPoint = new BoundsHelper(image).getMiddleRight();
+        this.setOutput(new Connection(connectionPoint.getX(), connectionPoint.getY()));
     }
 
     /**
