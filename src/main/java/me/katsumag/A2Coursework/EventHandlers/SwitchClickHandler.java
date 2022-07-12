@@ -25,6 +25,7 @@ public class SwitchClickHandler implements EventHandler<MouseEvent> {
         // Change to getting by UUID to avoid having to store a reference to the Switch instance on the SVGImage.
         Switch switchInstance = (Switch) new ComponentStore().getComponentByUUID((UUID)image.getProperties().get("ComponentUUID"));
 
+        System.out.println("Switch click listener");
         switchInstance.swapState();
 
     }
