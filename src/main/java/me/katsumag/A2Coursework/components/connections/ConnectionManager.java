@@ -70,17 +70,13 @@ public class ConnectionManager {
         }
 
         // add each Connection's circle to the SVGImage's Parent so that it's displayed on screen.
-        try {
-            ObservableList<Node> children = new ParentHelper().getChildrenOf(image.getParent());
+        ParentHelper parentHelper = new ParentHelper();
 
-            // add input circles
-            this.inputs.forEach(connection -> children.add(connection.getCircle()));
-            // add output circle (if it exists)
-            if (this.output != null) { children.add(this.output.getCircle()); }
+        // add input circles
+        this.inputs.forEach(connection -> parentHelper.addChildTo(image.getParent(), connection.getCircle()));
 
-        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        // add output circle (if it exists)
+        if (this.output != null) { parentHelper.addChildTo(image.getParent(), this.output.getCircle()); }
 
     }
 
@@ -110,13 +106,9 @@ public class ConnectionManager {
      * @param image the image to modify
      */
     public void hideConnectionPoints(SVGImage image) {
-        try {
-            ObservableList<Node> children = new ParentHelper().getChildrenOf(image.getParent());
-            this.inputs.forEach(connection -> children.remove(connection.getCircle()));
-            children.remove(this.output.getCircle());
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        ParentHelper parentHelper = new ParentHelper();
+        this.inputs.forEach(connection -> parentHelper.removeChildFrom(image.getParent(), connection.getCircle()));
+        parentHelper.removeChildFrom(image.getParent(), this.output.getCircle());
     }
 
     /**

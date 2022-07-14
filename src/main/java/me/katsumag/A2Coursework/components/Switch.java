@@ -61,29 +61,16 @@ public class Switch extends CircuitComponent {
 
         ParentHelper parentHelper = new ParentHelper();
 
-        try {
-
-            if (this.state) {
-                ObservableList<Node> children = parentHelper.getChildrenOf(this.image.getParent());
-                System.out.println("swapState");
-                System.out.println(children);
-                children.remove(this.image);
-                new ComponentStore().getComponentByImage(this.image).getConnections().removeConnectionPoints(this.image);
-                System.out.println(children);
-                this.onImage.relocate(this.image.getLayoutX(), this.image.getLayoutY());
-                children.add(this.onImage);
-            } else {
-                ObservableList<Node> children = parentHelper.getChildrenOf(this.onImage.getParent());
-                System.out.println("swapState");
-                System.out.println(children);
-                children.remove(this.onImage);
-                new ComponentStore().getComponentByImage(this.onImage).getConnections().removeConnectionPoints(this.onImage);
-                System.out.println(children);
-                this.image.relocate(this.onImage.getLayoutX(), this.onImage.getLayoutY());
-                children.add(this.image);
-            }
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
-            ex.printStackTrace();
+        if (this.state) {
+            parentHelper.removeChildFrom(image.getParent(), this.image);
+            new ComponentStore().getComponentByImage(this.image).getConnections().removeConnectionPoints(this.image);
+            this.onImage.relocate(this.image.getLayoutX(), this.image.getLayoutY());
+            parentHelper.addChildTo(image.getParent(), this.onImage);
+        } else {
+            new ComponentStore().getComponentByImage(this.onImage).getConnections().removeConnectionPoints(this.onImage);
+            parentHelper.removeChildFrom(image.getParent(), this.onImage);
+            this.image.relocate(this.onImage.getLayoutX(), this.onImage.getLayoutY());
+            parentHelper.addChildTo(image.getParent(), this.image);
         }
 
     }
