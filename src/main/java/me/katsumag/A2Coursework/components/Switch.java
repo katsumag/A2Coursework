@@ -1,14 +1,10 @@
 package me.katsumag.A2Coursework.components;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import me.katsumag.A2Coursework.components.connections.ConnectionNumber;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class Switch extends CircuitComponent {
 
@@ -62,8 +58,8 @@ public class Switch extends CircuitComponent {
         ParentHelper parentHelper = new ParentHelper();
 
         if (this.state) {
-            parentHelper.removeChildFrom(image.getParent(), this.image);
             new ComponentStore().getComponentByImage(this.image).getConnections().removeConnectionPoints(this.image);
+            parentHelper.removeChildFrom(image.getParent(), this.image);
             this.onImage.relocate(this.image.getLayoutX(), this.image.getLayoutY());
             parentHelper.addChildTo(image.getParent(), this.onImage);
         } else {
