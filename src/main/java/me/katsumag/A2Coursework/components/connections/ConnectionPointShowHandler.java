@@ -1,6 +1,7 @@
 package me.katsumag.A2Coursework.components.connections;
 
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import me.katsumag.A2Coursework.components.CircuitComponent;
@@ -17,6 +18,8 @@ public class ConnectionPointShowHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
+        if (!(event.getButton() == MouseButton.NONE)) { return; }
+
         if (! (event.getSource() instanceof SVGImage image)) { return; }
 
         // image is still on left pane
@@ -28,6 +31,6 @@ public class ConnectionPointShowHandler implements EventHandler<MouseEvent> {
         // possibly generics? idk how that'd really work though since I couldn't use type parameters.
 
         CircuitComponent component = new ComponentStore().getComponentByUUID((UUID) image.getProperties().get("ComponentUUID"));
-        component.getConnections().drawConnectionPoints(component.getImage());
+        component.getConnections().drawConnectionPoints(image);
     }
 }

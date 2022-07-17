@@ -1,6 +1,7 @@
 package me.katsumag.A2Coursework.components.connections;
 
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import me.katsumag.A2Coursework.components.CircuitComponent;
@@ -16,6 +17,9 @@ public class ConnectionPointHideHandler implements EventHandler<MouseEvent> {
      */
     @Override
     public void handle(MouseEvent event) {
+
+        if (!(event.getButton() == MouseButton.NONE)) { return; }
+
         if (! (event.getSource() instanceof SVGImage image)) { return; }
 
         // image is still on left pane

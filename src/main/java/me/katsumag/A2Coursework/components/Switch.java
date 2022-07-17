@@ -1,5 +1,6 @@
 package me.katsumag.A2Coursework.components;
 
+import javafx.scene.Parent;
 import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import me.katsumag.A2Coursework.components.connections.ConnectionNumber;
@@ -56,17 +57,23 @@ public class Switch extends CircuitComponent {
         this.state = !this.state;
 
         ParentHelper parentHelper = new ParentHelper();
+        ComponentStore componentStore = new ComponentStore();
 
         if (this.state) {
-            new ComponentStore().getComponentByImage(this.image).getConnections().removeConnectionPoints(this.image);
-            parentHelper.removeChildFrom(image.getParent(), this.image);
+            // succeeds
+            componentStore.getComponentByImage(this.image).getConnections().removeConnectionPoints(this.image);
+            Parent panel = this.image.getParent();
+            parentHelper.removeChildFrom(panel, this.image);
             this.onImage.relocate(this.image.getLayoutX(), this.image.getLayoutY());
-            parentHelper.addChildTo(image.getParent(), this.onImage);
+            parentHelper.addChildTo(panel, this.onImage);
+            componentStore.getComponentByImage(this.onImage).getConnections().drawConnectionPoints(this.onImage);
         } else {
-            new ComponentStore().getComponentByImage(this.onImage).getConnections().removeConnectionPoints(this.onImage);
-            parentHelper.removeChildFrom(image.getParent(), this.onImage);
+            componentStore.getComponentByImage(this.onImage).getConnections().removeConnectionPoints(this.onImage);
+            Parent panel = this.onImage.getParent();
+            parentHelper.removeChildFrom(panel, this.onImage);
             this.image.relocate(this.onImage.getLayoutX(), this.onImage.getLayoutY());
-            parentHelper.addChildTo(image.getParent(), this.image);
+            parentHelper.addChildTo(panel, this.image);
+            componentStore.getComponentByImage(this.image).getConnections().drawConnectionPoints(this.image);
         }
 
     }
