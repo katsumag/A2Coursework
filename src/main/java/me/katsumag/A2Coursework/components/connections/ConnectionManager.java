@@ -1,14 +1,11 @@
 package me.katsumag.A2Coursework.components.connections;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import me.katsumag.A2Coursework.util.BoundsHelper;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +16,8 @@ public class ConnectionManager {
     private final ConnectionNumber outputConnectionNumber;
     private final List<Connection> inputs = new ArrayList<>();
     private Connection output;
+
+    private final ConnectionState state = new ConnectionState();
 
 
     public ConnectionManager(ConnectionNumber inputsNum, ConnectionNumber outputsNum) {
@@ -56,6 +55,8 @@ public class ConnectionManager {
      */
     public void drawConnectionPoints(SVGImage image) {
 
+        if (! this.state.canShow()) { return; }
+
         // handle drawing input connection points
         switch (this.inputConnectionNumber) {
             case ONE -> drawInputConnectionPoint(image);
@@ -77,6 +78,8 @@ public class ConnectionManager {
 
         // add output circle (if it exists)
         if (this.output != null) { parentHelper.addChildTo(image.getParent(), this.output.getCircle()); }
+
+        this.state.flipState();
 
     }
 
@@ -106,9 +109,14 @@ public class ConnectionManager {
      * @param image the image to modify
      */
     public void hideConnectionPoints(SVGImage image) {
+
+        if (! this.state.canHide()) { return; }
+
         ParentHelper parentHelper = new ParentHelper();
         this.inputs.forEach(connection -> parentHelper.removeChildFrom(image.getParent(), connection.getCircle()));
         parentHelper.removeChildFrom(image.getParent(), this.output.getCircle());
+
+        this.state.flipState();
     }
 
     /**

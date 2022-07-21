@@ -27,6 +27,7 @@ public class SwitchClickHandler implements EventHandler<MouseEvent> {
 
         System.out.println("Switch click listener");
         switchInstance.swapState();
+        event.consume();
 
     }
 

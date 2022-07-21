@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -27,10 +26,10 @@ public class ParentHelper {
     public void addChildTo(@NotNull Parent parent, Node child) {
         try {
             ObservableList<Node> children = getChildrenOf(parent);
-            System.out.println("Child to add = " + child);
-            System.out.println("children = " + children);
+            //System.out.println("Child to add = " + child);
+            //System.out.println("children = " + children);
             children.add(child);
-            System.out.println("Children after addition = " + children);
+            //System.out.println("Children after addition = " + children);
         } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -39,10 +38,10 @@ public class ParentHelper {
     public void removeChildFrom(@NotNull Parent parent, Node child) {
         try {
             ObservableList<Node> children = getChildrenOf(parent);
-            System.out.println("Child to remove = " + child);
-            System.out.println("children = " + children);
+            //System.out.println("Child to remove = " + child);
+            //System.out.println("children = " + children);
             children.remove(child);
-            System.out.println("Children after removing = " + children);
+            //System.out.println("Children after removing = " + children);
         } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

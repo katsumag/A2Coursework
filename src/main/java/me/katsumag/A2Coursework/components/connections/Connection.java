@@ -1,8 +1,11 @@
 package me.katsumag.A2Coursework.components.connections;
 
+import javafx.event.Event;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.girod.javafx.svgimage.SVGImage;
+
+import java.awt.event.MouseEvent;
 
 public class Connection {
 
@@ -14,7 +17,11 @@ public class Connection {
     public Connection(Double x, Double y) {
         this.x = x;
         this.y = y;
-        this.circle = new Circle(x, y, 2.5, Color.rgb(0, 0, 0));
+        this.circle = new Circle(x, y, 5, Color.rgb(0, 0, 0));
+        this.circle.setOnMouseClicked(new ConnectionClickHandler());
+        //this.circle.setOnDragOver(new ConnectionDragHandler());
+        //this.circle.setOnDragDropped(new ConnectionDragDroppedHandler());
+        this.circle.setPickOnBounds(true);
     }
 
     public void setConnectedObject(SVGImage object) { this.connectedObject =  object;}
