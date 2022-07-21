@@ -52,6 +52,8 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
 
         event.setDropCompleted(true);
 
+        event.consume();
+
     }
 
 }

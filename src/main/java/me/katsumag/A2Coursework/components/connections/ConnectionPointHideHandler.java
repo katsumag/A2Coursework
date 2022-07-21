@@ -19,8 +19,6 @@ public class ConnectionPointHideHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
-        System.out.println(event.getPickResult().getIntersectedNode());
-
         if (!(event.getButton() == MouseButton.NONE)) { return; }
 
         if (! (event.getSource() instanceof SVGImage image)) { return; }
@@ -32,7 +30,6 @@ public class ConnectionPointHideHandler implements EventHandler<MouseEvent> {
 
         CircuitComponent component = new ComponentStore().getComponentByUUID((UUID) image.getProperties().get("ComponentUUID"));
         component.getConnections().hideConnectionPoints(image);
-        System.out.println("hide");
         event.consume();
     }
 }

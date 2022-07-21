@@ -2,6 +2,7 @@ package me.katsumag.A2Coursework.components.connections;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.shape.Circle;
 
 public class ConnectionClickHandler implements EventHandler<MouseEvent> {
@@ -15,7 +16,7 @@ public class ConnectionClickHandler implements EventHandler<MouseEvent> {
 
         if (!(event.getSource() instanceof Circle startPoint)) { return; }
 
-        //startPoint.startDragAndDrop(TransferMode.NONE);
+        startPoint.startDragAndDrop(TransferMode.NONE);
 
         System.out.println("Connection Point Clicked");
 
