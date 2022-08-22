@@ -47,7 +47,7 @@ public class BoundsHelper {
     public Point2D getMiddleLeft() {
         return new Point2D(
                 this.image.getLayoutX() - this.imageBounds.getMinX(),
-                this.image.getLayoutY() + (0.5 * this.imageBounds.getHeight())
+                this.image.getLayoutY() + (0.55 * this.imageBounds.getHeight())
         );
     }
 
