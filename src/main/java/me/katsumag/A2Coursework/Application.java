@@ -3,6 +3,7 @@ package me.katsumag.A2Coursework;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -54,6 +55,8 @@ public class Application extends javafx.application.Application {
         // create and show scene
         Scene scene = new Scene(borderPane, 640, 480);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("A2Coursework | Logic Gates");
+        primaryStage.getIcons().add(new Image(this.getClass().getClassLoader().getResourceAsStream("images/icon.png")));
         primaryStage.show();
     }
 
