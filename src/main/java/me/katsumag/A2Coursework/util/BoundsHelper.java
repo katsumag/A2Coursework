@@ -16,6 +16,11 @@ public class BoundsHelper {
 
     // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html#layoutXProperty
 
+    /**
+     * Used by
+     * {@link me.katsumag.A2Coursework.components.ANDGate}
+     * {@link me.katsumag.A2Coursework.components.ORGate}
+     */
     public Point2D getTopLeft() {
         return new Point2D(
                 this.image.getLayoutX() - this.imageBounds.getMinX(),
@@ -23,6 +28,11 @@ public class BoundsHelper {
         );
     }
 
+    /**
+     * Used by
+     * {@link me.katsumag.A2Coursework.components.ANDGate}
+     * {@link me.katsumag.A2Coursework.components.ORGate}
+     */
     public Point2D getBottomLeft() {
         return new Point2D(
                 this.image.getLayoutX() - this.imageBounds.getMinX(),
@@ -30,6 +40,10 @@ public class BoundsHelper {
         );
     }
 
+    /**
+     * Used by:
+     * {@link me.katsumag.A2Coursework.components.NOTGate}
+     */
     public Point2D getMiddleLeft() {
         return new Point2D(
                 this.image.getLayoutX() - this.imageBounds.getMinX(),
@@ -51,10 +65,17 @@ public class BoundsHelper {
         );
     }
 
+    /**
+     * Used by:
+     * {@link me.katsumag.A2Coursework.components.ANDGate}
+     * {@link me.katsumag.A2Coursework.components.ORGate}
+     * {@link me.katsumag.A2Coursework.components.NOTGate}
+     * {@link me.katsumag.A2Coursework.components.Switch}
+     */
     public Point2D getMiddleRight() {
         return new Point2D(
                 this.image.getLayoutX() + this.imageBounds.getWidth(),
-                this.image.getLayoutY() + (0.5 * this.imageBounds.getHeight())
+                this.image.getLayoutY() + (0.525 * this.imageBounds.getHeight())
         );
     }
 
