@@ -19,6 +19,7 @@ public class ConnectionPointHideHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
+        // fixes #12
         if (!(event.getButton() == MouseButton.NONE)) { return; }
 
         if (! (event.getSource() instanceof SVGImage image)) { return; }

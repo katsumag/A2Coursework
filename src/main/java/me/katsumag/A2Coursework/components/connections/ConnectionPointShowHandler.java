@@ -19,7 +19,9 @@ public class ConnectionPointShowHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
-        if (!(event.getButton() == MouseButton.NONE)) { return; }
+        // fixes #12 + allows for this listener to be used for onMouseDragEnter
+        // This is because, for whatever reason, there are no buttons pressed during this drag event
+        if (!(event.getButton() == MouseButton.NONE) && !(event.isPrimaryButtonDown())) { return; }
 
         if (! (event.getSource() instanceof SVGImage image)) { return; }
 

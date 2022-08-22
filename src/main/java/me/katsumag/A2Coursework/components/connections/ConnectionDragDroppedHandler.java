@@ -14,6 +14,8 @@ public class ConnectionDragDroppedHandler implements EventHandler<DragEvent> {
     @Override
     public void handle(DragEvent event) {
 
+        System.out.println("Dropped");
+
         if (!(event.getGestureSource() instanceof Circle startPoint)) { return; }
         if (!(event.getGestureTarget() instanceof Circle endPoint)) { return; }
 

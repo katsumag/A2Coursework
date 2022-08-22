@@ -42,8 +42,12 @@ public abstract class CircuitComponent implements CircuitInterface {
     }
 
     private void addConnectionListener(SVGImage image) {
-        image.setOnMouseEntered(new ConnectionPointShowHandler());
-        image.setOnMouseExited(new ConnectionPointHideHandler());
+        ConnectionPointShowHandler showHandler = new ConnectionPointShowHandler();
+        ConnectionPointHideHandler hideHandler = new ConnectionPointHideHandler();
+        image.setOnMouseEntered(showHandler);
+        image.setOnMouseExited(hideHandler);
+        image.setOnMouseDragEntered(showHandler);
+        image.setOnMouseDragExited(hideHandler);
     }
 
     private void registerComponent(SVGImage image) {
