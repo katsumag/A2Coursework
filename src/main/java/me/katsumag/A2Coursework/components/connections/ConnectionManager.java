@@ -1,6 +1,7 @@
 package me.katsumag.A2Coursework.components.connections;
 
 import javafx.geometry.Point2D;
+import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.util.BoundsHelper;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
@@ -9,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ConnectionManager {
 
@@ -99,7 +101,18 @@ public class ConnectionManager {
     }
 
     private void drawOutputConnectionPoint(SVGImage image) {
-        Point2D connectionPoint = new BoundsHelper(image).getMiddleRight();
+
+        Point2D connectionPoint;
+        BoundsHelper boundsHelper = new BoundsHelper(image);
+
+        // account for the difference between heights of images. Shouldn't be an issue, but is.
+        String componentType = (String) image.getProperties().get("CircuitComponentType");
+        if (Objects.equals(componentType, CircuitComponentType.NOT.getName()) || Objects.equals(componentType, CircuitComponentType.SWITCH.getName())) {
+            connectionPoint = boundsHelper.getHigherMiddleRight();
+        } else {
+            connectionPoint = boundsHelper.getMiddleRight();
+        }
+
         this.setOutput(new Connection(connectionPoint.getX(), connectionPoint.getY()));
     }
 

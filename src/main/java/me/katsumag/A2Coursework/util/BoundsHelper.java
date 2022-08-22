@@ -66,16 +66,28 @@ public class BoundsHelper {
     }
 
     /**
+     * Provides the output connection point for the two larger gates
      * Used by:
      * {@link me.katsumag.A2Coursework.components.ANDGate}
      * {@link me.katsumag.A2Coursework.components.ORGate}
-     * {@link me.katsumag.A2Coursework.components.NOTGate}
-     * {@link me.katsumag.A2Coursework.components.Switch}
      */
     public Point2D getMiddleRight() {
         return new Point2D(
                 this.image.getLayoutX() + this.imageBounds.getWidth(),
-                this.image.getLayoutY() + (0.525 * this.imageBounds.getHeight())
+                this.image.getLayoutY() + (0.6 * this.imageBounds.getHeight())
+        );
+    }
+
+    /**
+     * provides the output connection point for the NOT gate and Switch.
+     * Used by:
+     * {@link me.katsumag.A2Coursework.components.NOTGate}
+     * {@link me.katsumag.A2Coursework.components.Switch}
+     */
+    public Point2D getHigherMiddleRight() {
+        return new Point2D(
+                this.image.getLayoutX() + this.imageBounds.getWidth(),
+                this.image.getLayoutY() + (0.55 * this.imageBounds.getHeight())
         );
     }
 
