@@ -19,7 +19,7 @@ public class Connection {
         this.y = y;
         this.circle = new Circle(x, y, 5, Color.rgb(0, 0, 0));
         this.circle.setOnDragDetected(new ConnectionDragDetectedHandler());
-        this.circle.setOnDragOver(new ConnectionDragHandler());
+        this.circle.setOnMouseDragOver(new ConnectionDragHandler());
         this.circle.setOnDragDropped(new ConnectionDragDroppedHandler());
         this.circle.setPickOnBounds(true);
     }
