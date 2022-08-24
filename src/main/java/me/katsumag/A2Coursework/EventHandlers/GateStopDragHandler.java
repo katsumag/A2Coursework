@@ -47,10 +47,11 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                     // connection point to be moved
                     Point2D startPoint = connection.getLocation();
                     // connection point that it's connected to
-                    Bounds endPoint = connection.getConnectedObject().localToScene(connection.getConnectedObject().getBoundsInLocal());
+                    CircuitComponent connectedComponent = new ComponentStore().getComponentByImage(connection.getConnectedObject());
+                    Point2D endPoint = connectedComponent.getConnections().getOutput().getLocation();
 
                     // re-draw the line
-                    Line newLine = new Line(startPoint.getX(), startPoint.getY(), endPoint.getCenterX(), endPoint.getCenterY());
+                    Line newLine = new Line(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
                     connection.setConnectedLine(newLine);
 
                     // add to screen
