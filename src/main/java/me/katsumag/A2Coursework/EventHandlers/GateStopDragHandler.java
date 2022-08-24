@@ -1,11 +1,16 @@
 package me.katsumag.A2Coursework.EventHandlers;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import me.katsumag.A2Coursework.components.*;
+import me.katsumag.A2Coursework.components.connections.Connection;
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
+import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
 public class GateStopDragHandler implements EventHandler<DragEvent> {
@@ -26,8 +31,32 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
             // Establish that the component is assigned to the center Pane
             // Must be checked in this order as VBox extends Pane
             if (image.getParent() instanceof Pane) {
+                // relocate the image and remove the old connection points
                 image.relocate(event.getX(), event.getY());
-                new ComponentStore().getComponentByImage(image).getConnections().removeConnectionPoints(image);
+                ConnectionManager connectionManager = new ComponentStore().getComponentByImage(image).getConnections();
+                connectionManager.removeConnectionPoints(image);
+
+                // TODO: needs to be done for the output as well, perhaps add to a copy of the list and then just use this?
+                connectionManager.getInputs().stream().filter(connection -> connection.getConnectedLine() != null).forEach(connection -> {
+                    ParentHelper parentHelper = new ParentHelper();
+                    // remove connected line
+                    parentHelper.removeChildFrom(image.getParent(), connection.getConnectedLine());
+
+                    // connectedObject will stay the same, just the line needs to be redrawn
+
+                    // connection point to be moved
+                    Point2D startPoint = connection.getLocation();
+                    // connection point that it's connected to
+                    Bounds endPoint = connection.getConnectedObject().localToScene(connection.getConnectedObject().getBoundsInLocal());
+
+                    // re-draw the line
+                    Line newLine = new Line(startPoint.getX(), startPoint.getY(), endPoint.getCenterX(), endPoint.getCenterY());
+                    connection.setConnectedLine(newLine);
+
+                    // add to screen
+                    parentHelper.addChildTo(image.getParent(), newLine);
+
+                });
 
                 // Stop execution here so that a new component isn't added.
                 return;

@@ -4,7 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import me.katsumag.A2Coursework.components.ComponentStore;
 import me.katsumag.A2Coursework.util.ParentHelper;
+
+import java.util.UUID;
 
 public class ConnectionDragDroppedHandler implements EventHandler<DragEvent> {
 
@@ -23,6 +26,12 @@ public class ConnectionDragDroppedHandler implements EventHandler<DragEvent> {
 
         Line line = new Line(startPoint.getLayoutX(), startPoint.getLayoutY(), endPoint.getLayoutX(), endPoint.getLayoutY());
         new ParentHelper().addChildTo(startPoint.getParent(), line);
+
+        // add line to starting connection point
+        //TODO: connectedObject and connectedLine need to be set on both startPoint and endPoint for use when the component is moved
+        Connection connection = new ComponentStore().getConnectionByUUID((UUID) startPoint.getProperties().get("ConnectionUUID"));
+        connection.setConnectedLine(line);
+        connection.setConnectedObject()
 
         event.setDropCompleted(true);
 
