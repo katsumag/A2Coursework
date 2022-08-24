@@ -1,11 +1,8 @@
 package me.katsumag.A2Coursework.components.connections;
 
-import javafx.event.Event;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.girod.javafx.svgimage.SVGImage;
-
-import java.awt.event.MouseEvent;
 
 public class Connection {
 

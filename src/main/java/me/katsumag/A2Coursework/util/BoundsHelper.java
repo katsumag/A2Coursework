@@ -23,7 +23,7 @@ public class BoundsHelper {
      */
     public Point2D getTopLeft() {
         return new Point2D(
-                this.image.getLayoutX() - this.imageBounds.getMinX(),
+                this.image.getLayoutX() + this.imageBounds.getMinX(),
                 this.image.getLayoutY() - this.imageBounds.getMinY() + (this.image.getHeight() / 2)
         );
     }
@@ -35,7 +35,7 @@ public class BoundsHelper {
      */
     public Point2D getBottomLeft() {
         return new Point2D(
-                this.image.getLayoutX() - this.imageBounds.getMinX(),
+                this.image.getLayoutX() + this.imageBounds.getMinX(),
                 this.image.getLayoutY() + this.imageBounds.getMaxY() - (this.image.getHeight() / 4)
         );
     }
@@ -46,7 +46,7 @@ public class BoundsHelper {
      */
     public Point2D getMiddleLeft() {
         return new Point2D(
-                this.image.getLayoutX() - this.imageBounds.getMinX(),
+                this.image.getLayoutX() + this.imageBounds.getMinX(),
                 this.image.getLayoutY() + (0.55 * this.imageBounds.getHeight())
         );
     }
