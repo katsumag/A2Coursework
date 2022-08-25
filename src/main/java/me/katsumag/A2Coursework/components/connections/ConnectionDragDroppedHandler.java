@@ -28,10 +28,18 @@ public class ConnectionDragDroppedHandler implements EventHandler<DragEvent> {
         new ParentHelper().addChildTo(startPoint.getParent(), line);
 
         // add line to starting connection point
-        //TODO: connectedObject and connectedLine need to be set on both startPoint and endPoint for use when the component is moved
-        Connection connection = new ComponentStore().getConnectionByUUID((UUID) startPoint.getProperties().get("ConnectionUUID"));
-        connection.setConnectedLine(line);
-        connection.setConnectedObject()
+        ComponentStore componentStore = new ComponentStore();
+
+        // get Connections for both circles
+        Connection startConnection = componentStore.getConnectionByUUID((UUID) startPoint.getProperties().get("ConnectionUUID"));
+        Connection endConnection = componentStore.getConnectionByUUID((UUID) endPoint.getProperties().get("ConnectionUUID"));
+
+        // set moved line and point for both points
+        startConnection.setConnectedLine(line);
+        startConnection.setConnectedPoint(endConnection);
+
+        endConnection.setConnectedLine(line);
+        endConnection.setConnectedPoint(startConnection);
 
         event.setDropCompleted(true);
 

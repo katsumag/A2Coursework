@@ -16,10 +16,15 @@ import me.katsumag.A2Coursework.components.NOTGate;
 import me.katsumag.A2Coursework.components.ORGate;
 import me.katsumag.A2Coursework.components.Switch;
 
+import java.io.PrintStream;
+import java.nio.charset.Charset;
+
 public class Application extends javafx.application.Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
+
+        //System.out.println("Charset.defaultCharset() = " + Charset.defaultCharset());
 
         // construct GUI
         BorderPane borderPane = new BorderPane();

@@ -15,10 +15,11 @@ public class Connection {
 
     private Double x, y;
     private UUID uuid = UUID.randomUUID();
-    private SVGImage connectedObject;
+    private Connection connectedPoint;
     private Line connectedLine;
+    private SVGImage parentImage;
 
-    public Connection(Double x, Double y) {
+    public Connection(Double x, Double y, SVGImage image) {
 
         this.x = x;
         this.y = y;
@@ -31,7 +32,11 @@ public class Connection {
         // register this connection so I can find it again from it's circle.
         new ComponentStore().registerConnection(this);
         this.circle.getProperties().put("ConnectionUUID", this.uuid.toString());
+
+        this.parentImage = image;
     }
+
+    public SVGImage getParentImage() { return parentImage; }
 
     public Point2D getLocation() { return new Point2D(this.x, this.y); }
 
@@ -41,13 +46,13 @@ public class Connection {
 
     public Line getConnectedLine() { return this.connectedLine;}
 
-    public void setConnectedObject(SVGImage object) { this.connectedObject =  object;}
+    public void setConnectedPoint(Connection object) { this.connectedPoint =  object;}
 
-    public SVGImage getConnectedObject() {
-        return connectedObject;
+    public Connection getConnectedPoint() {
+        return connectedPoint;
     }
 
-    public boolean isOccupied() { return connectedObject != null; }
+    public boolean isOccupied() { return connectedPoint != null; }
 
     public Circle getCircle() {
         return this.circle;

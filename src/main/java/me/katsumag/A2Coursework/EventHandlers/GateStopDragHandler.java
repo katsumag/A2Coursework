@@ -36,19 +36,19 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                 ConnectionManager connectionManager = new ComponentStore().getComponentByImage(image).getConnections();
                 connectionManager.removeConnectionPoints(image);
 
-                // TODO: needs to be done for the output as well, perhaps add to a copy of the list and then just use this?
-                connectionManager.getInputs().stream().filter(connection -> connection.getConnectedLine() != null).forEach(connection -> {
+                // main logic - remove and replace the old line
+                connectionManager.getAllConnectionPoints().stream().filter(connection -> connection.getConnectedLine() != null).forEach(connection -> {
                     ParentHelper parentHelper = new ParentHelper();
+                    System.out.println("connection.getConnectedLine() = " + connection.getConnectedLine());
                     // remove connected line
                     parentHelper.removeChildFrom(image.getParent(), connection.getConnectedLine());
 
-                    // connectedObject will stay the same, just the line needs to be redrawn
+                    // connectedPoint and parentImage will stay the same, just the line needs to be redrawn
 
                     // connection point to be moved
                     Point2D startPoint = connection.getLocation();
                     // connection point that it's connected to
-                    CircuitComponent connectedComponent = new ComponentStore().getComponentByImage(connection.getConnectedObject());
-                    Point2D endPoint = connectedComponent.getConnections().getOutput().getLocation();
+                    Point2D endPoint = connection.getConnectedPoint().getLocation();
 
                     // re-draw the line
                     Line newLine = new Line(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());

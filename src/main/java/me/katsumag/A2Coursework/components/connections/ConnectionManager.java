@@ -28,6 +28,15 @@ public class ConnectionManager {
     }
 
     /**
+     * @return a clone of inputs, with the output connected added.
+     */
+    public List<Connection> getAllConnectionPoints() {
+        List<Connection> allPoints =  new ArrayList<>(this.inputs);
+        allPoints.add(this.output);
+        return allPoints;
+    }
+
+    /**
      * @return List of {@link Connection}s coming into the {@link me.katsumag.A2Coursework.components.CircuitComponent}
      * Can be null if there are no inputs, or inputs have not been initialised
      */
@@ -87,7 +96,7 @@ public class ConnectionManager {
 
     private void drawInputConnectionPoint(SVGImage image) {
         Point2D connectionPoint = new BoundsHelper(image).getMiddleLeft();
-        this.addInputs(new Connection(connectionPoint.getX(), connectionPoint.getY()));
+        this.addInputs(new Connection(connectionPoint.getX(), connectionPoint.getY(), image));
     }
 
     private void drawInputConnectionPoints(SVGImage image) {
@@ -95,8 +104,8 @@ public class ConnectionManager {
         Point2D topConnectionPoint = boundsHelper.getTopLeft();
         Point2D bottomConnectionPoint = boundsHelper.getBottomLeft();
         this.addInputs(
-                new Connection(topConnectionPoint.getX(), topConnectionPoint.getY()),
-                new Connection(bottomConnectionPoint.getX(), bottomConnectionPoint.getY())
+                new Connection(topConnectionPoint.getX(), topConnectionPoint.getY(), image),
+                new Connection(bottomConnectionPoint.getX(), bottomConnectionPoint.getY(), image)
         );
     }
 
@@ -113,7 +122,7 @@ public class ConnectionManager {
             connectionPoint = boundsHelper.getMiddleRight();
         }
 
-        this.setOutput(new Connection(connectionPoint.getX(), connectionPoint.getY()));
+        this.setOutput(new Connection(connectionPoint.getX(), connectionPoint.getY(), image));
     }
 
     /**
