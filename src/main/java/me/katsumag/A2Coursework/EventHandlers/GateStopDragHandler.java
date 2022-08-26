@@ -37,7 +37,7 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                 connectionManager.removeConnectionPoints(image);
 
                 // main logic - remove and replace the old line
-                connectionManager.getAllConnectionPoints().stream().filter(connection -> connection.getConnectedLine() != null).forEach(connection -> {
+                connectionManager.getAllConnectionPoints().stream().filter(connection -> connection != null && connection.getConnectedLine() != null).forEach(connection -> {
                     ParentHelper parentHelper = new ParentHelper();
                     System.out.println("connection.getConnectedLine() = " + connection.getConnectedLine());
                     // remove connected line
