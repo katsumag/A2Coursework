@@ -12,14 +12,10 @@ public class ConnectionDragDetectedHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
-        System.out.println("event.getSource() = " + event.getSource());
-        System.out.println("event.getTarget() = " + event.getTarget());
-
         if (!(event.getSource() instanceof Circle startPoint)) { return; }
 
         // allow mouse events to be delivered to underlying nodes
         startPoint.startFullDrag();
-        System.out.println("Full drag started");
 
         event.consume();
 

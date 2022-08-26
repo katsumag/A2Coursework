@@ -24,8 +24,6 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
 
-        //System.out.println("Charset.defaultCharset() = " + Charset.defaultCharset());
-
         // construct GUI
         BorderPane borderPane = new BorderPane();
 
