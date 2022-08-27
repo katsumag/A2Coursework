@@ -13,6 +13,8 @@ import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
+import java.util.List;
+
 public class GateStopDragHandler implements EventHandler<DragEvent> {
 
     // https://docs.oracle.com/javafx/2/drag_drop/HelloDragAndDrop.java.html
@@ -36,8 +38,14 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                 ConnectionManager connectionManager = new ComponentStore().getComponentByImage(image).getConnections();
                 connectionManager.removeConnectionPoints(image);
 
+                System.out.println("Before loop");
+
+                List<Connection> connectionsToProcess = connectionManager.getAllConnectionPoints().stream().filter(connection -> connection != null && connection.getConnectedLine() != null).toList();
+                System.out.println("connectionManager.getAllConnectionPoints() = " + connectionManager.getAllConnectionPoints());
+                System.out.println(connectionsToProcess);
+
                 // main logic - remove and replace the old line
-                connectionManager.getAllConnectionPoints().stream().filter(connection -> connection != null && connection.getConnectedLine() != null).forEach(connection -> {
+                connectionsToProcess.forEach(connection -> {
                     ParentHelper parentHelper = new ParentHelper();
                     System.out.println("connection.getConnectedLine() = " + connection.getConnectedLine());
                     // remove connected line
