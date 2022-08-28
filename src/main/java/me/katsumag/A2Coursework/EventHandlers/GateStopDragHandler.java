@@ -40,8 +40,9 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
 
                 System.out.println("Before loop");
 
-                List<Connection> connectionsToProcess = connectionManager.getAllConnectionPoints().stream().filter(connection -> connection != null && connection.getConnectedLine() != null).toList();
-                System.out.println("connectionManager.getAllConnectionPoints() = " + connectionManager.getAllConnectionPoints());
+                List<Connection> rawConnections = connectionManager.getAllConnectionPoints();
+                List<Connection> connectionsToProcess = rawConnections.stream().filter(connection -> connection != null && connection.getConnectedLine() != null).toList();
+                System.out.println("connectionManager.getAllConnectionPoints() = " + rawConnections);
                 System.out.println(connectionsToProcess);
 
                 // main logic - remove and replace the old line

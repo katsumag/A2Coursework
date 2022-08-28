@@ -24,27 +24,6 @@ public class ConnectionDragDroppedHandler implements EventHandler<DragEvent> {
 
         if (startPoint == endPoint) { return; }
 
-        System.out.println("Add line");
-
-        Line line = new Line(startPoint.getLayoutX(), startPoint.getLayoutY(), endPoint.getLayoutX(), endPoint.getLayoutY());
-        new ParentHelper().addChildTo(startPoint.getParent(), line);
-
-        // add line to starting connection point
-        ComponentStore componentStore = new ComponentStore();
-
-        // get Connections for both circles
-        Connection startConnection = componentStore.getConnectionByUUID((UUID) startPoint.getProperties().get("ConnectionUUID"));
-        Connection endConnection = componentStore.getConnectionByUUID((UUID) endPoint.getProperties().get("ConnectionUUID"));
-
-        System.out.println("Dropped image connections= " + componentStore.getComponentByUUID((UUID) endConnection.getParentImage().getProperties().get("UUID")).getConnections().getAllConnectionPoints());
-        System.out.println("after");
-        // set moved line and point for both points
-        startConnection.setConnectedLine(line);
-        startConnection.setConnectedPoint(endConnection);
-
-        endConnection.setConnectedLine(line);
-        endConnection.setConnectedPoint(startConnection);
-
         event.setDropCompleted(true);
 
         event.consume();

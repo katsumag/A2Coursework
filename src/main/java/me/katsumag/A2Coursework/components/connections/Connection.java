@@ -25,13 +25,13 @@ public class Connection {
         this.y = y;
         this.circle = new Circle(x, y, 5, Color.rgb(0, 0, 0));
         this.circle.setOnDragDetected(new ConnectionDragDetectedHandler());
-        this.circle.setOnMouseDragOver(new ConnectionDragHandler());
-        this.circle.setOnDragDropped(new ConnectionDragDroppedHandler());
+        this.circle.setOnMouseDragReleased(new ConnectionDragHandler());
+        //this.circle.setOnDragDropped(new ConnectionDragDroppedHandler());
         this.circle.setPickOnBounds(true);
 
         // register this connection so I can find it again from it's circle.
         new ComponentStore().registerConnection(this);
-        this.circle.getProperties().put("ConnectionUUID", this.uuid.toString());
+        this.circle.getProperties().put("ConnectionUUID", this.uuid);
 
         this.parentImage = image;
     }
