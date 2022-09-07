@@ -60,20 +60,23 @@ public class Switch extends CircuitComponent {
         ComponentStore componentStore = new ComponentStore();
 
         if (this.state) {
-            // succeeds
-            componentStore.getComponentByImage(this.image).getConnections().removeConnectionPoints(this.image);
-            Parent panel = this.image.getParent();
-            parentHelper.removeChildFrom(panel, this.image);
+            // Going from off -> on
+            Parent pane = this.image.getParent();
+            // hide off image
+            parentHelper.removeChildFrom(pane, this.image);
+            // relocate on image to be over it
             this.onImage.relocate(this.image.getLayoutX(), this.image.getLayoutY());
-            parentHelper.addChildTo(panel, this.onImage);
-            componentStore.getComponentByImage(this.onImage).getConnections().drawConnectionPoints(this.onImage);
+            // show on image
+            parentHelper.addChildTo(pane, this.onImage);
         } else {
-            componentStore.getComponentByImage(this.onImage).getConnections().removeConnectionPoints(this.onImage);
-            Parent panel = this.onImage.getParent();
-            parentHelper.removeChildFrom(panel, this.onImage);
+            // Going from on -> off
+            Parent pane = this.onImage.getParent();
+            // hide on image
+            parentHelper.removeChildFrom(pane, this.onImage);
+            // relocate off image to be over it
             this.image.relocate(this.onImage.getLayoutX(), this.onImage.getLayoutY());
-            parentHelper.addChildTo(panel, this.image);
-            componentStore.getComponentByImage(this.image).getConnections().drawConnectionPoints(this.image);
+            // show off image
+            parentHelper.addChildTo(pane, this.image);
         }
 
     }

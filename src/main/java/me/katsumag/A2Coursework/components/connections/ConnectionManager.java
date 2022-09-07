@@ -31,7 +31,7 @@ public class ConnectionManager {
      * @return a clone of inputs, with the output connected added.
      */
     public List<Connection> getAllConnectionPoints() {
-        System.out.println("this.inputs = " + this.inputs);
+        //System.out.println("this.inputs = " + this.inputs);
         List<Connection> allPoints =  new ArrayList<>(this.inputs);
         allPoints.add(this.output);
         return allPoints;

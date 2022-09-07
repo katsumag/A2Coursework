@@ -19,14 +19,10 @@ public class ConnectionDragHandler implements EventHandler<MouseDragEvent> {
     @Override
     public void handle(MouseDragEvent event) {
 
-        System.out.println("Dropped");
-
         if (!(event.getGestureSource() instanceof Circle startPoint)) { return; }
         if (!(event.getTarget() instanceof Circle endPoint)) { return; }
 
         if (startPoint == endPoint) { return; }
-
-        System.out.println("Add line");
 
         Line line = new Line(startPoint.getCenterX(), startPoint.getCenterY(), endPoint.getCenterX(), endPoint.getCenterY());
         new ParentHelper().addChildTo(startPoint.getParent(), line);
@@ -38,13 +34,32 @@ public class ConnectionDragHandler implements EventHandler<MouseDragEvent> {
         Connection startConnection = componentStore.getConnectionByUUID((UUID) startPoint.getProperties().get("ConnectionUUID"));
         Connection endConnection = componentStore.getConnectionByUUID((UUID) endPoint.getProperties().get("ConnectionUUID"));
 
-        System.out.println("after");
+        ConnectionManager startConnectionManager = componentStore.getComponentByImage(startConnection.getParentImage()).getConnections();
+        ConnectionManager endConnectionManager = componentStore.getComponentByImage(endConnection.getParentImage()).getConnections();
+
+        System.out.println("startConnectionManager = " + startConnectionManager);
+        System.out.println("endConnectionManager = " + endConnectionManager);
+
+        // Debug messages used to confirm that the connection objects in both component's
+        // ConnectionManagers stay the same before and after the line connects
+        // also used to confirm that connection objects are changed when the component is
+        // moved, and so the connectedLine and connectedPoint properties are not transferred
+        System.out.println("Start Connections Before = " + startConnectionManager.getAllConnectionPoints());
+
         // set moved line and point for both points
         startConnection.setConnectedLine(line);
         startConnection.setConnectedPoint(endConnection);
 
+        System.out.println("Start Connections After = " + startConnectionManager.getAllConnectionPoints());
+        System.out.println(startConnectionManager.getOutput().getConnectedLine());
+
+        System.out.println("End Connections Before = " + endConnectionManager.getAllConnectionPoints());
+
         endConnection.setConnectedLine(line);
         endConnection.setConnectedPoint(startConnection);
+
+        System.out.println("End Connections After = " + endConnectionManager.getAllConnectionPoints());
+        System.out.println(endConnectionManager.getInputs().get(1).getConnectedLine());
 
         event.consume();
 
