@@ -1,5 +1,6 @@
 package me.katsumag.A2Coursework.components.connections;
 
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.util.BoundsHelper;
@@ -157,6 +158,31 @@ public class ConnectionManager {
     private void resetConnectionPoints() {
         this.inputs.clear();
         this.output = null;
+    }
+
+    public void refreshConnectionPoints(SVGImage svgImage) {
+
+        BoundsHelper boundsHelper = new BoundsHelper(svgImage);
+
+        switch (this.inputConnectionNumber) {
+            case ONE -> {
+                Point2D newLocation = boundsHelper.getMiddleLeft();
+                this.inputs.get(0).getCircle().relocate(newLocation.getX(), newLocation.getY());
+            }
+            case TWO -> {
+                // inputs list should maintain insertion order, so top is 0 and bottom is 1
+                Point2D newTopLocation = boundsHelper.getTopLeft();
+                Point2D newBottomLocation = boundsHelper.getBottomLeft();
+                this.inputs.get(0).getCircle().relocate(newTopLocation.getX(), newTopLocation.getY());
+                this.inputs.get(1).getCircle().relocate(newBottomLocation.getX(), newBottomLocation.getY());
+            }
+            default -> {}
+        }
+
+        Point2D newOutputLocation = boundsHelper.getMiddleRight();
+        System.out.println("Calculated new output location = " + newOutputLocation);
+        this.output.getCircle().relocate(newOutputLocation.getX(), newOutputLocation.getY());
+
     }
 
 }

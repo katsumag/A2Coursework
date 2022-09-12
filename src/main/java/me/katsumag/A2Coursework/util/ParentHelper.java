@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class ParentHelper {
 
@@ -17,7 +18,7 @@ public class ParentHelper {
      * So, I've used reflection to access the protected function getChildren
      * Keeping it private to attempt to follow JavaFX in not directly publicly exposing it.
      */
-    private ObservableList<Node> getChildrenOf(@NotNull Parent parent) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public ObservableList<Node> getChildrenOf(@NotNull Parent parent) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method getChildren = parent.getClass().getDeclaredMethod("getChildren");
         getChildren.setAccessible(true);
         return (ObservableList<Node>) getChildren.invoke(parent);
@@ -35,12 +36,12 @@ public class ParentHelper {
         }
     }
 
-    public void removeChildFrom(@NotNull Parent parent, Node child) {
+    public boolean removeChildFrom(@NotNull Parent parent, Node child) {
         try {
             ObservableList<Node> children = getChildrenOf(parent);
             //System.out.println("Child to remove = " + child);
             //System.out.println("children = " + children);
-            children.remove(child);
+            return children.remove(child);
             //System.out.println("Children after removing = " + children);
         } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new RuntimeException(e);

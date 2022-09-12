@@ -10,9 +10,11 @@ import javafx.scene.shape.Line;
 import me.katsumag.A2Coursework.components.*;
 import me.katsumag.A2Coursework.components.connections.Connection;
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
+import me.katsumag.A2Coursework.util.BoundsHelper;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class GateStopDragHandler implements EventHandler<DragEvent> {
@@ -34,33 +36,56 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
             // Must be checked in this order as VBox extends Pane
             if (image.getParent() instanceof Pane) {
                 // relocate the image and remove the old connection points
-                image.relocate(event.getX(), event.getY());
+                System.out.println("moved");
+
                 ConnectionManager connectionManager = new ComponentStore().getComponentByImage(image).getConnections();
-                connectionManager.removeConnectionPoints(image);
+                System.out.println("Output location before = " + connectionManager.getOutput().getLocation());
+
+                image.relocate(event.getX(), event.getY());
+
+                System.out.println("connectionManager = " + connectionManager);
+                //connectionManager.removeConnectionPoints(image);
 
                 System.out.println("Before loop");
 
                 List<Connection> rawConnections = connectionManager.getAllConnectionPoints();
                 List<Connection> connectionsToProcess = rawConnections.stream().filter(connection -> connection != null && connection.getConnectedLine() != null).toList();
-                System.out.println("connectionManager.getAllConnectionPoints() = " + rawConnections);
-                System.out.println(connectionsToProcess);
+                System.out.println("All Connection Points = " + rawConnections);
+
+                System.out.println("Connections to process = " + connectionsToProcess);
+
+                connectionManager.refreshConnectionPoints(image);
+
+                System.out.println("Output location after = " + connectionManager.getOutput().getLocation());
 
                 // main logic - remove and replace the old line
                 connectionsToProcess.forEach(connection -> {
                     ParentHelper parentHelper = new ParentHelper();
-                    System.out.println("connection.getConnectedLine() = " + connection.getConnectedLine());
+
+                    Line line = connection.getConnectedLine();
+                    System.out.println("connection.getConnectedLine() = " + line);
+                    System.out.println("line.getParent() = " + line.getParent());
+                    try {
+                        System.out.println("Children = " + parentHelper.getChildrenOf(line.getParent()));
+                    } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
                     // remove connected line
-                    parentHelper.removeChildFrom(image.getParent(), connection.getConnectedLine());
+                    System.out.println("Removal Success? = " + parentHelper.removeChildFrom(line.getParent(), line));
+
+                    System.out.println("line's parent afterwards = " + line.getParent());
 
                     // connectedPoint and parentImage will stay the same, just the line needs to be redrawn
 
                     // connection point to be moved
-                    Point2D startPoint = connection.getLocation();
+                    Point2D startPoint = connection.getLocationAfterMove();
+
                     // connection point that it's connected to
                     Point2D endPoint = connection.getConnectedPoint().getLocation();
 
                     // re-draw the line
                     Line newLine = new Line(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
+                    System.out.println("newLine = " + newLine);
                     connection.setConnectedLine(newLine);
 
                     // add to screen

@@ -1,5 +1,6 @@
 package me.katsumag.A2Coursework.components.connections;
 
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -21,8 +22,6 @@ public class Connection {
 
     public Connection(Double x, Double y, SVGImage image) {
 
-        this.x = x;
-        this.y = y;
         this.circle = new Circle(x, y, 5, Color.rgb(0, 0, 0));
         this.circle.setOnDragDetected(new ConnectionDragDetectedHandler());
         this.circle.setOnMouseDragReleased(new ConnectionDragHandler());
@@ -38,7 +37,16 @@ public class Connection {
 
     public SVGImage getParentImage() { return parentImage; }
 
-    public Point2D getLocation() { return new Point2D(this.x, this.y); }
+    public Point2D getLocationAfterMove() {
+        Bounds newBounds = this.circle.localToScene(this.circle.getBoundsInLocal());
+        double xOffset = (newBounds.getMaxX() - newBounds.getMinX()) / 2;
+        double yOffset = (newBounds.getMaxY() - newBounds.getMinY()) / 2;
+        return new Point2D(newBounds.getMinX() + xOffset, newBounds.getMinY() + yOffset);
+    }
+
+    public Point2D getLocation() {
+        return new Point2D(this.circle.getCenterX(), this.circle.getCenterY());
+    }
 
     public UUID getUUID() { return this.uuid; }
 

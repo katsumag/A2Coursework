@@ -26,6 +26,7 @@ public class ConnectionDragHandler implements EventHandler<MouseDragEvent> {
 
         Line line = new Line(startPoint.getCenterX(), startPoint.getCenterY(), endPoint.getCenterX(), endPoint.getCenterY());
         new ParentHelper().addChildTo(startPoint.getParent(), line);
+        System.out.println("startPoint.getParent() = " + startPoint.getParent());
 
         // add line to starting connection point
         ComponentStore componentStore = new ComponentStore();
