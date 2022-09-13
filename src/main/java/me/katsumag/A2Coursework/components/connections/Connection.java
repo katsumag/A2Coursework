@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class Connection {
 
-    private final Circle circle;
+    private final ConnectionCircle circle;
 
     private Double x, y;
     private UUID uuid = UUID.randomUUID();
@@ -22,7 +22,7 @@ public class Connection {
 
     public Connection(Double x, Double y, SVGImage image) {
 
-        this.circle = new Circle(x, y, 5, Color.rgb(0, 0, 0));
+        this.circle = new ConnectionCircle(x, y, 5, Color.rgb(0, 0, 0));
         this.circle.setOnDragDetected(new ConnectionDragDetectedHandler());
         this.circle.setOnMouseDragReleased(new ConnectionDragHandler());
         //this.circle.setOnDragDropped(new ConnectionDragDroppedHandler());

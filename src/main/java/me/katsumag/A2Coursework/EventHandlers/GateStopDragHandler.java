@@ -44,9 +44,6 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                 image.relocate(event.getX(), event.getY());
 
                 System.out.println("connectionManager = " + connectionManager);
-                //connectionManager.removeConnectionPoints(image);
-
-                System.out.println("Before loop");
 
                 List<Connection> rawConnections = connectionManager.getAllConnectionPoints();
                 List<Connection> connectionsToProcess = rawConnections.stream().filter(connection -> connection != null && connection.getConnectedLine() != null).toList();
@@ -64,21 +61,12 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
 
                     Line line = connection.getConnectedLine();
                     System.out.println("connection.getConnectedLine() = " + line);
-                    System.out.println("line.getParent() = " + line.getParent());
-                    try {
-                        System.out.println("Children = " + parentHelper.getChildrenOf(line.getParent()));
-                    } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                    // remove connected line
-                    System.out.println("Removal Success? = " + parentHelper.removeChildFrom(line.getParent(), line));
-
-                    System.out.println("line's parent afterwards = " + line.getParent());
 
                     // connectedPoint and parentImage will stay the same, just the line needs to be redrawn
+                    parentHelper.removeChildFrom(line.getParent(), line);
 
                     // connection point to be moved
-                    Point2D startPoint = connection.getLocationAfterMove();
+                    Point2D startPoint = connection.getLocation();
 
                     // connection point that it's connected to
                     Point2D endPoint = connection.getConnectedPoint().getLocation();
@@ -87,6 +75,7 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
                     Line newLine = new Line(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
                     System.out.println("newLine = " + newLine);
                     connection.setConnectedLine(newLine);
+                    connection.getConnectedPoint().setConnectedLine(newLine);
 
                     // add to screen
                     parentHelper.addChildTo(image.getParent(), newLine);
