@@ -31,7 +31,8 @@ public class ConnectionPointShowHandler implements EventHandler<MouseEvent> {
         if (event.getPickResult().getIntersectedNode() instanceof Circle) { return; }
 
         CircuitComponent component = new ComponentStore().getComponentByUUID((UUID) image.getProperties().get("ComponentUUID"));
-        component.getConnections().drawConnectionPoints(image);
+
+        component.getConnections().showConnectionPoints(image);
         event.consume();
     }
 }

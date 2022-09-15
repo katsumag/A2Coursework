@@ -1,6 +1,5 @@
 package me.katsumag.A2Coursework.components.connections;
 
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.util.BoundsHelper;
@@ -32,7 +31,6 @@ public class ConnectionManager {
      * @return a clone of inputs, with the output connected added.
      */
     public List<Connection> getAllConnectionPoints() {
-        //System.out.println("this.inputs = " + this.inputs);
         List<Connection> allPoints =  new ArrayList<>(this.inputs);
         allPoints.add(this.output);
         return allPoints;
@@ -68,7 +66,7 @@ public class ConnectionManager {
      */
     public void drawConnectionPoints(SVGImage image) {
 
-        if (! this.state.canShow()) { return; }
+        if (this.state.canHide()) { return; }
 
         // handle drawing input connection points
         switch (this.inputConnectionNumber) {
@@ -84,16 +82,7 @@ public class ConnectionManager {
         }
 
         // add each Connection's circle to the SVGImage's Parent so that it's displayed on screen.
-        ParentHelper parentHelper = new ParentHelper();
-
-        // add input circles
-        this.inputs.forEach(connection -> parentHelper.addChildTo(image.getParent(), connection.getCircle()));
-
-        // add output circle (if it exists)
-        if (this.output != null) { parentHelper.addChildTo(image.getParent(), this.output.getCircle()); }
-
-        this.state.flipState();
-
+        showConnectionPoints(image);
     }
 
     private void drawInputConnectionPoint(SVGImage image) {
@@ -133,13 +122,17 @@ public class ConnectionManager {
      * @param image the image to modify
      */
     public void hideConnectionPoints(SVGImage image) {
-
-        if (! this.state.canHide()) { return; }
-
+        if (this.state.canShow()) { return; }
         ParentHelper parentHelper = new ParentHelper();
         this.inputs.forEach(connection -> parentHelper.removeChildFrom(image.getParent(), connection.getCircle()));
-        parentHelper.removeChildFrom(image.getParent(), this.output.getCircle());
+        this.state.flipState();
+    }
 
+    public void showConnectionPoints(SVGImage image) {
+        if (this.state.canHide()) { return; }
+        ParentHelper parentHelper = new ParentHelper();
+        this.inputs.forEach(connection -> parentHelper.addChildTo(image.getParent(), connection.getCircle()));
+        parentHelper.addChildTo(image.getParent(), this.output.getCircle());
         this.state.flipState();
     }
 
@@ -180,7 +173,6 @@ public class ConnectionManager {
         }
 
         Point2D newOutputLocation = boundsHelper.getMiddleRight();
-        System.out.println("Calculated new output location = " + newOutputLocation);
         this.output.getCircle().relocate(newOutputLocation.getX(), newOutputLocation.getY());
 
     }

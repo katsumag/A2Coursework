@@ -3,7 +3,6 @@ package me.katsumag.A2Coursework.components.connections;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import me.katsumag.A2Coursework.components.ComponentStore;
 import org.girod.javafx.svgimage.SVGImage;
@@ -62,7 +61,7 @@ public class Connection {
 
     public boolean isOccupied() { return connectedPoint != null; }
 
-    public Circle getCircle() {
+    public ConnectionCircle getCircle() {
         return this.circle;
     }
 }

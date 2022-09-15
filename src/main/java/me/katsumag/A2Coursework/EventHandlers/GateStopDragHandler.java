@@ -14,6 +14,7 @@ import me.katsumag.A2Coursework.util.BoundsHelper;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
+import java.awt.desktop.ScreenSleepEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -36,31 +37,22 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
             // Must be checked in this order as VBox extends Pane
             if (image.getParent() instanceof Pane) {
                 // relocate the image and remove the old connection points
-                System.out.println("moved");
 
                 ConnectionManager connectionManager = new ComponentStore().getComponentByImage(image).getConnections();
-                System.out.println("Output location before = " + connectionManager.getOutput().getLocation());
 
                 image.relocate(event.getX(), event.getY());
 
-                System.out.println("connectionManager = " + connectionManager);
-
                 List<Connection> rawConnections = connectionManager.getAllConnectionPoints();
                 List<Connection> connectionsToProcess = rawConnections.stream().filter(connection -> connection != null && connection.getConnectedLine() != null).toList();
-                System.out.println("All Connection Points = " + rawConnections);
-
-                System.out.println("Connections to process = " + connectionsToProcess);
 
                 connectionManager.refreshConnectionPoints(image);
 
-                System.out.println("Output location after = " + connectionManager.getOutput().getLocation());
-
                 // main logic - remove and replace the old line
                 connectionsToProcess.forEach(connection -> {
+
                     ParentHelper parentHelper = new ParentHelper();
 
                     Line line = connection.getConnectedLine();
-                    System.out.println("connection.getConnectedLine() = " + line);
 
                     // connectedPoint and parentImage will stay the same, just the line needs to be redrawn
                     parentHelper.removeChildFrom(line.getParent(), line);
@@ -73,7 +65,7 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
 
                     // re-draw the line
                     Line newLine = new Line(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
-                    System.out.println("newLine = " + newLine);
+
                     connection.setConnectedLine(newLine);
                     connection.getConnectedPoint().setConnectedLine(newLine);
 
@@ -102,6 +94,9 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
 
         // I know that the target will be a Pane as that's the type our center panel is
         ((Pane) event.getGestureTarget()).getChildren().add(newComponent.getImage());
+
+        // draw connection points
+        newComponent.getConnections().drawConnectionPoints(newComponent.getImage());
 
         event.setDropCompleted(true);
 
