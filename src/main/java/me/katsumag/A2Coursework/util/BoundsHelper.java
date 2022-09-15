@@ -51,16 +51,9 @@ public class BoundsHelper {
         );
     }
 
-    public Point2D getTopRight() {
+    public Point2D getBottomMiddle() {
         return new Point2D(
-                this.image.getLayoutX() + this.imageBounds.getWidth(),
-                this.image.getLayoutY() - this.imageBounds.getMinY()
-        );
-    }
-
-    public Point2D getBottomRight() {
-        return new Point2D(
-                this.image.getLayoutX() + this.imageBounds.getWidth(),
+                this.image.getLayoutX() + (this.imageBounds.getWidth() / 2),
                 this.image.getLayoutY() + this.imageBounds.getMaxY()
         );
     }

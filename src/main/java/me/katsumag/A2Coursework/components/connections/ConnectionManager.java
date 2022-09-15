@@ -86,7 +86,15 @@ public class ConnectionManager {
     }
 
     private void drawInputConnectionPoint(SVGImage image) {
-        Point2D connectionPoint = new BoundsHelper(image).getMiddleLeft();
+        BoundsHelper boundsHelper = new BoundsHelper(image);
+        Point2D connectionPoint;
+
+        if (image.getProperties().get("CircuitComponentType") == CircuitComponentType.LAMP.getName()) {
+            connectionPoint = boundsHelper.getBottomMiddle();
+        } else {
+            connectionPoint = boundsHelper.getMiddleLeft();
+        }
+
         this.addInputs(new Connection(connectionPoint.getX(), connectionPoint.getY(), image));
     }
 
@@ -125,10 +133,12 @@ public class ConnectionManager {
         if (this.state.canShow()) { return; }
         ParentHelper parentHelper = new ParentHelper();
         this.inputs.forEach(connection -> parentHelper.removeChildFrom(image.getParent(), connection.getCircle()));
+        if (this.output != null) { parentHelper.removeChildFrom(image.getParent(), this.output.getCircle()); }
         this.state.flipState();
     }
 
     public void showConnectionPoints(SVGImage image) {
+        System.out.println("this.state.canShow() = " + this.state.canShow());
         if (this.state.canHide()) { return; }
         ParentHelper parentHelper = new ParentHelper();
         this.inputs.forEach(connection -> parentHelper.addChildTo(image.getParent(), connection.getCircle()));

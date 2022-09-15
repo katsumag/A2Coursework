@@ -7,7 +7,8 @@ public enum CircuitComponentType {
     AND("AND"),
     OR("OR"),
     NOT("NOT"),
-    SWITCH("SWITCH");
+    SWITCH("SWITCH"),
+    LAMP("LAMP");
 
     private final String name;
 

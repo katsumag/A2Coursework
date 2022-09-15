@@ -11,10 +11,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import me.katsumag.A2Coursework.EventHandlers.GateDragMovementHandler;
 import me.katsumag.A2Coursework.EventHandlers.GateStopDragHandler;
-import me.katsumag.A2Coursework.components.ANDGate;
-import me.katsumag.A2Coursework.components.NOTGate;
-import me.katsumag.A2Coursework.components.ORGate;
-import me.katsumag.A2Coursework.components.Switch;
+import me.katsumag.A2Coursework.components.*;
 
 import java.io.PrintStream;
 import java.nio.charset.Charset;
@@ -41,9 +38,10 @@ public class Application extends javafx.application.Application {
         NOTGate notGate = new NOTGate();
         // Cannot be named switch, builtin keyword
         Switch switchh = new Switch();
+        Lamp lamp = new Lamp();
 
         // add elements to left pane
-        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage());
+        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage());
         leftPane.setSpacing(20);
         leftPane.setPadding(new Insets(0, 0, 20, 5));
 

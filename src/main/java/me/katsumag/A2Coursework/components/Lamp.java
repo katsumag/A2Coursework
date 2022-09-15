@@ -1,55 +1,28 @@
 package me.katsumag.A2Coursework.components;
 
 import javafx.scene.Parent;
-import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import me.katsumag.A2Coursework.components.connections.ConnectionNumber;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
-public class Switch extends CircuitComponent {
+public class Lamp extends CircuitComponent {
 
-    // Usual constants
-    private static final String BASE_IMAGE_PATH = "./images/Switch_%s.svg";
-    private static final CircuitComponentType type = CircuitComponentType.SWITCH;
+    private static final String BASE_IMAGE_PATH = "./images/Lamp_%s.svg";
+    private static final CircuitComponentType componentType = CircuitComponentType.LAMP;
 
-    // Image to show when switch is on. `image` will be the default + off image
-    private final SVGImage onImage = this.loadAndProcessImageFromPath(BASE_IMAGE_PATH.formatted("ON"));
+    private final SVGImage onImage = loadAndProcessImageFromPath(BASE_IMAGE_PATH.formatted("ON"));
+    private final ConnectionManager connectionManager = new ConnectionManager(ConnectionNumber.ONE, ConnectionNumber.NONE);
 
-    // Keep track of the state of the switch
     private boolean state = false;
 
-    private final ConnectionManager connectionManager = new ConnectionManager(ConnectionNumber.NONE, ConnectionNumber.ONE);
-
-    public Switch() {
+    public Lamp() {
         super(BASE_IMAGE_PATH.formatted("OFF"));
-        setClickHandler();
         stopChildrenInteracting();
     }
 
     /**
-     * Sets the {@link SVGImage}'s children to be transparent to mouse events.
-     * Although they are it's children, if they're solid objects they appear on top of the image
-     * And so capture click events for the blue bit of the on button and the black rectangle of the off button
-     * Doing this mitigates the issue
-     */
-    private void stopChildrenInteracting() {
-        this.onImage.getChildren().forEach(it -> it.setMouseTransparent(true));
-        this.image.getChildren().forEach(it -> it.setMouseTransparent(true));
-    }
-
-    /**
-     * Sets the mouse click event handler for both images
-     * Also enables setPickOnBounds for the second image.
-     */
-    private void setClickHandler() {
-        // register click handler for both images
-        this.image.setOnMouseClicked(new SwitchClickHandler());
-        this.onImage.setOnMouseClicked(new SwitchClickHandler());
-    }
-
-    /**
-     * Swap the state of the switch.
+     * Swap the state of the lamp.
      */
     public void swapState() {
         this.state = !this.state;
@@ -78,6 +51,17 @@ public class Switch extends CircuitComponent {
 
     }
 
+    /**
+     * Sets the {@link SVGImage}'s children to be transparent to mouse events.
+     * Although they are it's children, if they're solid objects they appear on top of the image
+     * And so capture click events for the blue bit of the on button and the black rectangle of the off button
+     * Doing this mitigates the issue
+     */
+    private void stopChildrenInteracting() {
+        this.onImage.getChildren().forEach(it -> it.setMouseTransparent(true));
+        this.image.getChildren().forEach(it -> it.setMouseTransparent(true));
+    }
+
     @Override
     public SVGImage getImage() {
         if (this.state) {
@@ -89,11 +73,11 @@ public class Switch extends CircuitComponent {
 
     @Override
     public CircuitComponentType getType() {
-        return type;
+        return componentType;
     }
 
     @Override
     public ConnectionManager getConnections() {
-       return this.connectionManager;
+        return this.connectionManager;
     }
 }

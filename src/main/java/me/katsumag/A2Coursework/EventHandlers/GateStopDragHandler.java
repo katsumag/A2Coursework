@@ -87,6 +87,7 @@ public class GateStopDragHandler implements EventHandler<DragEvent> {
             case OR -> new ORGate();
             case NOT -> new NOTGate();
             case SWITCH -> new Switch();
+            case LAMP -> new Lamp();
             default -> throw new IllegalStateException("Unexpected value: " + type);
         };
 
