@@ -33,7 +33,7 @@ public class ParentHelper {
 
     public void addChildTo(@NotNull Parent parent, Node child) {
         ObservableList<Node> children = getChildrenOf(parent);
-        System.out.println("Child to add = " + child);
+        //System.out.println("Child to add = " + child);
         //System.out.println("children = " + children);
         children.add(child);
         //System.out.println("Children after addition = " + children);
@@ -41,7 +41,7 @@ public class ParentHelper {
 
     public boolean removeChildFrom(@NotNull Parent parent, Node child) {
         ObservableList<Node> children = getChildrenOf(parent);
-        System.out.println("Child to remove = " + child);
+        //System.out.println("Child to remove = " + child);
         //System.out.println("children = " + children);
         return children.remove(child);
         //System.out.println("Children after removing = " + children);

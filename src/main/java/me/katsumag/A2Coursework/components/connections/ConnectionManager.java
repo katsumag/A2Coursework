@@ -7,6 +7,7 @@ import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,7 @@ public class ConnectionManager {
      */
     public List<Connection> getAllConnectionPoints() {
         List<Connection> allPoints =  new ArrayList<>(this.inputs);
-        allPoints.add(this.output);
+        if (this.output != null) { allPoints.add(this.output); }
         return allPoints;
     }
 
@@ -138,12 +139,11 @@ public class ConnectionManager {
     }
 
     public void showConnectionPoints(SVGImage image) {
-        System.out.println("this.state.canShow() = " + this.state.canShow());
         if (this.state.canHide()) { return; }
+        this.state.flipState();
         ParentHelper parentHelper = new ParentHelper();
         this.inputs.forEach(connection -> parentHelper.addChildTo(image.getParent(), connection.getCircle()));
-        parentHelper.addChildTo(image.getParent(), this.output.getCircle());
-        this.state.flipState();
+        if (this.output != null) { parentHelper.addChildTo(image.getParent(), this.output.getCircle()); }
     }
 
     /**
@@ -169,7 +169,12 @@ public class ConnectionManager {
 
         switch (this.inputConnectionNumber) {
             case ONE -> {
-                Point2D newLocation = boundsHelper.getMiddleLeft();
+                Point2D newLocation;
+                if (svgImage.getProperties().get("CircuitComponentType") == CircuitComponentType.LAMP.getName()) {
+                    newLocation = boundsHelper.getBottomMiddle();
+                } else {
+                    newLocation = boundsHelper.getMiddleLeft();
+                }
                 this.inputs.get(0).getCircle().relocate(newLocation.getX(), newLocation.getY());
             }
             case TWO -> {
@@ -181,6 +186,8 @@ public class ConnectionManager {
             }
             default -> {}
         }
+
+        if (this.output == null) { return; }
 
         Point2D newOutputLocation = boundsHelper.getMiddleRight();
         this.output.getCircle().relocate(newOutputLocation.getX(), newOutputLocation.getY());
