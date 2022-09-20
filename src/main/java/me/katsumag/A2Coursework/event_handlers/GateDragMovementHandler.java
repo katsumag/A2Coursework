@@ -1,4 +1,4 @@
-package me.katsumag.A2Coursework.EventHandlers;
+package me.katsumag.A2Coursework.event_handlers;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;

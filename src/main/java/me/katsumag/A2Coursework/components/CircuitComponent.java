@@ -4,7 +4,7 @@ package me.katsumag.A2Coursework.components;
  * This abstract class defines the default behaviour of a circuit component
  */
 
-import me.katsumag.A2Coursework.EventHandlers.GateStartDragHandler;
+import me.katsumag.A2Coursework.event_handlers.GateStartDragHandler;
 import me.katsumag.A2Coursework.components.connections.ConnectionPointHideHandler;
 import me.katsumag.A2Coursework.components.connections.ConnectionPointShowHandler;
 import me.katsumag.A2Coursework.util.SVGHelper;

@@ -9,12 +9,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import me.katsumag.A2Coursework.EventHandlers.GateDragMovementHandler;
-import me.katsumag.A2Coursework.EventHandlers.GateStopDragHandler;
+import me.katsumag.A2Coursework.event_handlers.GateDragMovementHandler;
+import me.katsumag.A2Coursework.event_handlers.GateStopDragHandler;
 import me.katsumag.A2Coursework.components.*;
-
-import java.io.PrintStream;
-import java.nio.charset.Charset;
 
 public class Application extends javafx.application.Application {
 

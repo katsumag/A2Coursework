@@ -1,7 +1,6 @@
-package me.katsumag.A2Coursework.EventHandlers;
+package me.katsumag.A2Coursework.event_handlers;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Pane;
@@ -10,12 +9,9 @@ import javafx.scene.shape.Line;
 import me.katsumag.A2Coursework.components.*;
 import me.katsumag.A2Coursework.components.connections.Connection;
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
-import me.katsumag.A2Coursework.util.BoundsHelper;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
 
-import java.awt.desktop.ScreenSleepEvent;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class GateStopDragHandler implements EventHandler<DragEvent> {

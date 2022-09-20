@@ -1,8 +1,6 @@
-package me.katsumag.A2Coursework.EventHandlers;
+package me.katsumag.A2Coursework.event_handlers;
 
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.components.ComponentStore;

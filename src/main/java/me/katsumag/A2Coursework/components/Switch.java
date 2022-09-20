@@ -1,7 +1,7 @@
 package me.katsumag.A2Coursework.components;
 
 import javafx.scene.Parent;
-import me.katsumag.A2Coursework.EventHandlers.SwitchClickHandler;
+import me.katsumag.A2Coursework.event_handlers.SwitchClickHandler;
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import me.katsumag.A2Coursework.components.connections.ConnectionNumber;
 import me.katsumag.A2Coursework.util.ParentHelper;

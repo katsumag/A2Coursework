@@ -3,3 +3,5 @@ Source: Wikimedia Commons
 https://commons.wikimedia.org/wiki/File:AND_ANSI.svg
 https://commons.wikimedia.org/wiki/File:OR_ANSI.svg
 https://commons.wikimedia.org/wiki/File:NOT_ANSI.svg
+
+Lamp from http://www.clipartbest.com/clipart-RiA7GenxT
