@@ -25,7 +25,7 @@ public class WrappedBitSet extends BitSet {
     }
 
     public void printBits() {
-        getBits().forEach(System.out::println);
+        System.out.println(getBits());
     }
 
 }

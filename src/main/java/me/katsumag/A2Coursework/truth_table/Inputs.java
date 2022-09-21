@@ -22,21 +22,49 @@ public class Inputs implements Supplier<List<WrappedBitSet>> {
 
     @Override
     public List<WrappedBitSet> get() {
-        List<WrappedBitSet> list = new ArrayList<>();
 
-        list.add(getZero());
+        List<List<Boolean>> list = new ArrayList<>();
 
-        for (int i = 0; i < this.maxValue; i++) {
+        for (int i = 0; i <= this.maxValue; i++) {
             list.add(DenaryToBinary.convert(i));
         }
 
-        return list;
+        return convertToBitSet(padInputs(list));
     }
 
-    private WrappedBitSet getZero() {
-        WrappedBitSet zero = new WrappedBitSet();
-        zero.append(false);
-        return zero;
+    private List<WrappedBitSet> convertToBitSet(List<List<Boolean>> inputs) {
+        List<WrappedBitSet> outputs = new ArrayList<>();
+        inputs.forEach(binary -> {
+            WrappedBitSet bitSet = new WrappedBitSet();
+            binary.forEach(bitSet::append);
+            outputs.add(bitSet);
+        });
+        return outputs;
+    }
+
+    private List<List<Boolean>> padInputs(List<List<Boolean>> inputs) {
+        int maxSize = getMaxSize(inputs);
+
+        inputs.forEach(binary -> {
+            if (binary.size() < maxSize) {
+                // calculate difference needed to pad
+                int padAmount = maxSize - binary.size();
+                for (int i = 0; i < padAmount; i++) {
+                    // pad left with 0s
+                    binary.add(0, false);
+                }
+            }
+        });
+
+        return inputs;
+    }
+
+    private int getMaxSize(List<List<Boolean>> inputs) {
+        int maxSize = 0;
+        for (List<Boolean> binary : inputs) {
+            if (binary.size() > maxSize) { maxSize = binary.size(); }
+        }
+        return maxSize;
     }
 
 }
