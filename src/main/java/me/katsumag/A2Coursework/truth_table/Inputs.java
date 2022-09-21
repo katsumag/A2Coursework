@@ -10,8 +10,12 @@ import java.util.function.Supplier;
  */
 public class Inputs implements Supplier<List<WrappedBitSet>> {
 
+    // the number to generate binary up to
     private final int maxValue;
 
+    /**
+     * @param maxValue the number to generate binary up to
+     */
     public Inputs(int maxValue) {
         this.maxValue = maxValue;
     }
@@ -20,6 +24,9 @@ public class Inputs implements Supplier<List<WrappedBitSet>> {
         new Inputs(4).get().forEach(WrappedBitSet::printBits);
     }
 
+    /**
+     * @return {@link List<WrappedBitSet>} containing the binary representations of 0-n
+     */
     @Override
     public List<WrappedBitSet> get() {
 
@@ -32,6 +39,10 @@ public class Inputs implements Supplier<List<WrappedBitSet>> {
         return convertToBitSet(padInputs(list));
     }
 
+    /**
+     * @param inputs the 2d list of bits
+     * @return a list of bitsets, each representing one number
+     */
     private List<WrappedBitSet> convertToBitSet(List<List<Boolean>> inputs) {
         List<WrappedBitSet> outputs = new ArrayList<>();
         inputs.forEach(binary -> {
@@ -42,6 +53,10 @@ public class Inputs implements Supplier<List<WrappedBitSet>> {
         return outputs;
     }
 
+    /**
+     * @param inputs the 2d list of raw inputs
+     * @return the same inputs, padded to the same size
+     */
     private List<List<Boolean>> padInputs(List<List<Boolean>> inputs) {
         int maxSize = getMaxSize(inputs);
 
@@ -59,6 +74,10 @@ public class Inputs implements Supplier<List<WrappedBitSet>> {
         return inputs;
     }
 
+    /**
+     * @param inputs 2d list of binary numbers
+     * @return the size of the maximum length binary number
+     */
     private int getMaxSize(List<List<Boolean>> inputs) {
         int maxSize = 0;
         for (List<Boolean> binary : inputs) {

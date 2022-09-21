@@ -6,6 +6,10 @@ import java.util.List;
 
 public class DenaryToBinary {
 
+    /**
+     * @param denary the denary number to convert
+     * @return the binary representation of the input, as a list of bits
+     */
     public static List<Boolean> convert(int denary) {
 
         // create new list
