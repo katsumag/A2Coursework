@@ -9,20 +9,19 @@ public class Node {
 
     public Node(CircuitComponent circuitComponent) { this.circuitComponent = circuitComponent; }
 
-    public CircuitComponent getCircuitComponent() { return this.circuitComponent; }
+    // Customised toString, which produces the tree as a flat string
+    @Override
+    public String toString() {
+        String leftChildString = (this.leftChild == null) ? "null" : this.leftChild.toString();
+        String rightChildString = (this.rightChild == null) ? "null" : this.rightChild.toString();
 
-    /*
+        return "[" + this.circuitComponent + ": [Left=" + leftChildString + "] [Right=" + rightChildString + "]]";
+    }
+
     /**
-     * @param root {@link Node} to set as the Node's root node
-
-    public void setRoot(Node root) { this.root = root; }
-
-    /**
-     * @return the Node's root node
-
-    public Node getRoot() { return this.root; }
+     * @return the {@link Node}'s data
      */
-
+    public CircuitComponent getCircuitComponent() { return this.circuitComponent; }
 
     /**
      * @param leftChild {@link Node} to set as the Node's left child
@@ -43,5 +42,31 @@ public class Node {
      * @return the Node's right child
      */
     public Node getRightChild() { return this.rightChild; }
+
+    /**
+     * <a href="https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/">Source</a>
+     */
+    static void print2DUtil(Node root, int space)
+    {
+        // Base case
+        if (root == null)
+            return;
+
+        // Increase distance between levels
+        space += 10;
+
+        // Process right child first
+        print2DUtil(root.getRightChild(), space);
+
+        // Print current node after space
+        // count
+        System.out.print("\n");
+        for (int i = 10; i < space; i++)
+            System.out.print(" ");
+        System.out.print(root.circuitComponent + "\n");
+
+        // Process left child
+        print2DUtil(root.getLeftChild(), space);
+    }
 
 }
