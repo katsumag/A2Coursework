@@ -20,7 +20,7 @@ public class ParentHelper {
      * Returns null only when the Parent doesn't implement getChildren, which should never happen
      * Only in erroneous cases will this return null, which seems fine to me.
      */
-    private ObservableList<Node> getChildrenOf(@NotNull Parent parent)  {
+    public ObservableList<Node> getChildrenOf(@NotNull Parent parent)  {
         try {
             Method getChildren = parent.getClass().getDeclaredMethod("getChildren");
             getChildren.setAccessible(true);

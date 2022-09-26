@@ -21,7 +21,7 @@ public class Inputs implements Supplier<List<WrappedBitSet>> {
     }
 
     public static void main(String[]  args) {
-        new Inputs(4).get().forEach(WrappedBitSet::printBits);
+        new Inputs(6).get().forEach(WrappedBitSet::printBits);
     }
 
     /**

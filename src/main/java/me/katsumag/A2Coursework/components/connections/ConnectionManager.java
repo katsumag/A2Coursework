@@ -5,6 +5,7 @@ import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.util.BoundsHelper;
 import me.katsumag.A2Coursework.util.ParentHelper;
 import org.girod.javafx.svgimage.SVGImage;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -39,9 +40,8 @@ public class ConnectionManager {
 
     /**
      * @return List of {@link Connection}s coming into the {@link me.katsumag.A2Coursework.components.CircuitComponent}
-     * Can be null if there are no inputs, or inputs have not been initialised
      */
-    public @Nullable List<Connection> getInputs() {
+    public @NotNull List<Connection> getInputs() {
         return inputs;
     }
 

@@ -1,7 +1,9 @@
 package me.katsumag.A2Coursework;
 
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -12,6 +14,8 @@ import javafx.stage.Stage;
 import me.katsumag.A2Coursework.event_handlers.GateDragMovementHandler;
 import me.katsumag.A2Coursework.event_handlers.GateStopDragHandler;
 import me.katsumag.A2Coursework.components.*;
+import me.katsumag.A2Coursework.truth_table.TreeGenerator;
+import me.katsumag.A2Coursework.util.ParentHelper;
 
 public class Application extends javafx.application.Application {
 
@@ -37,8 +41,14 @@ public class Application extends javafx.application.Application {
         Switch switchh = new Switch();
         Lamp lamp = new Lamp();
 
+        // add truth table button
+        Button button = new Button("Truth Table");
+        button.setPickOnBounds(true);
+        button.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
+        button.setOnMouseClicked(event -> new TreeGenerator().handle(event));
+
         // add elements to left pane
-        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage());
+        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage(), button);
         leftPane.setSpacing(20);
         leftPane.setPadding(new Insets(0, 0, 20, 5));
 
