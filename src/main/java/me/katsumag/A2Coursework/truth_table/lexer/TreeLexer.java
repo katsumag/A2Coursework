@@ -32,7 +32,7 @@ public class TreeLexer {
         List<Token> tokens = new ArrayList<>();
         postfixComponents.forEach(component -> {
             if (component.getType() == CircuitComponentType.SWITCH) {
-                tokens.add(new IdentifierToken());
+                tokens.add(new IdentifierToken(component));
             } else {
                 tokens.add(new OperatorToken(component.getType().getName()));
             }

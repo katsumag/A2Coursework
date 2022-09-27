@@ -96,4 +96,6 @@ public class Switch extends CircuitComponent {
     public ConnectionManager getConnections() {
        return this.connectionManager;
     }
+
+    public boolean getState() { return this.state; }
 }
