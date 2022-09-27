@@ -15,6 +15,7 @@ import me.katsumag.A2Coursework.event_handlers.GateDragMovementHandler;
 import me.katsumag.A2Coursework.event_handlers.GateStopDragHandler;
 import me.katsumag.A2Coursework.components.*;
 import me.katsumag.A2Coursework.truth_table.TreeGenerator;
+import me.katsumag.A2Coursework.truth_table.TruthTable;
 import me.katsumag.A2Coursework.util.ParentHelper;
 
 public class Application extends javafx.application.Application {
@@ -45,7 +46,7 @@ public class Application extends javafx.application.Application {
         Button button = new Button("Truth Table");
         button.setPickOnBounds(true);
         button.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
-        button.setOnMouseClicked(event -> new TreeGenerator().handle(event));
+        button.setOnMouseClicked(event -> new TruthTable().create(event));
 
         // add elements to left pane
         leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage(), button);

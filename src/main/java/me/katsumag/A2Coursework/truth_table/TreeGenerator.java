@@ -4,18 +4,21 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import me.katsumag.A2Coursework.components.CircuitComponent;
 import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.components.ComponentStore;
 import me.katsumag.A2Coursework.components.connections.Connection;
+import me.katsumag.A2Coursework.truth_table.lexer.TreeLexer;
 import org.girod.javafx.svgimage.SVGImage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public class TreeGenerator {
 
-    public void handle(MouseEvent event) {
+    public me.katsumag.A2Coursework.truth_table.Node getTreeFromPlacedComponents(MouseEvent event) {
         // get the truth table button
         Node button = (Node) event.getSource();
 
@@ -32,19 +35,12 @@ public class TreeGenerator {
                 .findFirst();
 
         // construct a tree by recursing from the lamp node, which acts as the root.
-        lamp.ifPresent(it -> {
-            me.katsumag.A2Coursework.truth_table.Node tree = constructTree(new me.katsumag.A2Coursework.truth_table.Node(
-                    new ComponentStore().getComponentByUUID(
-                            (UUID) it.getProperties().get("ComponentUUID")
-                    )
-            ));
-
-            // print the tree
-            System.out.println(tree);
-            // pprint the tree
-            me.katsumag.A2Coursework.truth_table.Node.print2DUtil(tree, 0);
-        });
-
+        // returns null if there is no lamp and so no tree can be made
+        return lamp.map(node -> constructTree(new me.katsumag.A2Coursework.truth_table.Node(
+                new ComponentStore().getComponentByUUID(
+                        (UUID) node.getProperties().get("ComponentUUID")
+                )
+        ))).orElse(null);
 
     }
 
