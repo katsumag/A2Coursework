@@ -1,8 +1,10 @@
 package me.katsumag.A2Coursework.truth_table;
 
 import javafx.scene.input.MouseEvent;
+import me.katsumag.A2Coursework.truth_table.evaluator.TreeEvaluator;
 import me.katsumag.A2Coursework.truth_table.lexer.Token;
 import me.katsumag.A2Coursework.truth_table.lexer.TreeLexer;
+import me.katsumag.A2Coursework.truth_table.parser.Expression;
 import me.katsumag.A2Coursework.truth_table.parser.TreeParser;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,6 +17,7 @@ public class TruthTable {
         TreeGenerator treeGenerator = new TreeGenerator();
         TreeLexer treeLexer = new TreeLexer();
         TreeParser treeParser = new TreeParser();
+        TreeEvaluator treeEvaluator = new TreeEvaluator();
 
         // construct + print tree
         Node tree = treeGenerator.getTreeFromPlacedComponents(event);
@@ -26,7 +29,10 @@ public class TruthTable {
 
         // parse tree
         try {
-            System.out.println(treeParser.parse(tokens));
+            Expression expression = treeParser.parse(tokens);
+            System.out.println(expression);
+            // evaluate tree
+            System.out.println(treeEvaluator.evaluate(expression));
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

@@ -8,4 +8,6 @@ public class Expression {
         this.expressionType = type;
     }
 
+    public String getExpressionType() { return this.expressionType; }
+
 }
