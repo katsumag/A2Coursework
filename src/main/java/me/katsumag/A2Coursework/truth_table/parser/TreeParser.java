@@ -21,8 +21,6 @@ public class TreeParser {
             if (! (token instanceof OperatorToken)) {
                 bufferedTokens.add(((IdentifierToken) token));
             } else {
-                // use reflection to get XExpression class based on current OperatorToken
-                Class<?> expressionClass = Class.forName("me.katsumag.A2Coursework.truth_table.parser.OperatorExpression");
 
                 // if the buffer is empty, then get from parsedExpressions
                 // also will be an OperatorExpression
@@ -37,7 +35,11 @@ public class TreeParser {
                     }
 
                     // produce expression
-                    Expression parsedExpression = (Expression) expressionClass.getConstructors()[0].newInstance(OperatorExpressionType.valueOf(((OperatorToken) token).getOperationType()), parsedExpressions.get(0), second);
+                    Expression parsedExpression = new OperatorExpression(
+                            OperatorExpressionType.valueOf(((OperatorToken) token).getOperationType()),
+                            parsedExpressions.get(0),
+                            second
+                    );
                     parsedExpressions.clear();
                     parsedExpressions.add(parsedExpression);
                 } else {
