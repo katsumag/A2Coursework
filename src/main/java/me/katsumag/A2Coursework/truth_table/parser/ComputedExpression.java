@@ -2,7 +2,7 @@ package me.katsumag.A2Coursework.truth_table.parser;
 
 public class ComputedExpression extends Expression {
 
-    private final boolean value;
+    private boolean value;
 
     public ComputedExpression(boolean computedValue) {
         super("Computed");
@@ -15,5 +15,7 @@ public class ComputedExpression extends Expression {
     }
 
     public boolean getComputedValue() { return this.value; }
+
+    public void setComputedValue(boolean computedValue) { this.value = computedValue; }
 
 }

@@ -33,6 +33,13 @@ public class TruthTable {
             System.out.println(expression);
             // evaluate tree
             System.out.println(treeEvaluator.evaluate(expression));
+
+            // inputs calculated correctly, but there are less bits (3) at 4, than
+            // there are switches (4), therefore we run out of bits to give the last switch
+            // can be fixed by padding inputs again.
+
+            System.out.println(treeEvaluator.evaluateWith(expression, new Inputs(4).get().get(3)));
+
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

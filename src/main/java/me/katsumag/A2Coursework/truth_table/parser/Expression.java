@@ -1,6 +1,8 @@
 package me.katsumag.A2Coursework.truth_table.parser;
 
-public class Expression {
+import java.io.Serializable;
+
+public class Expression implements Serializable {
 
     private final String expressionType;
 
