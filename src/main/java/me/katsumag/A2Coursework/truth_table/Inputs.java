@@ -28,7 +28,7 @@ public class Inputs implements Supplier<List<List<Boolean>>> {
 
         List<List<Boolean>> list = new ArrayList<>();
 
-        for (int i = 0; i <= this.maxValue; i++) {
+        for (int i = 0; i < this.maxValue; i++) {
             list.add(DenaryToBinary.convert(i));
         }
 
