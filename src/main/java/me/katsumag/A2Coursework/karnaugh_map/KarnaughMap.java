@@ -3,9 +3,7 @@ package me.katsumag.A2Coursework.karnaugh_map;
 import javafx.scene.input.MouseEvent;
 import me.katsumag.A2Coursework.truth_table.TruthTable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class KarnaughMap {
 
@@ -28,6 +26,8 @@ public class KarnaughMap {
 
         emptyMap.forEach(System.out::println);
 
+        //TODO: gray code order, expression generation
+
     }
 
     private List<List<Boolean>> getEmptyMap(int inputCount) {
@@ -43,6 +43,31 @@ public class KarnaughMap {
         }
 
         return emptyMap;
+    }
+
+    private List<List<Boolean>> generateNextGrayCode(List<List<Boolean>> previous) {
+        // reverse previous - need to copy it
+        List<List<Boolean>> reflected = new ArrayList<>();
+        previous.forEach(code -> reflected.add(new ArrayList<>(code)));
+        Collections.reverse(reflected);
+
+        previous.forEach(code -> code.add(0, false));
+
+        reflected.forEach(code -> code.add(0, true));
+
+        previous.addAll(reflected);
+        return previous;
+    }
+
+    public static void main(String[] args) {
+        List<List<Boolean>> codes = new ArrayList<>();
+        List<Boolean> one = new ArrayList<>();
+        one.add(false);
+        List<Boolean> two = new ArrayList<>();
+        two.add(true);
+        codes.add(one);
+        codes.add(two);
+        System.out.println(new KarnaughMap().generateNextGrayCode(codes));
     }
 
 }
