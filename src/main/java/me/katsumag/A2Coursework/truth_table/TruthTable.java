@@ -9,11 +9,14 @@ import me.katsumag.A2Coursework.truth_table.parser.Expression;
 import me.katsumag.A2Coursework.truth_table.parser.TreeParser;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TruthTable {
 
-    public void create(MouseEvent event) {
+    public Map<List<Boolean>, Boolean> create(MouseEvent event) {
 
         TreeGenerator treeGenerator = new TreeGenerator();
         TreeLexer treeLexer = new TreeLexer();
@@ -45,13 +48,22 @@ public class TruthTable {
 
             // get inputs from 0 to ((numOfSwitches)^2) -1
             // eg for numOfSwitches = 4 inputs will be 0 to 15
+            Map<List<Boolean>, Boolean> table = new HashMap<>();
             for (List<Boolean> inputs: new Inputs((int) Math.pow(numOfSwitches, 2)).get()) {
-                System.out.println(inputs + " : " + treeEvaluator.evaluateWith(expression, inputs));
+                table.put(inputs, treeEvaluator.evaluateWith(expression, new ArrayList<>(inputs)));
             }
+
+            table.forEach((inputs, output) -> {
+                System.out.println(inputs + " : " + output);
+            });
+
+            return table;
 
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
+        // should never be here
+        return null;
     }
 
 }
