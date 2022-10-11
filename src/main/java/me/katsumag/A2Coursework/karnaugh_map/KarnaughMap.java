@@ -26,13 +26,20 @@ public class KarnaughMap {
             emptyMap.get(y).set(x, output);
         });
 
+        emptyMap.forEach(System.out::println);
+
     }
 
     private List<List<Boolean>> getEmptyMap(int inputCount) {
         List<List<Boolean>> emptyMap =  new ArrayList<>();
 
         for (int i = 0; i < inputCount; i++) {
-            emptyMap.add(new ArrayList<>());
+            // needed because set requires that index to exist
+            List<Boolean> defaultRow = new ArrayList<>();
+            for (int j = 0; j < inputCount; j++) {
+                defaultRow.add(false);
+            }
+            emptyMap.add(defaultRow);
         }
 
         return emptyMap;

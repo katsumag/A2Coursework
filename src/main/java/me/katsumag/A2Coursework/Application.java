@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import me.katsumag.A2Coursework.event_handlers.GateDragMovementHandler;
 import me.katsumag.A2Coursework.event_handlers.GateStopDragHandler;
 import me.katsumag.A2Coursework.components.*;
+import me.katsumag.A2Coursework.karnaugh_map.KarnaughMap;
 import me.katsumag.A2Coursework.truth_table.TreeGenerator;
 import me.katsumag.A2Coursework.truth_table.TruthTable;
 import me.katsumag.A2Coursework.util.ParentHelper;
@@ -43,13 +44,18 @@ public class Application extends javafx.application.Application {
         Lamp lamp = new Lamp();
 
         // add truth table button
-        Button button = new Button("Truth Table");
-        button.setPickOnBounds(true);
-        button.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
-        button.setOnMouseClicked(event -> new TruthTable().create(event));
+        Button truthTableButton = new Button("Truth Table");
+        truthTableButton.setPickOnBounds(true);
+        truthTableButton.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
+        truthTableButton.setOnMouseClicked(event -> new TruthTable().create(event));
+
+        Button karnaughButton = new Button("Karnaugh Maps");
+        karnaughButton.setPickOnBounds(true);
+        karnaughButton.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
+        karnaughButton.setOnMouseClicked(event -> new KarnaughMap().create(event));
 
         // add elements to left pane
-        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage(), button);
+        leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage(), truthTableButton, karnaughButton);
         leftPane.setSpacing(20);
         leftPane.setPadding(new Insets(0, 0, 20, 5));
 
