@@ -59,15 +59,25 @@ public class KarnaughMap {
         return previous;
     }
 
+    private List<List<Boolean>> getGrayCode(int nIteration) {
+        // create base case n=1, [0, 1]
+        List<List<Boolean>> grayCode = new ArrayList<>(Arrays.asList(toMutableList(List.of(false)), toMutableList(List.of(true))));
+        if (nIteration <= 1) { return  grayCode; }
+
+        for (int i = 0; i < (nIteration - 1); i++) {
+            grayCode = generateNextGrayCode(grayCode);
+        }
+
+        return grayCode;
+
+    }
+
+    private <T> List<T> toMutableList (List<T> immutableList) {
+        return new ArrayList<>(immutableList);
+    }
+
     public static void main(String[] args) {
-        List<List<Boolean>> codes = new ArrayList<>();
-        List<Boolean> one = new ArrayList<>();
-        one.add(false);
-        List<Boolean> two = new ArrayList<>();
-        two.add(true);
-        codes.add(one);
-        codes.add(two);
-        System.out.println(new KarnaughMap().generateNextGrayCode(codes));
+        System.out.println(new KarnaughMap().getGrayCode(3));
     }
 
 }
