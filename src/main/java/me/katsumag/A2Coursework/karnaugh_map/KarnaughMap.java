@@ -3,7 +3,6 @@ package me.katsumag.A2Coursework.karnaugh_map;
 import javafx.scene.input.MouseEvent;
 import me.katsumag.A2Coursework.truth_table.TruthTable;
 
-import javax.imageio.plugins.tiff.ExifInteroperabilityTagSet;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,8 +12,6 @@ public class KarnaughMap {
         Map<List<Boolean>, Boolean> truthTable = new TruthTable().create(event);
 
         if (truthTable == null) { return; }
-
-        System.out.println("passed null check");
 
         List<List<Boolean>> emptyMap = getEmptyMap((int) Math.sqrt(truthTable.size()));
 
@@ -32,52 +29,55 @@ public class KarnaughMap {
             emptyMap.get(y).set(x, entrySet.getValue());
         }
 
-        System.out.println("Added entries to map");
-
-        emptyMap.forEach(System.out::println);
-
         //TODO: gray code order, expression generation
 
-        System.out.println("doing new stuff");
         int grayCodeIteration = (int) (Math.sqrt(getSizeOfMap(emptyMap)) / 2);
         List<List<Boolean>> rawGrayCode = getGrayCode(grayCodeIteration);
         List<Integer> grayCode = convertGrayCodeToInts(rawGrayCode);
-        emptyMap = sortXByGrayCode(emptyMap, grayCode);
-        System.out.println("X sorted");
-        emptyMap.forEach(System.out::println);
-        emptyMap = sortYByGrayCode(emptyMap, grayCode);
-        System.out.println("Sorted maps");
-        emptyMap.forEach(System.out::println);
-        System.out.println("Finished");
-        sortYByGradeCode(emptyMap, grayCode);
-        //return emptyMap;
+        List<List<Boolean>> sortedMap = sortMapIntoGrayCodeOrder(emptyMap, grayCode);
+        sortedMap.forEach(System.out::println);
+    }
+
+    private List<List<Boolean>> sortMapIntoGrayCodeOrder(List<List<Boolean>> map, List<Integer> grayCode) {
+        return sortYByGrayCode(sortXByGrayCode(map, grayCode), grayCode);
     }
 
     private int getSizeOfMap(List<List<Boolean>> map) {
         return map.size() * map.get(0).size();
     }
 
-    private List<List<Boolean>> sortYByGrayCode(List<List<Boolean>> map, List<Integer> grayCode) {
-        List<List<Boolean>> newSortedMap = new ArrayList<>();
-        for (int i = 0; i < grayCode.size(); i++) {
-            newSortedMap.add(new ArrayList<>());
+    // sorts the map so that its columns are in gray code order. Briefly tested, seems to work okay - need to do more later
+    // the map passed in MUST have its rows in gray code order already.
+    private List<List<Boolean>> sortYByGrayCode(List<List<Boolean>> map, List<Integer> codes) {
+        // go through x by non-gray code order, since it's always x-sorted before it gets here
+        // iterating through x with gray code indexes will reverse its effects
+
+        // construct new map
+        List<List<Boolean>> sortedMap = new ArrayList<>();
+
+        for (int rowIndex = 0; rowIndex < codes.size(); rowIndex++) {
+            // set up current and new rows
+            List<Boolean> currentRow = map.get(rowIndex);
+            List<Boolean> newRow = prefillRow(codes.size());
+
+            // sets newRow[colIndex] to currentRow[codes[colIndex]]
+            for (int colIndex = 0; colIndex < codes.size(); colIndex++) {
+                newRow.set(colIndex, currentRow.get(codes.get(colIndex)));
+            }
+
+            sortedMap.add(newRow);
+
         }
-
-        grayCode.forEach(code -> map.forEach(row -> newSortedMap.get(code).add(row.get(code))));
-
-        return newSortedMap;
+        return sortedMap;
     }
 
-    private void sortYByGradeCode(List<List<Boolean>> map, List<Integer> grayCode) {
-        List<List<Boolean>> newSortedMap = new ArrayList<>();
-        map.forEach(row -> {
-            List<Boolean> newRow = new ArrayList<>();
-            for (int i = 0; i < grayCode.size(); i++) {
-                newRow.add(grayCode.get(i), row.get(i));
-            }
-            newSortedMap.add(newRow);
-        });
-        newSortedMap.forEach(System.out::println);
+    // returns a list of <size> full of false, useful later on because set(index, data) requires that index to already exist
+    private List<Boolean> prefillRow(int size) {
+        List<Boolean> row = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            row.add(false);
+        }
+        return row;
     }
 
     private List<List<Boolean>> sortXByGrayCode(List<List<Boolean>> map, List<Integer> grayCode) {
