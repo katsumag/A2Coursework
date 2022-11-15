@@ -1,7 +1,6 @@
 package me.katsumag.A2Coursework;
 
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,13 +10,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import me.katsumag.A2Coursework.components.*;
 import me.katsumag.A2Coursework.event_handlers.GateDragMovementHandler;
 import me.katsumag.A2Coursework.event_handlers.GateStopDragHandler;
-import me.katsumag.A2Coursework.components.*;
 import me.katsumag.A2Coursework.karnaugh_map.KarnaughMap;
-import me.katsumag.A2Coursework.truth_table.TreeGenerator;
 import me.katsumag.A2Coursework.truth_table.TruthTable;
-import me.katsumag.A2Coursework.util.ParentHelper;
 
 public class Application extends javafx.application.Application {
 

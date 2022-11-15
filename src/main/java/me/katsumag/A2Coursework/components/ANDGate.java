@@ -2,8 +2,6 @@ package me.katsumag.A2Coursework.components;
 
 import me.katsumag.A2Coursework.components.connections.ConnectionManager;
 import me.katsumag.A2Coursework.components.connections.ConnectionNumber;
-import me.katsumag.A2Coursework.components.connections.ConnectionPointHideHandler;
-import me.katsumag.A2Coursework.components.connections.ConnectionPointShowHandler;
 import org.girod.javafx.svgimage.SVGImage;
 
 public class ANDGate extends CircuitComponent {

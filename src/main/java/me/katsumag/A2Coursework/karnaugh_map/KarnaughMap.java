@@ -3,8 +3,9 @@ package me.katsumag.A2Coursework.karnaugh_map;
 import javafx.scene.input.MouseEvent;
 import me.katsumag.A2Coursework.truth_table.TruthTable;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class KarnaughMap {
 

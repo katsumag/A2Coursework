@@ -4,9 +4,6 @@ import me.katsumag.A2Coursework.truth_table.parser.ComputedExpression;
 import me.katsumag.A2Coursework.truth_table.parser.Expression;
 import me.katsumag.A2Coursework.truth_table.parser.OperatorExpression;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 

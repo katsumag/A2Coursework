@@ -4,14 +4,11 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import me.katsumag.A2Coursework.components.CircuitComponent;
 import me.katsumag.A2Coursework.components.CircuitComponentType;
 import me.katsumag.A2Coursework.components.ComponentStore;
 import me.katsumag.A2Coursework.components.connections.Connection;
-import me.katsumag.A2Coursework.truth_table.lexer.TreeLexer;
 import org.girod.javafx.svgimage.SVGImage;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

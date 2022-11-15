@@ -3,7 +3,6 @@ package me.katsumag.A2Coursework.components;
 import me.katsumag.A2Coursework.components.connections.Connection;
 import org.girod.javafx.svgimage.SVGImage;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

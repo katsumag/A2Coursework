@@ -12,12 +12,25 @@ class WindowTest {
         listOf(false, false, true, false)
     )
 
-    @Test
-    fun `Test window dimension generation with a 16 cell map`() {
+    private val testMap8 = listOf(
+        listOf(false, false, true, false),
+        listOf(true, true, true, true)
+    )
+
+    private val testMap4 = listOf(
+        listOf(false, false),
+        listOf(true, true)
+    )
+
+    @Test fun `Test window dimension generation with a 16 cell map`() {
         val windows = Windows(testMap16)
-        val sizes = windows.getWindowSizes(testMap16.size * testMap16.size)
-        sizes.forEach { println(it) }
+        val sizes = windows.getWindowSizes(16)
         assertEquals(sizes, listOf(Pair(4, 4), Pair(2, 4), Pair(2, 2), Pair(1, 4), Pair(1, 2), Pair(1, 1)))
     }
 
+    @Test fun `Test window dimension generation with an 8 cell map`() {
+        val windows = Windows(testMap8)
+        val sizes = windows.getWindowSizes(8)
+        assertEquals(sizes, listOf(Pair(2, 4), Pair(2, 2), Pair(1, 4), Pair(1, 2), Pair(1, 1)))
+    }
 }

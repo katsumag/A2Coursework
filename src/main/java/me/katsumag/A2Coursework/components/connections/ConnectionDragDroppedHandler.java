@@ -3,11 +3,6 @@ package me.katsumag.A2Coursework.components.connections;
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import me.katsumag.A2Coursework.components.ComponentStore;
-import me.katsumag.A2Coursework.util.ParentHelper;
-
-import java.util.UUID;
 
 public class ConnectionDragDroppedHandler implements EventHandler<DragEvent> {
 
