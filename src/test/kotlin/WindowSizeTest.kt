@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import javafx.util.Pair
 
-class WindowTest {
+class WindowSizeTest {
 
     private val testMap16 = listOf(
         listOf(false, false, true, false),

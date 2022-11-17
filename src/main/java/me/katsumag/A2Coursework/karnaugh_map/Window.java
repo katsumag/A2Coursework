@@ -44,14 +44,31 @@ public class Window {
     /** Using currentX/Y, captures values inside the window from the map */
     private List<List<Boolean>> capture() {
         List<List<Boolean>> window = new ArrayList<>();
+
+        // loop through y values of window size
         for (int height = 0; height < this.windowY; height++) {
+            // calc current row based on window position + current shift
+            int yIndex = height + this.currentY;
+            // handle overflows. Not amazing, but it *works*
+            if (yIndex >= this.map.size()) { yIndex = yIndex % this.map.size(); }
+
             List<Boolean> row = new ArrayList<>();
+            // loop through x values of window size
             for (int width = 0; width < this.windowX; width++) {
-                row.add(this.map.get(height + this.currentY).get(width + this.currentX));
+                // calc current column based on window position + current shift
+                int xIndex = width + this.currentX;
+                // handle overflows. Not amazing, but it *works*
+                if (xIndex >= this.map.size()) { xIndex = xIndex % this.map.size(); }
+                // copy element from map to window
+                row.add(this.map.get(yIndex).get(xIndex));
             }
             window.add(row);
         }
         return window;
+    }
+
+    public boolean validate() {
+        return this.window.stream().allMatch(row -> row.stream().allMatch(value -> value));
     }
 
 }
