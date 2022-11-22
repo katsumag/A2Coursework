@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import me.katsumag.A2Coursework.components.*;
 import me.katsumag.A2Coursework.event_handlers.GateDragMovementHandler;
 import me.katsumag.A2Coursework.event_handlers.GateStopDragHandler;
-import me.katsumag.A2Coursework.karnaugh_map.KarnaughMap;
+import me.katsumag.A2Coursework.karnaugh_map.KarnaughMapEntryPoint;
 import me.katsumag.A2Coursework.truth_table.TruthTable;
 
 public class Application extends javafx.application.Application {
@@ -49,7 +49,7 @@ public class Application extends javafx.application.Application {
         Button karnaughButton = new Button("Karnaugh Maps");
         karnaughButton.setPickOnBounds(true);
         karnaughButton.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
-        karnaughButton.setOnMouseClicked(event -> new KarnaughMap().create(event));
+        karnaughButton.setOnMouseClicked(event -> new KarnaughMapEntryPoint().create(event));
 
         // add elements to left pane
         leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage(), truthTableButton, karnaughButton);

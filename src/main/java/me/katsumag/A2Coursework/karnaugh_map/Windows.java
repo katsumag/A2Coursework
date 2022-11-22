@@ -12,14 +12,14 @@ public class Windows {
 
     public Windows(final List<List<Boolean>> map) {
         this.map = map;
-        this.mapSize = map.size() ^ 2;
+        this.mapSize = map.size() * map.get(0).size();
     }
 
-    public List<Pair<Integer, Integer>> getWindowSizes(int mapSize) {
+    public List<Pair<Integer, Integer>> getWindowSizes() {
         List<Pair<Integer, Integer>> dimensions = new ArrayList<>();
-        while (mapSize >= 1) {
-            dimensions.addAll(_getWindowSize(mapSize));
-            mapSize /= 2;
+        while (this.mapSize >= 1) {
+            dimensions.addAll(_getWindowSize(this.mapSize));
+            this.mapSize /= 2;
         }
         return dimensions;
     }
@@ -33,6 +33,14 @@ public class Windows {
             case 1 -> List.of(new Pair<>(1, 1));
             default -> List.of();
         };
+    }
+
+    public List<Window> getDefaultPositionWindows() {
+        return getWindowSizes().stream().map(size -> new Window(size.getKey(), size.getValue(), this.map)).toList();
+    }
+
+    public boolean windowIsValid(Window window) {
+
     }
 
 }

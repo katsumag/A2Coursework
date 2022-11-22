@@ -14,13 +14,13 @@ class WindowCaptureTest {
     )
 
     @Test fun `Test initial capture`() {
-        val windowSizes = Windows(testMap16).getWindowSizes(16)
+        val windowSizes = Windows(testMap16).windowSizes
         val window = Window(windowSizes[0].key, windowSizes[0].value, testMap16)
         assertEquals(window.window, testMap16)
     }
 
     @Test fun `Test half size capture`() {
-        val windowSizes = Windows(testMap16).getWindowSizes(16)
+        val windowSizes = Windows(testMap16).windowSizes
         val window = Window(windowSizes[1].key, windowSizes[1].value, testMap16)
         window.window.forEach { println(it) }
         println("------------")
@@ -29,7 +29,7 @@ class WindowCaptureTest {
     }
 
     @Test fun `capture all possible windows`() {
-        val windows = Windows(testMap16).getWindowSizes(16).map { Window(it.key, it.value, testMap16) }
+        val windows = Windows(testMap16).windowSizes.map { Window(it.key, it.value, testMap16) }
         windows.forEach {
             println("Default position")
             validateAndPrint(it)
@@ -49,7 +49,6 @@ class WindowCaptureTest {
             println("Right shift x4 - back to original")
             it.shiftUp()
             validateAndPrint(it)
-
         }
     }
     fun validateAndPrint(window: Window) {
