@@ -7,19 +7,18 @@ import java.util.List;
 
 public class Windows {
 
-    private List<List<Boolean>> map;
-    private int mapSize;
+    private KarnaughMap map;
 
-    public Windows(final List<List<Boolean>> map) {
+    public Windows(final KarnaughMap map) {
         this.map = map;
-        this.mapSize = map.size() * map.get(0).size();
     }
 
     public List<Pair<Integer, Integer>> getWindowSizes() {
+        int mapSize = this.map.getMapSize();
         List<Pair<Integer, Integer>> dimensions = new ArrayList<>();
-        while (this.mapSize >= 1) {
-            dimensions.addAll(_getWindowSize(this.mapSize));
-            this.mapSize /= 2;
+        while (mapSize >= 1) {
+            dimensions.addAll(_getWindowSize(mapSize));
+            mapSize /= 2;
         }
         return dimensions;
     }
@@ -37,10 +36,6 @@ public class Windows {
 
     public List<Window> getDefaultPositionWindows() {
         return getWindowSizes().stream().map(size -> new Window(size.getKey(), size.getValue(), this.map)).toList();
-    }
-
-    public boolean windowIsValid(Window window) {
-
     }
 
 }

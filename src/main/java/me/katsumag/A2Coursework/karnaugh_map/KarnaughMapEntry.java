@@ -1,11 +1,11 @@
 package me.katsumag.A2Coursework.karnaugh_map;
 
-public class MapEntry {
+public class KarnaughMapEntry {
 
     private final Boolean state;
     private Boolean checked = false;
 
-    public MapEntry(boolean state) {
+    public KarnaughMapEntry(boolean state) {
         this.state = state;
     }
 

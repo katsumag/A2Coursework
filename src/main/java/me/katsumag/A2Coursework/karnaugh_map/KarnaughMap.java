@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class KarnaughMap {
 
-    private List<List<Boolean>> internalState;
-    private int mapSize;
+    private List<List<KarnaughMapEntry>> internalState;
+    private final int mapSize;
 
     public KarnaughMap(Map<List<Boolean>, Boolean> truthTable) {
         this.internalState = getEmptyMap((int) Math.sqrt(truthTable.size()));
@@ -17,18 +17,22 @@ public class KarnaughMap {
 
     public int getMapSize() { return mapSize; }
 
+    public List<List<KarnaughMapEntry>> getInternalState() { return this.internalState; }
+
+    protected void setInternalState(List<List<KarnaughMapEntry>> newState) { this.internalState = newState; }
+
     /*
      * Construct mutable empty map from the number of switches.
      * Map size is 2^(numberOfSwitches)
      */
-    private List<List<Boolean>> getEmptyMap(int inputCount) {
-        List<List<Boolean>> emptyMap =  new ArrayList<>();
+    private List<List<KarnaughMapEntry>> getEmptyMap(int inputCount) {
+        List<List<KarnaughMapEntry>> emptyMap =  new ArrayList<>();
 
         for (int i = 0; i < inputCount; i++) {
             // needed because set requires that index to exist
-            List<Boolean> defaultRow = new ArrayList<>();
+            List<KarnaughMapEntry> defaultRow = new ArrayList<>();
             for (int j = 0; j < inputCount; j++) {
-                defaultRow.add(false);
+                defaultRow.add(new KarnaughMapEntry(false));
             }
             emptyMap.add(defaultRow);
         }
@@ -48,12 +52,12 @@ public class KarnaughMap {
             int y = BinaryToDenary.convert(binaryY);
             int x = BinaryToDenary.convert(binaryX);
 
-            this.internalState.get(y).set(x, entrySet.getValue());
+            this.internalState.get(y).set(x, new KarnaughMapEntry(entrySet.getValue()));
         }
     }
 
     public void sortByGrayCode(List<Integer> grayCode) {
-        this.internalState = new MapSorter().sortMapIntoGrayCodeOrder(this.internalState, grayCode);
+        new MapSorter().sortMapIntoGrayCodeOrder(this, grayCode);
     }
 
 }
