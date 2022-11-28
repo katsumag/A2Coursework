@@ -13,6 +13,11 @@ class WindowCaptureTest {
         listOf(false, false, true, false),
         listOf(false, false, true, false),
     )
+    // NOT C AND D OR A AND B
+    // Parsed Expressions contains (A AND B) and (NOT C)
+    // Buffered Tokens contains D
+    // Token = AND
+    // So, it tries to AND bufferedTokens 0 and 1, hence IOOBE...
     
     private val map16 = KarnaughMap(mapOf(listOf(true, false) to true))
 

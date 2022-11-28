@@ -22,6 +22,8 @@ class WindowSizeTest {
         listOf(true, true)
     )
 
+    /*
+
     @Test fun `Test window dimension generation with a 16 cell map`() {
         val windows = Windows(testMap16)
         val sizes = windows.getWindowSizes(16)
@@ -33,4 +35,6 @@ class WindowSizeTest {
         val sizes = windows.getWindowSizes(8)
         assertEquals(sizes, listOf(Pair(2, 4), Pair(2, 2), Pair(1, 4), Pair(1, 2), Pair(1, 1)))
     }
+
+     */
 }

@@ -17,6 +17,11 @@ public class TreeParser {
         List<IdentifierToken> bufferedTokens = new ArrayList<>();
 
         for (Token token : tokens) {
+
+            System.out.println("bufferedTokens = " + bufferedTokens);
+            System.out.println("parsedExpressions = " + parsedExpressions);
+            System.out.println("token = " + token.toString());
+
             // add to buffer if there's nothing to do
             if (! (token instanceof OperatorToken)) {
                 bufferedTokens.add(((IdentifierToken) token));
@@ -46,10 +51,12 @@ public class TreeParser {
                     // buffer is full and can be used.
 
                     // handle not having a second input if it's a NOT gate
-                    ComputedExpression second;
+                    Expression second;
                     if (Objects.equals(((OperatorToken) token).getOperationType(), "NOT")) {
                         second = null;
-                    } else { second = new ComputedExpression(bufferedTokens.get(1).getState()); }
+                    } else {
+                        second = new ComputedExpression(bufferedTokens.get(1).getState());
+                    }
 
                     // produce expression
                     OperatorExpression parsedExpression = new OperatorExpression(

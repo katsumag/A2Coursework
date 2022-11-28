@@ -11,6 +11,13 @@ public class IdentifierToken implements Token {
         this.state = ((Switch) component).getState();
     }
 
+    /**
+     * DESIGNED FOR TESTING PURPOSES
+     * Nothing will happen if used normally, though
+     * @param state - the desired state
+     */
+    public IdentifierToken(boolean state) { this.state = state; }
+
     public boolean getState() { return this.state; }
 
 }
