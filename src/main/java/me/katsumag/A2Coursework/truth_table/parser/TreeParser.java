@@ -5,72 +5,46 @@ import me.katsumag.A2Coursework.truth_table.lexer.OperatorToken;
 import me.katsumag.A2Coursework.truth_table.lexer.Token;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 public class TreeParser {
 
     public Expression parse(List<Token> tokens) throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        List<Expression> parsedExpressions = new ArrayList<>();
-        List<IdentifierToken> bufferedTokens = new ArrayList<>();
+        Stack<Expression> bufferedTokens = new Stack<>();
 
-        for (Token token : tokens) {
-
-            System.out.println("bufferedTokens = " + bufferedTokens);
-            System.out.println("parsedExpressions = " + parsedExpressions);
-            System.out.println("token = " + token.toString());
-
-            // add to buffer if there's nothing to do
-            if (! (token instanceof OperatorToken)) {
-                bufferedTokens.add(((IdentifierToken) token));
-            } else {
-
-                // if the buffer is empty, then get from parsedExpressions
-                // also will be an OperatorExpression
-                if (bufferedTokens.isEmpty()) {
-
-                    // handle operator being a NOT gate and so there is no relevant second input
-                    Expression second;
-                    if (Objects.equals(((OperatorToken) token).getOperationType(), "NOT")) {
-                        second = null;
-                    } else {
-                        second = parsedExpressions.get(1);
-                    }
-
-                    // produce expression
-                    Expression parsedExpression = new OperatorExpression(
-                            OperatorExpressionType.valueOf(((OperatorToken) token).getOperationType()),
-                            parsedExpressions.get(0),
-                            second
-                    );
-                    parsedExpressions.clear();
-                    parsedExpressions.add(parsedExpression);
-                } else {
-                    // buffer is full and can be used.
-
-                    // handle not having a second input if it's a NOT gate
-                    Expression second;
-                    if (Objects.equals(((OperatorToken) token).getOperationType(), "NOT")) {
-                        second = null;
-                    } else {
-                        second = new ComputedExpression(bufferedTokens.get(1).getState());
-                    }
-
-                    // produce expression
-                    OperatorExpression parsedExpression = new OperatorExpression(
-                            OperatorExpressionType.valueOf(((OperatorToken) token).getOperationType()),
-                            new ComputedExpression(bufferedTokens.get(0).getState()),
-                            second
-                    );
-
-                    bufferedTokens.clear();
-                    parsedExpressions.add(parsedExpression);
-                }
+        tokens.forEach(token -> {
+            if (token instanceof IdentifierToken identifierToken) {
+                bufferedTokens.push(new ComputedExpression(identifierToken.getState()));
+                return;
             }
-        }
-        return parsedExpressions.get(0);
+
+            OperatorToken operatorToken = ((OperatorToken) token);
+
+            System.out.println("bufferedTokens = " + bufferedTokens.stream().map(Expression::getExpressionType).toList());
+            System.out.println("operatorToken = " + operatorToken.getOperationType());
+
+            if (!Objects.equals(operatorToken.getOperationType(), "NOT")) {
+                bufferedTokens.push(
+                        new OperatorExpression(
+                                OperatorExpressionType.valueOf(operatorToken.getOperationType()),
+                                bufferedTokens.pop(),
+                                bufferedTokens.pop()
+                        )
+                );
+            } else {
+                bufferedTokens.push(
+                        new OperatorExpression(
+                                OperatorExpressionType.NOT, bufferedTokens.pop()
+                        )
+                );
+            }
+
+        });
+
+        return bufferedTokens.pop();
 
     }
 }

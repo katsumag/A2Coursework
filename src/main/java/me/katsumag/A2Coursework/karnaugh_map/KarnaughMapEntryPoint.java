@@ -3,12 +3,11 @@ package me.katsumag.A2Coursework.karnaugh_map;
 import javafx.scene.input.MouseEvent;
 import me.katsumag.A2Coursework.truth_table.TruthTable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class KarnaughMapEntryPoint {
-
     public void create(MouseEvent event) {
         Map<List<Boolean>, Boolean> truthTable = new TruthTable().create(event);
 
@@ -22,6 +21,8 @@ public class KarnaughMapEntryPoint {
 
         // sort map into gray code order
         karnaughMap.sortByGrayCode(grayCode);
+
+        karnaughMap.getInternalState().forEach(row -> System.out.println(row.stream().map(KarnaughMapEntry::getState).collect(Collectors.toList())));
 
         //TODO: find all valid windows, generate expressions
     }
