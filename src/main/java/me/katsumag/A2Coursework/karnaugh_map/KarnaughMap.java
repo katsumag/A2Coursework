@@ -52,7 +52,7 @@ public class KarnaughMap {
             int y = BinaryToDenary.convert(binaryY);
             int x = BinaryToDenary.convert(binaryX);
 
-            this.internalState.get(y).set(x, new KarnaughMapEntry(entrySet.getValue()));
+            this.internalState.get(x).set(y, new KarnaughMapEntry(entrySet.getValue()));
         }
     }
 

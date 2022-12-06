@@ -32,38 +32,31 @@ public class TruthTable {
         System.out.println(tokens);
 
         // parse tree
-        try {
-            Expression expression = treeParser.parse(tokens);
-            System.out.println(expression);
-            // evaluate tree
-            System.out.println(treeEvaluator.evaluate(expression));
+        Expression expression = treeParser.parse(tokens);
+        System.out.println(expression);
+        // evaluate tree
+        System.out.println(treeEvaluator.evaluate(expression));
 
-            // inputs calculated correctly, but there are less bits (3) at 4, than
-            // there are switches (4), therefore we run out of bits to give the last switch
-            // can be fixed by padding inputs again.
-            // This is irrelevant because the number passed to Inputs will be (num of switches)^2, which will
-            // mean this problem won't exist - leaving notes here though for writeup
+        // inputs calculated correctly, but there are less bits (3) at 4, than
+        // there are switches (4), therefore we run out of bits to give the last switch
+        // can be fixed by padding inputs again.
+        // This is irrelevant because the number passed to Inputs will be (num of switches)^2, which will
+        // mean this problem won't exist - leaving notes here though for writeup
 
-            long numOfSwitches = tokens.stream().filter(token -> token instanceof IdentifierToken).count();
+        long numOfSwitches = tokens.stream().filter(token -> token instanceof IdentifierToken).count();
 
-            // get inputs from 0 to ((numOfSwitches)^2) -1
-            // eg for numOfSwitches = 4 inputs will be 0 to 15
-            Map<List<Boolean>, Boolean> table = new HashMap<>();
-            for (List<Boolean> inputs: new Inputs((int) Math.pow(numOfSwitches, 2)).get()) {
-                table.put(inputs, treeEvaluator.evaluateWith(expression, new ArrayList<>(inputs)));
-            }
-
-            table.forEach((inputs, output) -> {
-                System.out.println(inputs + " : " + output);
-            });
-
-            return table;
-
-        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+        // get inputs from 0 to ((numOfSwitches)^2) -1
+        // eg for numOfSwitches = 4 inputs will be 0 to 15
+        Map<List<Boolean>, Boolean> table = new HashMap<>();
+        for (List<Boolean> inputs: new Inputs((int) Math.pow(numOfSwitches, 2)).get()) {
+            table.put(inputs, treeEvaluator.evaluateWith(expression, new ArrayList<>(inputs)));
         }
-        // should never be here
-        return null;
+
+        table.forEach((inputs, output) -> {
+            System.out.println(inputs + " : " + output);
+        });
+
+        return table;
     }
 
 }

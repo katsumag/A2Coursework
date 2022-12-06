@@ -18,7 +18,7 @@ class TestTestParser {
             OperatorToken("AND"),
         )
 
-        TestParser(tokens).parse()
+        TreeParser().parse(tokens)
     }
 
     @Test fun `Test basic OR gate`() {
@@ -28,7 +28,7 @@ class TestTestParser {
             OperatorToken("OR"),
         )
 
-        TestParser(tokens).parse()
+        TreeParser().parse(tokens)
     }
 
     @Test fun `Test basic NOT gate`() {
@@ -37,7 +37,7 @@ class TestTestParser {
             OperatorToken("NOT"),
         )
 
-        TestParser(tokens).parse()
+        TreeParser().parse(tokens)
     }
 
     @Test fun `Test real example`() {
@@ -51,7 +51,7 @@ class TestTestParser {
             OperatorToken("OR")
         )
 
-        TestParser(tokens).parse()
+        TreeParser().parse(tokens)
     }
 
     @Test fun `Test extra real example`() {
@@ -67,7 +67,6 @@ class TestTestParser {
         )
 
         val parsedExpression = TreeParser().parse(tokens)
-        //val parsedExpression = TestParser(tokens).parse()
 
         println("Parsed expression: $parsedExpression")
 
@@ -85,6 +84,8 @@ class TestTestParser {
                 "$inputs : $output"
             )
         }
+
+        // TRUTH TABLE IS FINALLY CORRECT USING CHATGPT
 
         val karnaughMap = KarnaughMap(table)
         karnaughMap.sortByGrayCode(GrayCode().get(2))
