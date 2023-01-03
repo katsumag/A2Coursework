@@ -1,13 +1,11 @@
-import me.katsumag.A2Coursework.karnaugh_map.BinaryToDenary
-import me.katsumag.A2Coursework.karnaugh_map.GrayCode
-import me.katsumag.A2Coursework.karnaugh_map.KarnaughMap
-import me.katsumag.A2Coursework.karnaugh_map.MapSorter
+import me.katsumag.A2Coursework.karnaugh_map.*
 import me.katsumag.A2Coursework.truth_table.Inputs
 import me.katsumag.A2Coursework.truth_table.evaluator.TreeEvaluator
 import me.katsumag.A2Coursework.truth_table.lexer.IdentifierToken
 import me.katsumag.A2Coursework.truth_table.lexer.OperatorToken
 import me.katsumag.A2Coursework.truth_table.parser.TreeParser
 import org.junit.jupiter.api.Test
+import kotlin.math.roundToInt
 
 class TestTestParser {
 
@@ -85,12 +83,30 @@ class TestTestParser {
             )
         }
 
-        // TRUTH TABLE IS FINALLY CORRECT USING CHATGPT
-
         val karnaughMap = KarnaughMap(table)
         karnaughMap.sortByGrayCode(GrayCode().get(2))
         println("Karnaugh Map ----------------------------------------------")
         karnaughMap.internalState.forEach {row -> println(row.map { cell -> cell.state }) }
+
+        val windows = Windows(karnaughMap)
+        val startingWindows = windows.defaultPositionWindows
+
+        val mapYSize = karnaughMap.internalState.size
+        val mapXSize = karnaughMap.internalState[0].size
+        startingWindows.forEach {
+            //println("Map: $mapXSize x $mapYSize | Window: ${it.windowX} x ${it.windowY} | Current: ${it.currentX}, ${it.currentY}")
+            while (it.currentY < mapYSize) {
+                while (it.currentX < mapXSize) {
+                    if (it.isValid) {
+                        println("Window Size: ${it.windowX} x ${it.windowY} | Window position: (${it.currentX}, ${it.currentY})")
+                        println(it.window)
+                    }
+                    it.shiftRight()
+                }
+                it.shiftUp()
+                it.resetX()
+            }
+        }
 
     }
 

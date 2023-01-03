@@ -27,6 +27,14 @@ public class Window {
         this.window = capture();
     }
 
+    public int getWindowX() { return this.windowX; }
+
+    public int getWindowY() { return this.windowY; }
+
+    public int getCurrentX() { return this.currentX; }
+
+    public int getCurrentY() { return this.currentY; }
+
     /** Shift the current x right by one, wrapping around if needed */
     public void shiftRight() {
         this.currentX += 1;
@@ -41,6 +49,10 @@ public class Window {
         this.window = capture();
     }
 
+    public void resetX() { this.currentX = 0; }
+
+    public void resetY() { this.currentY = 0; }
+
     public List<List<KarnaughMapEntry>> getWindow() { return this.window; }
 
     /** Using currentX/Y, captures values inside the window from the map */
@@ -52,7 +64,7 @@ public class Window {
             // calc current row based on window position + current shift
             int yIndex = height + this.currentY;
             // handle overflows. Not amazing, but it *works*
-            if (yIndex >= this.map.getMapSize()) { yIndex = yIndex % this.map.getMapSize(); }
+            if (yIndex >= this.map.getInternalState().size()) { yIndex = yIndex % this.map.getInternalState().size(); }
 
             List<KarnaughMapEntry> row = new ArrayList<>();
             // loop through x values of window size
@@ -60,7 +72,7 @@ public class Window {
                 // calc current column based on window position + current shift
                 int xIndex = width + this.currentX;
                 // handle overflows. Not amazing, but it *works*
-                if (xIndex >= this.map.getMapSize()) { xIndex = xIndex % this.map.getMapSize(); }
+                if (xIndex >= this.map.getInternalState().get(0).size()) { xIndex = xIndex % this.map.getInternalState().get(0).size(); }
                 // copy element from map to window
                 row.add(this.map.getInternalState().get(yIndex).get(xIndex));
             }

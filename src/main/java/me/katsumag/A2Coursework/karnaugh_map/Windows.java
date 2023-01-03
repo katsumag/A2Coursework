@@ -26,9 +26,9 @@ public class Windows {
     private List<Pair<Integer, Integer>> _getWindowSize(int mapSize) {
         return switch (mapSize) {
             case 16 -> List.of(new Pair<>(4, 4));
-            case 8 -> List.of(new Pair<>(2, 4));
-            case 4 -> List.of(new Pair<>(2, 2), new Pair<>(1, 4));
-            case 2 -> List.of(new Pair<>(1, 2));
+            case 8 -> List.of(new Pair<>(2, 4), new Pair<>(4, 2));
+            case 4 -> List.of(new Pair<>(2, 2), new Pair<>(1, 4), new Pair<>(4, 1));
+            case 2 -> List.of(new Pair<>(1, 2), new Pair<>(2, 1));
             case 1 -> List.of(new Pair<>(1, 1));
             default -> List.of();
         };
