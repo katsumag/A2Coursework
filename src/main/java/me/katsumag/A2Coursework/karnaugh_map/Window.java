@@ -19,11 +19,15 @@ public class Window {
      * @param map The map to capture values from
     */
     public Window(int x, int y, KarnaughMap map) {
+        this(x, y, 0, 0, map);
+    }
+
+    public Window(int windowX, int windowY, int currentX, int currentY, KarnaughMap map) {
         this.map = map;
-        this.windowX = x;
-        this.windowY = y;
-        this.currentX = 0;
-        this.currentY = 0;
+        this.windowX = windowX;
+        this.windowY = windowY;
+        this.currentX = currentX;
+        this.currentY = currentY;
         this.window = capture();
     }
 
@@ -94,6 +98,10 @@ public class Window {
             return true;
         }
         return false;
+    }
+
+    public Window copy() {
+        return new Window(this.windowX, this.windowY, this.currentX, this.currentY, this.map);
     }
 
 }

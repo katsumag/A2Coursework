@@ -12,6 +12,10 @@ public class DenaryToBinary {
      */
     public static List<Boolean> convert(int denary) {
 
+        if (denary == 0) {
+            return new ArrayList<>(List.of(false));
+        }
+
         // create new list
         List<Boolean> rawBinary = new ArrayList<>();
 

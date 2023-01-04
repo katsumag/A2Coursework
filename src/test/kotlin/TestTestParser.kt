@@ -1,4 +1,5 @@
 import me.katsumag.A2Coursework.karnaugh_map.*
+import me.katsumag.A2Coursework.truth_table.DenaryToBinary
 import me.katsumag.A2Coursework.truth_table.Inputs
 import me.katsumag.A2Coursework.truth_table.evaluator.TreeEvaluator
 import me.katsumag.A2Coursework.truth_table.lexer.IdentifierToken
@@ -88,26 +89,64 @@ class TestTestParser {
         println("Karnaugh Map ----------------------------------------------")
         karnaughMap.internalState.forEach {row -> println(row.map { cell -> cell.state }) }
 
-        val windows = Windows(karnaughMap)
-        val startingWindows = windows.defaultPositionWindows
+        val windows = Windows(karnaughMap).validWindows
+        println(windows)
 
-        val mapYSize = karnaughMap.internalState.size
-        val mapXSize = karnaughMap.internalState[0].size
-        startingWindows.forEach {
-            //println("Map: $mapXSize x $mapYSize | Window: ${it.windowX} x ${it.windowY} | Current: ${it.currentX}, ${it.currentY}")
-            while (it.currentY < mapYSize) {
-                while (it.currentX < mapXSize) {
-                    if (it.isValid) {
-                        println("Window Size: ${it.windowX} x ${it.windowY} | Window position: (${it.currentX}, ${it.currentY})")
-                        println(it.window)
-                    }
-                    it.shiftRight()
-                }
-                it.shiftUp()
-                it.resetX()
+        val padList: (MutableList<MutableList<Boolean>>.() -> MutableList<MutableList<Boolean>>) = {
+            val max = maxByOrNull { it.size }!!.size
+            forEach { num ->
+                val padAmount = max - num.size
+                repeat(padAmount) { num.add(0, false) }
             }
+            this
         }
+
+        val finalExpression = mutableListOf<String>()
+        windows.forEach { window ->
+            val headers: MutableList<Int> = GrayCode().get(2)
+            val topWindowRange = padList.invoke((window.currentY until window.currentY + window.windowY).map { DenaryToBinary.convert(headers[it]) }.toMutableList())
+            val sideWindowRange = padList.invoke((window.currentX until window.currentX + window.windowX).map { DenaryToBinary.convert(headers[it]) }.toMutableList())
+            println("Y range: $topWindowRange")
+            println("X range: $sideWindowRange")
+
+            val symbolStates = mutableListOf<MutableList<Boolean>>()
+
+            window.window.forEachIndexed { y, cells ->
+                cells.forEachIndexed { x, cell ->
+                    val yIndex = window.currentY + y
+                    val xIndex = window.currentX + x
+                    val binYHeader = DenaryToBinary.convert(headers[yIndex]).pad(2)
+                    val binXHeader = DenaryToBinary.convert(headers[xIndex]).pad(2)
+                    println("Yindex: $yIndex | Xindex: $xIndex | YHeader: $binYHeader | XHeader: $binXHeader")
+                    binXHeader.addAll(binYHeader)
+                    symbolStates.add(binXHeader)
+                }
+            }
+
+            symbolStates.forEach { println(it) }
+            // symbolStates inner lists in format of [a, b, c, d]
+            // TODO: Pick out unique columns
+            val symbolStringList = mutableListOf<String>()
+
+            symbolStates.forEachIndexed { index, cellHeaders ->
+                val column = symbolStates.map { it[index] }
+                val symbol = (65 + index).toChar()
+                if (column.all { it == column[0] }) {
+                    if (column[0]) { symbolStringList.add("$symbol") } else { symbolStringList.add("NOT $symbol") }
+                }
+            }
+
+            finalExpression.add("(" + symbolStringList.joinToString(" AND ") + ")")
+
+        }
+
+        println(finalExpression.joinToString(" OR "))
 
     }
 
+}
+
+fun MutableList<Boolean>.pad(totalLength: Int): MutableList<Boolean> {
+    repeat(totalLength - size) { add(0, false) }
+    return this
 }

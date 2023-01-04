@@ -7,15 +7,21 @@ import java.util.Map;
 public class KarnaughMap {
 
     private List<List<KarnaughMapEntry>> internalState;
-    private final int mapSize;
+
+    private final int mapXSize, mapYSize, mapSize;
 
     public KarnaughMap(Map<List<Boolean>, Boolean> truthTable) {
         this.internalState = getEmptyMap((int) Math.sqrt(truthTable.size()));
-        this.mapSize = this.internalState.size() * this.internalState.get(0).size();
+        this.mapYSize = this.internalState.size();
+        this.mapXSize = this.internalState.get(0).size();
+        this.mapSize = this.mapXSize * this.mapYSize;
         populateMap(truthTable);
     }
 
     public int getMapSize() { return mapSize; }
+
+    public int getMapXSize() { return mapXSize; }
+    public int getMapYSize() { return mapYSize; }
 
     public List<List<KarnaughMapEntry>> getInternalState() { return this.internalState; }
 

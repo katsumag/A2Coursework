@@ -38,4 +38,22 @@ public class Windows {
         return getWindowSizes().stream().map(size -> new Window(size.getKey(), size.getValue(), this.map)).toList();
     }
 
+    public List<Window> getValidWindows() {
+        List<Window> validWindows = new ArrayList<>();
+        getDefaultPositionWindows().forEach(window -> {
+            while (window.getCurrentY() < this.map.getMapYSize()) {
+                while (window.getCurrentX() < this.map.getMapXSize()) {
+                    if (window.isValid()) {
+                        // add a copy of the window, since the object is reused
+                        validWindows.add(window.copy());
+                    }
+                    window.shiftRight();
+                }
+                window.shiftUp();
+                window.resetX();
+            }
+        });
+        return validWindows;
+    }
+
 }
