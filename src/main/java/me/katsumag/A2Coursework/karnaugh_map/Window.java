@@ -1,5 +1,7 @@
 package me.katsumag.A2Coursework.karnaugh_map;
 
+import me.katsumag.A2Coursework.truth_table.DenaryToBinary;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -102,6 +104,53 @@ public class Window {
 
     public Window copy() {
         return new Window(this.windowX, this.windowY, this.currentX, this.currentY, this.map);
+    }
+
+    public String getExpression() {
+
+        // get gray code
+        int grayCodeIteration = (int) (Math.sqrt(this.map.getMapSize()) / 2);
+        List<Integer> grayCode = new GrayCode().get(grayCodeIteration);
+
+        List<List<Boolean>> symbolStates = new ArrayList<>();
+
+        // add window headers into list
+        for (int y = 0; y < this.window.size(); y++) {
+            for (int x = 0; x < this.window.get(y).size(); x++) {
+                List<Boolean> yHeader = pad(DenaryToBinary.convert(grayCode.get(this.currentY + y)), grayCodeIteration);
+                List<Boolean> xHeader = pad(DenaryToBinary.convert(grayCode.get(this.currentX + x)), grayCodeIteration);
+                xHeader.addAll(yHeader);
+                symbolStates.add(xHeader);
+            }
+        }
+
+        List<String> symbolStringList = new ArrayList<>();
+
+        System.out.println("symbolStates = " + symbolStates);
+        System.out.println("symbolStates.size() = " + symbolStates.size());
+
+        for (int i = 0; i < symbolStates.size(); i++) {
+            // "local variables used in lambda expressions must be final or effectively final"
+            int finalI = i;
+            System.out.println("finalI = " + finalI);
+            List<Boolean> symbolColumn = symbolStates.stream().map(row -> row.get(finalI)).toList();
+            char symbol = (char) (65 + i);
+
+            if (symbolColumn.stream().allMatch(aBoolean -> aBoolean == symbolColumn.get(0))) {
+                if (symbolColumn.get(0)) { symbolStringList.add("" + symbol); } else { symbolStringList.add("NOT " + symbol); }
+            }
+
+        }
+
+        return "(" + String.join(" AND ", symbolStringList) + ")";
+
+    }
+
+    private List<Boolean> pad(List<Boolean> original, int desiredLength) {
+        for (int i = 0; i < desiredLength - original.size(); i++) {
+            original.add(0, false);
+        }
+        return original;
     }
 
 }

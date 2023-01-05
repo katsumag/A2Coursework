@@ -6,6 +6,7 @@ import me.katsumag.A2Coursework.truth_table.TruthTable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class KarnaughMapEntryPoint {
@@ -30,6 +31,11 @@ public class KarnaughMapEntryPoint {
         List<Window> validWindows = windowManager.getValidWindows();
 
         //TODO: test valid windows, generate expressions
+        List<String> expressions = validWindows.stream().map(Window::getExpression).filter(expression -> !Objects.equals(expression, "()")).toList();
+
+        String finalExpression = String.join(" OR ", expressions);
+        System.out.println("Expression: " + finalExpression);
+
     }
 
 }
