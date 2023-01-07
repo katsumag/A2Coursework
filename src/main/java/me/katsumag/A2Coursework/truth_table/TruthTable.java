@@ -61,18 +61,18 @@ public class TruthTable {
         });
 
         // display truth table
-        TableView guiTable = new TableView();
+        TableView guiTable = new TableView<>();
         guiTable.setEditable(true);
 
         // create named columns for each switch
         for (int i = 0; i < numOfSwitches; i++) {
-            TableColumn columnHeader = new TableColumn("" + (char) (65 + i));
+            TableColumn columnHeader = new TableColumn<>("" + (char) (65 + i));
             columnHeader.setCellValueFactory(new MapValueFactory<>("" + (char) (65 + i)));
             guiTable.getColumns().add(columnHeader);
         }
 
         // create column for the output
-        TableColumn resultColumn = new TableColumn("Q");
+        TableColumn resultColumn = new TableColumn<>("Q");
         resultColumn.setCellValueFactory(new MapValueFactory<>("Q"));
         guiTable.getColumns().add(resultColumn);
 
