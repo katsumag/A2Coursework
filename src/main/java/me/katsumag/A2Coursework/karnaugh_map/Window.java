@@ -126,13 +126,9 @@ public class Window {
 
         List<String> symbolStringList = new ArrayList<>();
 
-        System.out.println("symbolStates = " + symbolStates);
-        System.out.println("symbolStates.size() = " + symbolStates.size());
-
         for (int i = 0; i < symbolStates.size(); i++) {
             // "local variables used in lambda expressions must be final or effectively final"
             int finalI = i;
-            System.out.println("finalI = " + finalI);
             List<Boolean> symbolColumn = symbolStates.stream().map(row -> row.get(finalI)).toList();
             char symbol = (char) (65 + i);
 
