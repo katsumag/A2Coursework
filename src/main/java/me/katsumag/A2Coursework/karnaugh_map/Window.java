@@ -119,17 +119,24 @@ public class Window {
             for (int x = 0; x < this.window.get(y).size(); x++) {
                 List<Boolean> yHeader = pad(DenaryToBinary.convert(grayCode.get(this.currentY + y)), grayCodeIteration);
                 List<Boolean> xHeader = pad(DenaryToBinary.convert(grayCode.get(this.currentX + x)), grayCodeIteration);
+                System.out.println("xHeader = " + xHeader);
+                System.out.println("yHeader = " + yHeader);
                 xHeader.addAll(yHeader);
                 symbolStates.add(xHeader);
             }
         }
+
+        symbolStates = convertToColumns(symbolStates);
+
+        System.out.println("symbolStates = " + symbolStates);
 
         List<String> symbolStringList = new ArrayList<>();
 
         for (int i = 0; i < symbolStates.size(); i++) {
             // "local variables used in lambda expressions must be final or effectively final"
             int finalI = i;
-            List<Boolean> symbolColumn = symbolStates.stream().map(row -> row.get(finalI)).toList();
+            List<Boolean> symbolColumn = symbolStates.get(i);
+            System.out.println("symbolColumn = " + symbolColumn);
             char symbol = (char) (65 + i);
 
             if (symbolColumn.stream().allMatch(aBoolean -> aBoolean == symbolColumn.get(0))) {
@@ -145,6 +152,23 @@ public class Window {
     private List<Boolean> pad(List<Boolean> original, int desiredLength) {
         for (int i = 0; i < desiredLength - original.size(); i++) {
             original.add(0, false);
+        }
+        return original;
+    }
+
+    private List<List<Boolean>> convertToColumns(List<List<Boolean>> original) {
+        List<List<Boolean>> columns = prefillRows(new ArrayList<>(), original.get(0).size());
+        for (int x = 0; x < original.size(); x++) {
+            for (int y = 0; y < original.get(x).size(); y++) {
+                columns.get(y).add(original.get(x).get(y));
+            }
+        }
+        return columns;
+    }
+
+    private List<List<Boolean>> prefillRows(List<List<Boolean>> original, int desiredSize) {
+        for (int i = 0; i < desiredSize; i++) {
+            original.add(new ArrayList<>());
         }
         return original;
     }
