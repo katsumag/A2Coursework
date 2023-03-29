@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Generates a binary tree from the placed components
+ */
 public class TreeGenerator {
 
     public me.katsumag.A2Coursework.truth_table.Node getTreeFromPlacedComponents(MouseEvent event) {

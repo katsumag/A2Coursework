@@ -20,6 +20,7 @@ public class BoundsHelper {
      * Used by
      * {@link me.katsumag.A2Coursework.components.ANDGate}
      * {@link me.katsumag.A2Coursework.components.ORGate}
+     * Gets the top left co-ordinate of the SVGImage
      */
     public Point2D getTopLeft() {
         return new Point2D(
@@ -32,6 +33,7 @@ public class BoundsHelper {
      * Used by
      * {@link me.katsumag.A2Coursework.components.ANDGate}
      * {@link me.katsumag.A2Coursework.components.ORGate}
+     * Gets the bottom left co-ordinate of the SVGImage
      */
     public Point2D getBottomLeft() {
         return new Point2D(
@@ -43,6 +45,7 @@ public class BoundsHelper {
     /**
      * Used by:
      * {@link me.katsumag.A2Coursework.components.NOTGate}
+     * Gets the middle left co-ordinate of the SVGImage
      */
     public Point2D getMiddleLeft() {
         return new Point2D(
@@ -51,6 +54,11 @@ public class BoundsHelper {
         );
     }
 
+    /**
+     * Used by:
+     * {@link me.katsumag.A2Coursework.components.Lamp}
+     * Gets the bottom middle co-ordinate of the SVGImage
+     */
     public Point2D getBottomMiddle() {
         return new Point2D(
                 this.image.getLayoutX() + (this.imageBounds.getWidth() / 2),
@@ -63,6 +71,7 @@ public class BoundsHelper {
      * Used by:
      * {@link me.katsumag.A2Coursework.components.ANDGate}
      * {@link me.katsumag.A2Coursework.components.ORGate}
+     * Gets the middle right co-ordinate of the SVGImage
      */
     public Point2D getMiddleRight() {
         return new Point2D(
@@ -76,6 +85,7 @@ public class BoundsHelper {
      * Used by:
      * {@link me.katsumag.A2Coursework.components.NOTGate}
      * {@link me.katsumag.A2Coursework.components.Switch}
+     * Gets the slightly higher middle right co-ordinate of the SVGImage
      */
     public Point2D getHigherMiddleRight() {
         return new Point2D(

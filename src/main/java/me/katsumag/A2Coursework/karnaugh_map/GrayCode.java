@@ -8,21 +8,27 @@ import java.util.stream.Collectors;
 
 public class GrayCode {
 
+    /**
+     * Creates Gray Code up to and including n iterations
+     */
     public List<Integer> get(int nIteration) {
         return convertGrayCodeToInts(getGrayCode(nIteration));
     }
 
+    /**
+     * Converts the list of gray code in binary representation to denary
+     */
     private List<Integer> convertGrayCodeToInts(List<List<Boolean>> grayCode) {
         return grayCode.stream().map(BinaryToDenary::convert).collect(Collectors.toList());
     }
 
     /*
-Get next gray code sequence from previous by:
-- reversing a copy of the previous codes
-- adding 1 in front of each of them
-- adding 0 in front of each of the previous codes
-- collecting the reversed and previous codes into one list
- */
+     * Get next gray code sequence from previous by:
+     * - reversing a copy of the previous codes
+     * - adding 1 in front of each of them
+     * - adding 0 in front of each of the previous codes
+     * - collecting the reversed and previous codes into one list
+     */
     private List<List<Boolean>> generateNextGrayCode(List<List<Boolean>> previous) {
         // reverse previous - need to copy it
         List<List<Boolean>> reflected = new ArrayList<>();
@@ -37,13 +43,15 @@ Get next gray code sequence from previous by:
         return previous;
     }
 
-    /*
-    creates gray codes up to (and including) iteration n, see https://en.wikipedia.org/wiki/Gray_code
+    /**
+     * Creates gray codes up to (and including) iteration n, see https://en.wikipedia.org/wiki/Gray_code
      */
     private List<List<Boolean>> getGrayCode(final int nIteration) {
         // create base case n=1, [0, 1]
         List<List<Boolean>> grayCode = new ArrayList<>(Arrays.asList(toMutableList(List.of(false)), toMutableList(List.of(true))));
-        if (nIteration <= 1) { return  grayCode; }
+        if (nIteration <= 1) {
+            return grayCode;
+        }
 
         for (int i = 0; i < (nIteration - 1); i++) {
             grayCode = generateNextGrayCode(grayCode);
@@ -53,6 +61,10 @@ Get next gray code sequence from previous by:
 
     }
 
+    /**
+     * List.of returns an immutable list with the contents passed as parameters.
+     * Therefore, this is needed to convert this to a mutable list for modification later
+     */
     private <T> List<T> toMutableList (List<T> immutableList) {
         return new ArrayList<>(immutableList);
     }

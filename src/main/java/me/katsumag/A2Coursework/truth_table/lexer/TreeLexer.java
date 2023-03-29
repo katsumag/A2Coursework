@@ -7,8 +7,18 @@ import me.katsumag.A2Coursework.truth_table.Node;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles tokenizing the tree of circuit components into a form understood by the parser
+ */
 public class TreeLexer {
 
+    /**
+     * Performs a post order traversal on the given tree into the given list.
+     * That last part is REALLY not ideal, but hey, it works
+     * This returns a list of CircuitComponents in postfix (reverse polish) notation
+     * @param tree Tree to traverse
+     * @param list List to hold the result of said traversal
+     */
     private void traversePostOrder(Node tree, List<CircuitComponent> list) {
         if (tree == null) { return; }
 
@@ -19,6 +29,11 @@ public class TreeLexer {
 
     }
 
+    /**
+     * Handles lexing the tree into a list of tokens for the parser
+     * @param tree Tree to lex
+     * @return List of tokens for the parser - in postfix notation
+     */
     public List<Token> lex(Node tree) {
 
         // get components in postfix notation

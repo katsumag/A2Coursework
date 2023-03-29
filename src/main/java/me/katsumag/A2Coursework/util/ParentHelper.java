@@ -30,11 +30,19 @@ public class ParentHelper {
         return null;
     }
 
+    /*
+     * Adds the child Node to the Parent's children.
+     * I use this to display the child Node on the screen.
+     */
     public void addChildTo(@NotNull Parent parent, Node child) {
         ObservableList<Node> children = getChildrenOf(parent);
         children.add(child);
     }
 
+    /*
+     * Removes the child Node from the Parent's children.
+     * I use this to remove the child Node from the screen.
+     */
     public boolean removeChildFrom(@NotNull Parent parent, Node child) {
         ObservableList<Node> children = getChildrenOf(parent);
         return children.remove(child);

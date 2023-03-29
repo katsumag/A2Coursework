@@ -9,13 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents every logic gate
+ */
 public class OperatorExpression extends Expression {
 
     private final List<Expression> expressions;
 
     public OperatorExpression(OperatorExpressionType type, Expression... expressions) {
         super(type.getName());
-        //TODO fix this
         this.expressions = new ArrayList<>(Arrays.asList(expressions));
     }
 

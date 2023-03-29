@@ -1,5 +1,8 @@
 package me.katsumag.A2Coursework.truth_table.lexer;
 
+/**
+ * Represents all logic gates
+ */
 public class OperatorToken implements Token {
 
     private final String operationType;

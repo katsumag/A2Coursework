@@ -43,16 +43,20 @@ public class Application extends javafx.application.Application {
         // add truth table button
         Button truthTableButton = new Button("Truth Table");
         truthTableButton.setPickOnBounds(true);
+        // stop the button text absorbing click events
         truthTableButton.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
         truthTableButton.setOnMouseClicked(event -> new TruthTable().create(event));
 
+        // add karnaugh map button
         Button karnaughButton = new Button("Karnaugh Maps");
         karnaughButton.setPickOnBounds(true);
+        // stop the button text absorbing click events
         karnaughButton.getChildrenUnmodifiable().forEach(child -> child.setMouseTransparent(true));
         karnaughButton.setOnMouseClicked(event -> new KarnaughMapEntryPoint().create(event));
 
         // add elements to left pane
         leftPane.getChildren().addAll(leftTitle, andGate.getImage(), orGate.getImage(), notGate.getImage(), switchh.getImage(), lamp.getImage(), truthTableButton, karnaughButton);
+        // space the left panel images out
         leftPane.setSpacing(20);
         leftPane.setPadding(new Insets(0, 0, 20, 5));
 
@@ -61,6 +65,7 @@ public class Application extends javafx.application.Application {
         // construct center panel
         borderPane.setCenter(new Pane());
 
+        // add drag and drop event handlers to the centre panel
         borderPane.getCenter().setOnDragOver(new GateDragMovementHandler());
         borderPane.getCenter().setOnDragDropped(new GateStopDragHandler());
 
@@ -68,6 +73,8 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(borderPane, 640, 480);
         primaryStage.setScene(scene);
         primaryStage.setTitle("A2Coursework | Logic Gates");
+
+        // Set window icon
         primaryStage.getIcons().add(new Image(this.getClass().getClassLoader().getResourceAsStream("images/icon.png")));
         primaryStage.show();
     }

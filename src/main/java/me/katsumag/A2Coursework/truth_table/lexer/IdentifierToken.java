@@ -3,6 +3,9 @@ package me.katsumag.A2Coursework.truth_table.lexer;
 import me.katsumag.A2Coursework.components.CircuitComponent;
 import me.katsumag.A2Coursework.components.Switch;
 
+/**
+ * Represents all switches
+ */
 public class IdentifierToken implements Token {
 
     private final boolean state;

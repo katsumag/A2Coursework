@@ -1,5 +1,8 @@
 package me.katsumag.A2Coursework.truth_table.parser;
 
+/**
+ * Holds a representation of the type of every expression
+ */
 public enum OperatorExpressionType {
 
     AND("AND"),

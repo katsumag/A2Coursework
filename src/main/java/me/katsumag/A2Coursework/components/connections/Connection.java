@@ -1,6 +1,5 @@
 package me.katsumag.A2Coursework.components.connections;
 
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -9,6 +8,7 @@ import org.girod.javafx.svgimage.SVGImage;
 
 import java.util.UUID;
 
+/** Represents an individual connection point on an {@link SVGImage} */
 public class Connection {
 
     private final ConnectionCircle circle;
@@ -21,13 +21,17 @@ public class Connection {
 
     public Connection(Double x, Double y, SVGImage image) {
 
+        // Create the circle to represent the connection point
         this.circle = new ConnectionCircle(x, y, 5, Color.rgb(0, 0, 0));
+
+        // Add event handlers
         this.circle.setOnDragDetected(new ConnectionDragDetectedHandler());
-        this.circle.setOnMouseDragReleased(new ConnectionDragHandler());
-        //this.circle.setOnDragDropped(new ConnectionDragDroppedHandler());
+        this.circle.setOnMouseDragReleased(new ConnectionDragDroppedHandler());
+
+        // Set picking by bounds rather than opaque shape
         this.circle.setPickOnBounds(true);
 
-        // register this connection so I can find it again from it's circle.
+        // Register this connection, so I can find it again from its circle.
         new ComponentStore().registerConnection(this);
         this.circle.getProperties().put("ConnectionUUID", this.uuid);
 
@@ -35,13 +39,6 @@ public class Connection {
     }
 
     public SVGImage getParentImage() { return parentImage; }
-
-    public Point2D getLocationAfterMove() {
-        Bounds newBounds = this.circle.localToScene(this.circle.getBoundsInLocal());
-        double xOffset = (newBounds.getMaxX() - newBounds.getMinX()) / 2;
-        double yOffset = (newBounds.getMaxY() - newBounds.getMinY()) / 2;
-        return new Point2D(newBounds.getMinX() + xOffset, newBounds.getMinY() + yOffset);
-    }
 
     public Point2D getLocation() {
         return new Point2D(this.circle.getCenterX(), this.circle.getCenterY());
@@ -55,13 +52,7 @@ public class Connection {
 
     public void setConnectedPoint(Connection object) { this.connectedPoint =  object;}
 
-    public Connection getConnectedPoint() {
-        return connectedPoint;
-    }
+    public Connection getConnectedPoint() { return connectedPoint; }
 
-    public boolean isOccupied() { return connectedPoint != null; }
-
-    public ConnectionCircle getCircle() {
-        return this.circle;
-    }
+    public ConnectionCircle getCircle() { return this.circle; }
 }

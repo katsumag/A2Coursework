@@ -1,5 +1,8 @@
 package me.katsumag.A2Coursework.truth_table.parser;
 
+/**
+ * Represents all switches. All this does is hold a value, but extend Expression to make my life so much easier
+ */
 public class ComputedExpression extends Expression {
 
     private boolean value;

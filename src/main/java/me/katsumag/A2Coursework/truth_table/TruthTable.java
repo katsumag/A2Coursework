@@ -18,6 +18,9 @@ import me.katsumag.A2Coursework.truth_table.parser.TreeParser;
 
 import java.util.*;
 
+/**
+ * Handles creating a truth table and displaying it to the user
+ */
 public class TruthTable {
 
     public Map<List<Boolean>, Boolean> create(MouseEvent event) {

@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class KarnaughMap {
 
+    // The actual map
     private List<List<KarnaughMapEntry>> internalState;
 
     private final int mapXSize, mapYSize, mapSize;
@@ -46,18 +47,25 @@ public class KarnaughMap {
         return emptyMap;
     }
 
+    /**
+     * Takes in a truth table and returns it as a Karnaugh Map
+     * Returned map is NOT in Gray Code order
+     * @param truthTable to turn into a Karnaugh Map
+     */
     private void populateMap(Map<List<Boolean>, Boolean> truthTable) {
         for (Map.Entry<List<Boolean>, Boolean> entrySet : truthTable.entrySet()) {
 
             // because the map is already filled with 0s, only need to set 1s
             if (! entrySet.getValue()) { continue; }
 
+            // split binary in half to get X and Y indexes
             List<Boolean> binaryY = entrySet.getKey().subList(0, entrySet.getKey().size() / 2);
             List<Boolean> binaryX = entrySet.getKey().subList(entrySet.getKey().size() / 2, entrySet.getKey().size());
 
             int y = BinaryToDenary.convert(binaryY);
             int x = BinaryToDenary.convert(binaryX);
 
+            // put result into map
             this.internalState.get(x).set(y, new KarnaughMapEntry(entrySet.getValue()));
         }
     }

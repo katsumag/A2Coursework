@@ -11,10 +11,14 @@ import org.girod.javafx.svgimage.SVGImage;
 
 import java.util.UUID;
 
+/**
+  * Handles hiding any visible connection points for a component when it is no longer hovered over
+ */
 public class ConnectionPointHideHandler implements EventHandler<MouseEvent> {
 
     /**
-     * @param event the event which occurred
+      * Called when the user takes their cursor off a placed component
+      * Removes the component's connection points from the screen
      */
     @Override
     public void handle(MouseEvent event) {
@@ -24,11 +28,13 @@ public class ConnectionPointHideHandler implements EventHandler<MouseEvent> {
 
         if (! (event.getSource() instanceof SVGImage image)) { return; }
 
-        // image is still on left pane
+        // Image is still on left pane
         if (image.getParent() instanceof VBox) { return; }
 
+        // Don't hide connection points if the user is hovering over one
         if (event.getPickResult().getIntersectedNode() instanceof Circle) { return; }
 
+        // Hide connection points
         CircuitComponent component = new ComponentStore().getComponentByUUID((UUID) image.getProperties().get("ComponentUUID"));
         component.getConnections().hideConnectionPoints(image);
         event.consume();

@@ -14,6 +14,9 @@ import org.girod.javafx.svgimage.SVGImage;
 
 import java.util.List;
 
+/**
+  * Called when a drag and drop gesture ends
+ */
 public class GateStopDragHandler implements EventHandler<DragEvent> {
 
     // https://docs.oracle.com/javafx/2/drag_drop/HelloDragAndDrop.java.html

@@ -7,6 +7,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import org.girod.javafx.svgimage.SVGImage;
 
+/**
+  *  Called when a drag and drop gesture is detected on an SVGImage, and
+ */
 public class GateStartDragHandler implements EventHandler<MouseEvent> {
 
     /**
@@ -24,6 +27,7 @@ public class GateStartDragHandler implements EventHandler<MouseEvent> {
         // start drag and drop gesture
         Dragboard dragboard = clicked.startDragAndDrop(TransferMode.ANY);
 
+        // set image of dragged component over cursor
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(clicked.toString());
         dragboard.setContent(clipboardContent);

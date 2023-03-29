@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Holds a section of the Karnaugh Map
+ */
 public class Window {
 
     private final KarnaughMap map;

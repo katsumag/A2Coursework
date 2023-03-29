@@ -3,6 +3,9 @@ package me.katsumag.A2Coursework.karnaugh_map;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles sorting the Karnaugh Map into Gray Code order
+ */
 public class MapSorter {
 
     public void sortMapIntoGrayCodeOrder(KarnaughMap map, List<Integer> grayCode) {
@@ -46,6 +49,7 @@ public class MapSorter {
         return row;
     }
 
+    // sorts the map in the x dimension into gray code order
     private KarnaughMap sortXByGrayCode(KarnaughMap map, List<Integer> grayCode) {
         List<List<KarnaughMapEntry>> newSortedMap = new ArrayList<>();
         grayCode.forEach(index -> newSortedMap.add(map.getInternalState().get(index)));

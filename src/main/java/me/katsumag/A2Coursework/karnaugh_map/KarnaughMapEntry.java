@@ -1,5 +1,9 @@
 package me.katsumag.A2Coursework.karnaugh_map;
 
+/**
+ * Represents one cell of a Karnaugh Map.
+ * Exists so that I can easily check if a cell has already become part of a window in the final stages
+ */
 public class KarnaughMapEntry {
 
     private final Boolean state;

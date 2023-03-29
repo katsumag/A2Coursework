@@ -1,5 +1,8 @@
 package me.katsumag.A2Coursework.components.connections;
 
+/**
+ * Represents the number of inputs and outputs of a component
+ */
 public enum ConnectionNumber {
 
     NONE(0),

@@ -4,11 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
+/** Deals with starting a full drag and drop gesture when one is detected */
 public class ConnectionDragDetectedHandler implements EventHandler<MouseEvent> {
 
-    /**
-     * @param event
-     */
+    /** Starts a full drag and drop gesture when dragging from a connection point */
     @Override
     public void handle(MouseEvent event) {
 

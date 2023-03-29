@@ -10,6 +10,7 @@ public class ANDGate extends CircuitComponent {
     private static final String IMAGE_PATH = "./images/AND gate.svg";
     private static final CircuitComponentType type = CircuitComponentType.AND;
 
+    // Creates two input and one output connection points
     private final ConnectionManager connectionManager = new ConnectionManager(ConnectionNumber.TWO, ConnectionNumber.ONE);
 
     public ANDGate() {

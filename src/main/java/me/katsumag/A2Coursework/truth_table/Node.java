@@ -2,6 +2,9 @@ package me.katsumag.A2Coursework.truth_table;
 
 import me.katsumag.A2Coursework.components.CircuitComponent;
 
+/**
+ * Represents one node in a binary tree
+ */
 public class Node {
 
     private Node leftChild, rightChild;

@@ -1,9 +1,5 @@
 package me.katsumag.A2Coursework.components;
 
-/*
- * This abstract class defines the default behaviour of a circuit component
- */
-
 import me.katsumag.A2Coursework.components.connections.ConnectionPointHideHandler;
 import me.katsumag.A2Coursework.components.connections.ConnectionPointShowHandler;
 import me.katsumag.A2Coursework.event_handlers.GateStartDragHandler;
@@ -13,6 +9,9 @@ import org.girod.javafx.svgimage.SVGLoader;
 
 import java.util.UUID;
 
+/**
+  * Defines the default behaviour of a circuit component
+ */
 public abstract class CircuitComponent implements CircuitInterface {
 
     // Each subclass has its own image, this paired with the constructor allows for

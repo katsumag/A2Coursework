@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Converts from denary into binary
+ */
 public class DenaryToBinary {
 
     /**

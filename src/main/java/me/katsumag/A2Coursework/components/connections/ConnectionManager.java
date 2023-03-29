@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+  * Handles everything to do with creating and displaying {@link Connection}s
+ */
 public class ConnectionManager {
 
     private final ConnectionNumber inputConnectionNumber;
@@ -29,7 +32,7 @@ public class ConnectionManager {
     }
 
     /**
-     * @return a clone of inputs, with the output connected added.
+      * @return a clone of inputs, with the output connection added.
      */
     public List<Connection> getAllConnectionPoints() {
         List<Connection> allPoints =  new ArrayList<>(this.inputs);
@@ -38,15 +41,13 @@ public class ConnectionManager {
     }
 
     /**
-     * @return List of {@link Connection}s coming into the {@link me.katsumag.A2Coursework.components.CircuitComponent}
+      * @return List of {@link Connection}s coming into the {@link me.katsumag.A2Coursework.components.CircuitComponent}
      */
-    public @NotNull List<Connection> getInputs() {
-        return inputs;
-    }
+    public @NotNull List<Connection> getInputs() { return inputs; }
 
     /**
-     * @return The {@link Connection} coming out of the {@link me.katsumag.A2Coursework.components.CircuitComponent}
-     * Can be null if the output isn't initialised
+      * @return The {@link Connection} coming out of the {@link me.katsumag.A2Coursework.components.CircuitComponent}
+      * Can be null if the output isn't initialised
      */
     public @Nullable Connection getOutput() {
         return output;
@@ -61,8 +62,8 @@ public class ConnectionManager {
     }
 
     /**
-     * Draws the {@link Connection}s {@link javafx.scene.shape.Circle} onto the {@link SVGImage}s parent layout
-     * @param image to modify
+      * Draws the {@link Connection}s {@link javafx.scene.shape.Circle} onto the {@link SVGImage}s parent layout
+      * @param image Image to modify
      */
     public void drawConnectionPoints(SVGImage image) {
 
@@ -85,10 +86,14 @@ public class ConnectionManager {
         showConnectionPoints(image);
     }
 
+    /**
+      * Deals with creating the input connection point for logic components with one input
+     */
     private void drawInputConnectionPoint(SVGImage image) {
         BoundsHelper boundsHelper = new BoundsHelper(image);
         Point2D connectionPoint;
 
+        // Lamp connects from the bottom
         if (image.getProperties().get("CircuitComponentType") == CircuitComponentType.LAMP.getName()) {
             connectionPoint = boundsHelper.getBottomMiddle();
         } else {
@@ -98,6 +103,10 @@ public class ConnectionManager {
         this.addInputs(new Connection(connectionPoint.getX(), connectionPoint.getY(), image));
     }
 
+    /*
+     * Deals with creating the input connection points for gates with more than one connection point
+     * Since the only connection number > 1 is 2, all components have the same two inputs
+     */
     private void drawInputConnectionPoints(SVGImage image) {
         BoundsHelper boundsHelper = new BoundsHelper(image);
         Point2D topConnectionPoint = boundsHelper.getTopLeft();
@@ -108,6 +117,9 @@ public class ConnectionManager {
         );
     }
 
+    /**
+      * Creates the output connection point for components with only one output, which is all of them
+     */
     private void drawOutputConnectionPoint(SVGImage image) {
 
         Point2D connectionPoint;
@@ -137,6 +149,11 @@ public class ConnectionManager {
         this.state.flipState();
     }
 
+    /**
+     * Handles showing the existing connection points to the user
+     * Triggered when the user hovers over a logic component
+     * @param image The image's connection points to display
+     */
     public void showConnectionPoints(SVGImage image) {
         if (this.state.canHide()) { return; }
         this.state.flipState();
@@ -162,10 +179,16 @@ public class ConnectionManager {
         this.output = null;
     }
 
+    /**
+     * Moves the image's connection points to their new location
+     * Does this by getting their location again using {@link BoundsHelper}
+     * @param svgImage image's connection points to relocate
+     */
     public void refreshConnectionPoints(SVGImage svgImage) {
 
         BoundsHelper boundsHelper = new BoundsHelper(svgImage);
 
+        // Refresh input connections
         switch (this.inputConnectionNumber) {
             case ONE -> {
                 Point2D newLocation;
@@ -188,6 +211,7 @@ public class ConnectionManager {
 
         if (this.output == null) { return; }
 
+        // All components either have 1 or 0 (null) outputs
         Point2D newOutputLocation = boundsHelper.getMiddleRight();
         this.output.getCircle().relocate(newOutputLocation.getX(), newOutputLocation.getY());
 

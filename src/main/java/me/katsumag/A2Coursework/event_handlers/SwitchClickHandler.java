@@ -9,6 +9,9 @@ import org.girod.javafx.svgimage.SVGImage;
 
 import java.util.UUID;
 
+/**
+  * Called when a switch is clicked on and needs toggling
+ */
 public class SwitchClickHandler implements EventHandler<MouseEvent> {
 
     @Override

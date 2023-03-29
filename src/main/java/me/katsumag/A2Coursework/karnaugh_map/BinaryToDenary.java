@@ -5,6 +5,10 @@ import java.util.List;
 public class BinaryToDenary {
 
 
+    /**
+     * @param binary The binary to covert
+     * @return The denary representation of the binary
+     */
     public static int convert(List<Boolean> binary) {
 
         StringBuilder sb = new StringBuilder();

@@ -18,6 +18,10 @@ import me.katsumag.A2Coursework.truth_table.TruthTable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Called by the main program when the karnaugh map button is pressed
+ * Creates a truth table, then turns that into a Karnaugh map, solves it, and displays the result in new windows
+ */
 public class KarnaughMapEntryPoint {
     public void create(MouseEvent event) {
         Map<List<Boolean>, Boolean> truthTable = new TruthTable().create(event);
@@ -33,12 +37,11 @@ public class KarnaughMapEntryPoint {
         // sort map into gray code order
         karnaughMap.sortByGrayCode(grayCode);
 
-        karnaughMap.getInternalState().forEach(row -> System.out.println(row.stream().map(KarnaughMapEntry::getState).collect(Collectors.toList())));
-
         // get all valid windows
         Windows windowManager = new Windows(karnaughMap);
         List<Window> validWindows = windowManager.getValidWindows();
 
+        // get all expressions
         List<String> expressions = validWindows.stream().map(Window::getExpression).filter(expression -> !Objects.equals(expression, "()")).toList();
 
         String finalExpression = String.join(" OR ", expressions);
