@@ -59,10 +59,10 @@ class TestTestParser {
             IdentifierToken(false),
             OperatorToken("AND"),
             IdentifierToken(false),
-            OperatorToken("NOT"),
             IdentifierToken(false),
             OperatorToken("AND"),
-            OperatorToken("OR")
+            OperatorToken("OR"),
+            OperatorToken("NOT")
         )
 
         val parsedExpression = TreeParser().parse(tokens)
@@ -90,7 +90,7 @@ class TestTestParser {
         karnaughMap.internalState.forEach {row -> println(row.map { cell -> cell.state }) }
 
         val windows = Windows(karnaughMap).validWindows
-        println(windows)
+        println("Number of windows: ${windows.size}")
 
         val padList: (MutableList<MutableList<Boolean>>.() -> MutableList<MutableList<Boolean>>) = {
             val max = maxByOrNull { it.size }!!.size
@@ -103,9 +103,10 @@ class TestTestParser {
 
         val finalExpression = mutableListOf<String>()
         windows.forEach { window ->
+            window.printContainedCoords()
             val headers: MutableList<Int> = GrayCode().get(2)
-            val topWindowRange = padList.invoke((window.currentY until window.currentY + window.windowY).map { DenaryToBinary.convert(headers[it]) }.toMutableList())
-            val sideWindowRange = padList.invoke((window.currentX until window.currentX + window.windowX).map { DenaryToBinary.convert(headers[it]) }.toMutableList())
+            val topWindowRange = padList.invoke((window.currentY until window.currentY + window.windowY).map { DenaryToBinary.convert(headers[it % karnaughMap.mapYSize]) }.toMutableList())
+            val sideWindowRange = padList.invoke((window.currentX until window.currentX + window.windowX).map { DenaryToBinary.convert(headers[it % karnaughMap.mapXSize]) }.toMutableList())
             println("Y range: $topWindowRange")
             println("X range: $sideWindowRange")
 
@@ -113,8 +114,8 @@ class TestTestParser {
 
             window.window.forEachIndexed { y, cells ->
                 cells.forEachIndexed { x, cell ->
-                    val yIndex = window.currentY + y
-                    val xIndex = window.currentX + x
+                    val yIndex = (window.currentY + y) % karnaughMap.mapYSize
+                    val xIndex = (window.currentX + x) % karnaughMap.mapXSize
                     val binYHeader = DenaryToBinary.convert(headers[yIndex]).pad(2)
                     val binXHeader = DenaryToBinary.convert(headers[xIndex]).pad(2)
                     println("Yindex: $yIndex | Xindex: $xIndex | YHeader: $binYHeader | XHeader: $binXHeader")
@@ -149,4 +150,13 @@ class TestTestParser {
 fun MutableList<Boolean>.pad(totalLength: Int): MutableList<Boolean> {
     repeat(totalLength - size) { add(0, false) }
     return this
+}
+
+fun Window.printContainedCoords() {
+    println("currentX: $currentX | currentY: $currentY")
+    println((currentY until currentY + windowY).map { y ->
+        (currentX until currentX + windowX).map { x ->
+            x % 4 to y % 4
+        }
+    })
 }
