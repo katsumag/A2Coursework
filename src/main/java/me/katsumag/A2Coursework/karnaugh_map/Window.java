@@ -127,8 +127,8 @@ public class Window {
         // add window headers into list
         for (int y = 0; y < this.window.size(); y++) {
             for (int x = 0; x < this.window.get(y).size(); x++) {
-                List<Boolean> yHeader = pad(DenaryToBinary.convert(grayCode.get(this.currentY + y)), grayCodeIteration);
-                List<Boolean> xHeader = pad(DenaryToBinary.convert(grayCode.get(this.currentX + x)), grayCodeIteration);
+                List<Boolean> yHeader = pad(DenaryToBinary.convert(grayCode.get((this.currentY + y) % this.map.getMapYSize())), grayCodeIteration);
+                List<Boolean> xHeader = pad(DenaryToBinary.convert(grayCode.get((this.currentX + x) % this.map.getMapXSize())), grayCodeIteration);
                 System.out.println("xHeader = " + xHeader);
                 System.out.println("yHeader = " + yHeader);
                 xHeader.addAll(yHeader);
