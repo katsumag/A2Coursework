@@ -16,7 +16,7 @@ public class ConnectionCircle extends Circle {
 
     @Override
     public void relocate(double x, double y) {
-        super.relocate(x, y);
+        //super.relocate(x, y);
         setCenterX(x);
         setCenterY(y);
     }
